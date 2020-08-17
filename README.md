@@ -1,4 +1,7 @@
 # Project-3rd-Sem
+## Description
 ## Apk
-
-## Firebase
+### Most Recent .apk release build
+## Firebase Console
+## Resources
+## References
