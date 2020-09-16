@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InputDocuments">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="372dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:text="Upload Aadhar Card"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="372dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="424dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:text="Upload Verification Form"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="154dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="129dp"
+        android:text="Upload Aadhar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="154dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="304dp"
+        android:layout_marginEnd="129dp"
+        android:text="Upload Form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="173dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/accord" />
+</androidx.constraintlayout.widget.ConstraintLayout>
