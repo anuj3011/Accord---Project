@@ -3,15 +3,10 @@ package com.example.accord;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.accord.Auth.EmailAuth;
-import com.example.accord.Auth.RegisterService;
-import com.example.accord.Auth.RegisterUser;
-import com.example.accord.Auth.SignIn;
-import com.example.accord.Auth.UserType;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,9 +66,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // change 1
         setContentView(R.layout.activity_main);
-       // EmailAuth emailAuth=new EmailAuth();
-       // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
+        EmailAuth emailAuth=new EmailAuth();
+        emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
         //check:https://console.firebase.google.com/u/0/project/accord-b1f26/authentication/users
-
     }
 }

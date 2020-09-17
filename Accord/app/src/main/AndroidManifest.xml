@@ -16,13 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Auth.SignIn"></activity>
-        <activity android:name=".Auth.RegisterUser"></activity>
-        <activity android:name=".Auth.RegisterService"></activity>
-        <activity android:name=".Auth.EnterOTP"></activity>
-        <activity android:name=".Auth.InputDocuments"></activity>
-        <activity android:name=".Auth.RegisterNgo"></activity>
-        <activity android:name=".Auth.UserType"></activity>
     </application>
 
 </manifest>
