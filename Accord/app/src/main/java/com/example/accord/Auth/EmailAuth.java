@@ -52,22 +52,23 @@ public class EmailAuth {
                    }
                });
    }
-    void registerUser(String email, String pass) {
+    void registerUser(String email, String pass,Activity activity) {
         mAuth.createUserWithEmailAndPassword(email, pass)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-
+                     try{
                          user=mAuth.getCurrentUser();
-                            String token=user.getUid();
-                            Log.d("user:",token);
+                         String token=user.getUid();
+                         Log.d("user:",token);
+                     }
+                     catch (Exception e){
+                         Log.d("tag",e.toString());
+                     }
 
-                        } else {
 
-                            Log.d("error","Sign up Failed");
 
-                        }
 
                         // ...
                     }

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // change 1
-        setContentView(R.layout.activity_main);
+        startActivity(new Intent(this,RegisterUser.class));
        // EmailAuth emailAuth=new EmailAuth();
        // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
         //check:https://console.firebase.google.com/u/0/project/accord-b1f26/authentication/users

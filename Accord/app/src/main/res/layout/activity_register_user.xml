@@ -214,17 +214,18 @@
         app:layout_constraintTop_toBottomOf="@+id/inputArea" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="126dp"
         android:layout_marginEnd="197dp"
-        android:layout_marginBottom="76dp"
-        android:onClick="registerUser"
+        android:layout_marginBottom="4dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <EditText
         android:id="@+id/inputPass"
@@ -236,7 +237,7 @@
         android:ems="10"
         android:hint="8 digit alphanumeri password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/inputCity" />
 
