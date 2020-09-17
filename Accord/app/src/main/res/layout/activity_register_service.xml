@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/inputAge"
         android:layout_width="241dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
@@ -109,10 +109,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName10" />
+        app:layout_constraintTop_toBottomOf="@+id/inputLastName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/inputFirstName"
         android:layout_width="224dp"
         android:layout_height="47dp"
         android:layout_marginStart="27dp"
@@ -126,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName10"
+        android:id="@+id/inputLastName"
         android:layout_width="224dp"
         android:layout_height="47dp"
         android:layout_marginStart="27dp"
@@ -137,10 +137,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintTop_toBottomOf="@+id/inputFirstName" />
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/inputPhone"
         android:layout_width="241dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
@@ -151,10 +151,10 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/inputAge" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/inputEmail"
         android:layout_width="241dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
@@ -165,10 +165,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPhone" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName14"
+        android:id="@+id/inputProfession"
         android:layout_width="241dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
@@ -179,21 +179,63 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="239dp"
-        android:layout_height="175dp"
+        android:id="@+id/inputAddress"
+        android:layout_width="241dp"
+        android:layout_height="45dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="13dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Complete Address"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName14" />
+        app:layout_constraintTop_toBottomOf="@+id/inputProfession" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="128dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="267dp"
+        android:text="Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <EditText
+        android:id="@+id/inputPass"
+        android:layout_width="241dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="133dp"
+        android:ems="10"
+        android:hint="8 digit alpha numeric"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/inputAddress" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="150dp"
+        android:onClick="registerService"
+        android:text="Register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
