@@ -18,9 +18,11 @@ import java.util.concurrent.Executor;
 public class EmailAuth {
     FirebaseAuth mAuth;// auth object which handles signing in
     FirebaseUser user;
-    public EmailAuth(){
-        mAuth=FirebaseAuth.getInstance();
+
+    public EmailAuth() {
+        mAuth = FirebaseAuth.getInstance();
     }
+
     FirebaseUser checkSignIn() { // checks if user is signed in, call this on app start
         user = mAuth.getCurrentUser();
         if (user != null) {
@@ -29,45 +31,45 @@ public class EmailAuth {
             return null;
         }
     }
-   public void signIn(String email, String pass, Activity activity) {
-       mAuth.signInWithEmailAndPassword(email, pass)
-               .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
-                       if (task.isSuccessful()) {
-                           // Sign in success, update UI with the signed-in user's information
+
+    public void signIn(String email, String pass, Activity activity) {
+        mAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
 
                             user = mAuth.getCurrentUser();
-                            String uid=user.getUid();
-                            Log.d("user",uid);
+                            String uid = user.getUid();
+                            Log.d("user", uid);
 
-                       } else {
-                           // If sign in fails, display a message to the user.
-                           Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
 
 
-                       }
+                        }
 
-                       // ...
-                   }
-               });
-   }
-    void registerUser(String email, String pass,Activity activity) {
+                        // ...
+                    }
+                });
+    }
+
+    void registerUser(String email, String pass, final Activity activity) {
         mAuth.createUserWithEmailAndPassword(email, pass)
 
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                     try{
-                         user=mAuth.getCurrentUser();
-                         String token=user.getUid();
-                         Log.d("user:",token);
-                     }
-                     catch (Exception e){
-                         Log.d("tag",e.toString());
-                     }
+                        if (task.isSuccessful()) {
+                            user = mAuth.getCurrentUser();
+                            String token = user.getUid();
+                            Toast.makeText(activity.getApplicationContext(), token.toString(), Toast.LENGTH_SHORT).show();
+                        } else {
 
-
+                            Toast.makeText(activity.getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
 
 
                         // ...
