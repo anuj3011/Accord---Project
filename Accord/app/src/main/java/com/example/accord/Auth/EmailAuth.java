@@ -32,7 +32,7 @@ public class EmailAuth {
         }
     }
 
-    public void signIn(String email, String pass, Activity activity) {
+    public void signIn(String email, String pass, final Activity activity) {
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -43,10 +43,11 @@ public class EmailAuth {
                             user = mAuth.getCurrentUser();
                             String uid = user.getUid();
                             Log.d("user", uid);
-
+                            Toast.makeText(activity.getApplicationContext(), "Signed In!", Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(activity.getApplicationContext(), task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -65,7 +66,7 @@ public class EmailAuth {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
                             String token = user.getUid();
-                            Toast.makeText(activity.getApplicationContext(), token.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(), "Registered !", Toast.LENGTH_SHORT).show();
                         } else {
 
                             Toast.makeText(activity.getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
