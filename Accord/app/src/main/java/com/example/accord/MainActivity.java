@@ -40,5 +40,5 @@ public class MainActivity extends AppCompatActivity {
        // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
         //check:https://console.firebase.google.com/u/0/project/accord-b1f26/authentication/users
 
-    }
+    } //ADitya GUpta
 }
