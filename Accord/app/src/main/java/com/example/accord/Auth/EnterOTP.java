@@ -13,4 +13,4 @@ public class EnterOTP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_o_t_p);
     }
-}
+}//bhfjbjeblhbwlgvltwi
