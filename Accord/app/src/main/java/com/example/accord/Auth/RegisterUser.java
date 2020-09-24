@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.accord.Firebase.EmailAuth;
 import com.example.accord.R;
 
 public class RegisterUser extends AppCompatActivity {

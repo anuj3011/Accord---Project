@@ -1,4 +1,4 @@
-package com.example.accord.Firestore;
+package com.example.accord.Firebase;
 
 import android.util.Log;
 

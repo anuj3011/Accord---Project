@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.accord.Firebase.EmailAuth;
 import com.example.accord.R;
 
 //import com.google.android.material.floatingactionbutton.FloatingActionButton;

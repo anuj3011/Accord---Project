@@ -1,4 +1,4 @@
-package com.example.accord.Auth;
+package com.example.accord.Firebase;
 
 import android.app.Activity;
 import android.util.Log;
@@ -54,7 +54,7 @@ public class EmailAuth {
                 });
     }
 
-    void registerUser(String email, String pass, final Activity activity) {
+    public void registerUser(String email, String pass, final Activity activity) {
         mAuth.createUserWithEmailAndPassword(email, pass)
 
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
