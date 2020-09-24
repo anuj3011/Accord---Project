@@ -18,6 +18,7 @@ import java.util.concurrent.Executor;
 public class EmailAuth {
     FirebaseAuth mAuth;// auth object which handles signing in
     FirebaseUser user;
+    // check 101
 
     public EmailAuth() {
         mAuth = FirebaseAuth.getInstance();
