@@ -1,5 +1,6 @@
 package com.example.accord.Auth;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.accord.Firebase.EmailAuth;
@@ -18,7 +20,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 
 //import com.google.android.material.floatingactionbutton.FloatingActionButton;
 //import com.google.android.material.snackbar.Snackbar;
@@ -27,16 +31,19 @@ public class SignIn extends AppCompatActivity {
     private   int RC_SIGN_IN = 1;
     private long backPressedTime;
     private Toast backToast;
+    boolean emailSent=false;
     int flag=0;
     String email;
     String pass;
     EditText textInput;
     EmailAuth emailAuth= new EmailAuth();
-    Button signInButton;
+    public Button signInButton;
     GoogleAuth googleAuth= new GoogleAuth();
+    Activity self;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         View decorView = getWindow().getDecorView();
 // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -44,6 +51,7 @@ public class SignIn extends AppCompatActivity {
         //Window g = getWindow();
         //g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.TYPE_STATUS_BAR);
         setContentView(R.layout.activity_sign_in);
+        self=this;
         signInButton= (Button)findViewById(R.id.LoginButton) ;
 
 
@@ -109,29 +117,39 @@ public class SignIn extends AppCompatActivity {
         textView.animate().alpha(1).setDuration(600);
         textView = (TextView) findViewById(R.id.GoogleText);
         textView.animate().alpha(1).setDuration(600);
-        Button button = (Button) findViewById(R.id.LoginButton);
-        button.setText("Get OTP");
+        signInButton.setText("Send Link");
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView textView2 = (TextView) findViewById(R.id.OTP);
-                textView2.animate().alpha(1).setDuration(600);
-                textView2 = (TextView) findViewById(R.id.TopText3);
-                textView2.animate().alpha(0).setDuration(600);
-                textView2 = (TextView) findViewById(R.id.TopText4);
-                textView2.animate().alpha(1).setDuration(600);
-                textView2 = (TextView) findViewById(R.id.GoogleText);
-                textView2.animate().alpha(1).setDuration(600);
-                Button button = (Button) findViewById(R.id.LoginButton);
-                button.setText("Sign Up");
-                signInButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), RegisterUser.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                if(emailSent){
+                    final FirebaseUser user=emailAuth.mAuth.getCurrentUser();
+                    user.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(user.isEmailVerified()){
+                                Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
+                                // got to dashboard
+                                //navigate ahead
+                            }
+                            else{
+                                Toast.makeText(getBaseContext(), "Not Verified", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }
+                else {
+                    textInput=findViewById(R.id.EmailText);
+                    email=textInput.getText().toString();
+                    textInput=findViewById(R.id.PasswordText);
+                    pass=textInput.getText().toString();
+                    emailSent=true;
+                    emailAuth.registerUser(email,pass,self);
+
+                }
+
+              // email link
             }
         });
 
