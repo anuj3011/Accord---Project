@@ -140,10 +140,9 @@ public class SignIn extends AppCompatActivity {
 
                 }
                 else {
-                    textInput=findViewById(R.id.EmailText);
-                    email=textInput.getText().toString();
-                    textInput=findViewById(R.id.PasswordText);
-                    pass=textInput.getText().toString();
+                   //text input
+                    email="dhruvddevasthale@gmail.com";
+                    pass="test@123";
                     emailSent=true;
                     emailAuth.registerUser(email,pass,self);
 
