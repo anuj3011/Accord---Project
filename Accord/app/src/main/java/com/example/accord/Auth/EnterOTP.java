@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.accord.R;
 
-public class UserType extends AppCompatActivity {
+public class EnterOTP extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_type);
+        setContentView(R.layout.activity_enter_o_t_p);
     }
 }
