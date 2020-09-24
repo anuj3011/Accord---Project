@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".OnBoardingIntro"></activity>
         <activity
             android:name=".IntroActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -29,6 +30,10 @@
         <activity android:name=".Auth.InputDocuments" />
         <activity android:name=".Auth.RegisterNgo" />
         <activity android:name=".Auth.UserType" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
