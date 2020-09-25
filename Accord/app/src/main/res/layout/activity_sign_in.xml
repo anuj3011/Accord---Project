@@ -81,7 +81,7 @@
             android:drawableStart="@drawable/ic_lock"
             android:ems="10"
             android:hint=" Password"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:padding="15dp"
             android:textColor="@color/transparentwhite"
             android:textColorHint="@color/transparentwhite"
@@ -92,7 +92,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/LoginButton"
+            android:id="@+id/RegisterButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
@@ -128,9 +128,9 @@
             android:textColorHighlight="#03A9F4"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/LoginButton"
-            app:layout_constraintStart_toStartOf="@+id/LoginButton"
-            app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
+            app:layout_constraintEnd_toEndOf="@+id/RegisterButton"
+            app:layout_constraintStart_toStartOf="@+id/RegisterButton"
+            app:layout_constraintTop_toBottomOf="@+id/RegisterButton" />
 
         =======
         >>>>>>> master

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,16 +23,21 @@ public class RegisterUser extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
+        View decorView = getWindow().getDecorView();
+// Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
 
-       Button registerButton=(Button) findViewById(R.id.registerButton);
+       /*Button registerButton=(Button) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               registerUser(v);
             }
-        });
+        });*/
     }
-    public void registerUser(View view){
+
+    /*public void registerUser(View view){
 
 
 
@@ -58,5 +64,5 @@ public class RegisterUser extends AppCompatActivity {
 
         emailAuth.registerUser(email,password,this);
 
-    }
+    }*/
 }

@@ -3,7 +3,6 @@ package com.example.accord.Auth;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.accord.OnBoardingIntro;
 import com.example.accord.R;
 
 
@@ -50,12 +50,15 @@ public class SignIn extends AppCompatActivity {
         //g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.TYPE_STATUS_BAR);
         setContentView(R.layout.activity_sign_in);
         self = this;
-        signInButton = (Button) findViewById(R.id.LoginButton);
+        signInButton = (Button) findViewById(R.id.RegisterButton);
         newUserText = findViewById(R.id.TextView);
         newUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewUser();
+                //NewUser();
+                Intent intent = new Intent(getApplicationContext(), RegisterUser.class);
+                startActivity(intent);
+                //finish();
             }
         });
         signInButton.setOnClickListener(new View.OnClickListener() {
