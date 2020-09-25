@@ -1,14 +1,12 @@
 package com.example.accord.Auth;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.accord.Firebase.EmailAuth;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.accord.R;
 
 public class RegisterUser extends AppCompatActivity {
