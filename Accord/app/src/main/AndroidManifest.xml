@@ -10,12 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".MainActivity">
 =======
         <activity
             android:name=".IntroActivity"
             android:theme="@style/AppTheme.NoActionBar">
 >>>>>>> parent of c80d9b7... OnBoard Activity
+=======
+        <activity android:name=".MainActivity">
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +27,9 @@
             </intent-filter>
         </activity>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
         <activity android:name=".Auth.SignIn"></activity>
         <activity android:name=".Auth.RegisterUser"></activity>
         <activity android:name=".Auth.RegisterService"></activity>
@@ -30,6 +37,7 @@
         <activity android:name=".Auth.InputDocuments"></activity>
         <activity android:name=".Auth.RegisterNgo"></activity>
         <activity android:name=".Auth.UserType"></activity>
+<<<<<<< HEAD
 =======
         <activity android:name=".Auth.SignIn" />
         <activity android:name=".Auth.RegisterUser" />
@@ -38,6 +46,8 @@
         <activity android:name=".Auth.RegisterNgo" />
         <activity android:name=".Auth.UserType" />
 >>>>>>> parent of c80d9b7... OnBoard Activity
+=======
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
     </application>
 
 </manifest>

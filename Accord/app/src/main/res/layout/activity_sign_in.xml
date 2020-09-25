@@ -58,6 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInEmail" />
+<<<<<<< HEAD
 
     <TextView
         android:id="@+id/TopText4"
@@ -71,6 +72,8 @@
         app:layout_constraintEnd_toEndOf="@+id/TopText1"
         app:layout_constraintStart_toStartOf="@+id/TopText1"
         app:layout_constraintTop_toBottomOf="@+id/TopText1" />
+=======
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
 
     <Button
         android:id="@+id/loginButton"

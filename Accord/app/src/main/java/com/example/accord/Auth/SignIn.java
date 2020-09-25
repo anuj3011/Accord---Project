@@ -1,6 +1,7 @@
 package com.example.accord.Auth;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import android.content.Intent;
 >>>>>>> parent of 6496026... email link verification
@@ -10,10 +11,14 @@ import android.os.Bundle;
 import com.example.accord.R;
 =======
 import androidx.appcompat.app.AppCompatActivity;
+=======
+import android.os.Bundle;
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
 
 import com.example.accord.Firebase.EmailAuth;
 import com.example.accord.Firebase.GoogleAuth;
 import com.example.accord.R;
+<<<<<<< HEAD
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -21,6 +26,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 >>>>>>> parent of 6496026... email link verification
+=======
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
 //import com.google.android.material.floatingactionbutton.FloatingActionButton;
 //import com.google.android.material.snackbar.Snackbar;
 
@@ -32,6 +39,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class SignIn extends AppCompatActivity {
+<<<<<<< HEAD
 <<<<<<< HEAD
     String email;
     String pass;
@@ -54,11 +62,14 @@ public class SignIn extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
     int flag=0;
+=======
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
     String email;
     String pass;
     EditText textInput;
-    EmailAuth emailAuth= new EmailAuth();
+    EmailAuth emailAuth=new EmailAuth();
     Button signInButton;
+<<<<<<< HEAD
     GoogleAuth googleAuth= new GoogleAuth();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,33 +124,19 @@ public class SignIn extends AppCompatActivity {
         }
         backPressedTime = System.currentTimeMillis();
     }
+=======
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
 
-    public void signIn(){
-        textInput=findViewById(R.id.EmailText);
-        email=textInput.getText().toString();
-        textInput=findViewById(R.id.signInPass);
-        pass=textInput.getText().toString();
-        emailAuth.signIn(email,pass,this);
 
-    }
-    public void NewUser(View view){
-        TextView textView = (TextView) findViewById(R.id.PasswordText);
-        textView.animate().alpha(0).setDuration(500);
-        textView = (TextView) findViewById(R.id.NewUser);
-        textView.animate().alpha(0).setDuration(500);
-        textView = (TextView) findViewById(R.id.ForgotPass);
-        textView.setText("Or");
-        textView = (TextView) findViewById(R.id.TopText2);
-        textView.animate().alpha(0).setDuration(600);
-        textView = (TextView) findViewById(R.id.TopText3);
-        textView.animate().alpha(1).setDuration(600);
-        textView = (TextView) findViewById(R.id.GoogleText);
-        textView.animate().alpha(1).setDuration(600);
-        Button button = (Button) findViewById(R.id.LoginButton);
-        button.setText("Get OTP");
+        setContentView(R.layout.activity_sign_in);
+        signInButton=(Button) findViewById(R.id.loginButton) ;
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 TextView textView2 = (TextView) findViewById(R.id.OTP);
                 textView2.animate().alpha(1).setDuration(600);
                 textView2 = (TextView) findViewById(R.id.TopText3);
@@ -159,6 +156,9 @@ public class SignIn extends AppCompatActivity {
                     }
                 });
 >>>>>>> parent of 6496026... email link verification
+=======
+                signIn();
+>>>>>>> parent of 3a155bc... Merge remote-tracking branch 'origin/master' into master
             }
         });
 
