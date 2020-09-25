@@ -114,25 +114,12 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/atomic_age"
-            android:text="New to Accord?"
+            android:text="New to Accord?Sign Up."
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/LoginButton"
             app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
-
-        <TextView
-            android:id="@+id/TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/atomic_age"
-            android:text=" Sign Up"
-            android:textColor="@color/white"
-            android:textColorHighlight="#03A9F4"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/NewUser"
-            app:layout_constraintTop_toTopOf="@+id/NewUser" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
