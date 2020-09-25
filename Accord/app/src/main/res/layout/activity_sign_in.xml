@@ -59,19 +59,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInEmail" />
 
-    <TextView
-        android:id="@+id/TopText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:text="Enter OTP"
-        android:textColor="#E4E0E0"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/TopText1"
-        app:layout_constraintStart_toStartOf="@+id/TopText1"
-        app:layout_constraintTop_toBottomOf="@+id/TopText1" />
-
     <Button
         android:id="@+id/loginButton"
         android:layout_width="154dp"
