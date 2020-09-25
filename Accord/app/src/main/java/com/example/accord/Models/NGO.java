@@ -1,5 +1,6 @@
-@IgnoreExtraProperties
-public class NGO_Registration {
+package com.example.accord.Models;
+
+public class NGO {
 
     //class defined for NGO_Registration purposes
 
@@ -12,12 +13,12 @@ public class NGO_Registration {
     private String password;
 
 
-    public NGO_Registration ()
+    public NGO ()
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     {
     }
 
-    public NGO_Registration (String full_name, long Phone, String Address, String email, String profession, String password)
+    public NGO (String full_name, long Phone, String Address, String email, String profession, String password)
     {
         //
     }

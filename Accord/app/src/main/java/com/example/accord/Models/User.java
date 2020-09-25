@@ -1,4 +1,4 @@
-public class Register_users_class {
+public class User {
 
     //class defined for user registeration purposes.
 
@@ -12,9 +12,9 @@ public class Register_users_class {
     private String area;
     private String city;
 
-    public Register_users_class {}
+    public User (){}
 
-    public Register_users_class(int Age, int pincode, String Phone, String password, String email, String add1, String area, String city) {
+    public User(int Age, int pincode, String Phone, String password, String email, String add1, String area, String city) {
         // ...
     }
 
