@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash4">
+    android:background="@drawable/splash7">
 
     <View
         android:id="@+id/view"
@@ -18,7 +18,7 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="51dp"
-        android:background="@drawable/splash4" />
+        android:background="@drawable/splash7" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="40dp"
             android:fontFamily="@font/atomic_age"
             android:text="Accord"
             android:textColor="@color/white"
@@ -54,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="170dp"
             android:layout_marginEnd="60dp"
             android:background="@drawable/round_bg"
             android:drawableStart="@drawable/ic_email"
@@ -75,7 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="242dp"
+            android:layout_marginTop="250dp"
             android:layout_marginEnd="60dp"
             android:background="@drawable/round_bg"
             android:drawableStart="@drawable/ic_lock"
@@ -96,9 +96,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="240dp"
             android:layout_marginEnd="70dp"
             android:background="@drawable/round_bg2"
+            android:padding="-10dp"
             android:text="Login"
             android:textAllCaps="false"
             android:textColor="@color/transparentwhite"
@@ -111,13 +112,14 @@
             android:id="@+id/NewUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/atomic_age"
             android:text="New to Accord?"
             android:textColor="@color/transparentwhite"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/LoginButton"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
 
         <TextView
@@ -125,15 +127,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="68dp"
             android:fontFamily="@font/atomic_age"
             android:text=" Sign Up"
             android:textColor="@color/white"
             android:textColorHighlight="#03A9F4"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/LoginButton"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/NewUser"
-            app:layout_constraintTop_toTopOf="@+id/NewUser" />
+            app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
