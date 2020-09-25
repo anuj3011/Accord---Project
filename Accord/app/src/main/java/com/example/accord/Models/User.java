@@ -1,3 +1,5 @@
+package com.example.accord.Models;
+
 public class User {
 
     //class defined for user registeration purposes.
