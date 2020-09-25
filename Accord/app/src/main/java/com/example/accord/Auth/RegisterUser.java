@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.accord.Firebase.EmailAuth;
 import com.example.accord.R;
 
 public class RegisterUser extends AppCompatActivity {

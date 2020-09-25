@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-
+import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Auth.RegisterService;
 import com.example.accord.Auth.RegisterUser;
 import com.example.accord.Auth.SignIn;
