@@ -18,7 +18,10 @@ import java.util.concurrent.Executor;
 public class EmailAuth {
     FirebaseAuth mAuth;// auth object which handles signing in
     FirebaseUser user;
+<<<<<<< HEAD:Accord/app/src/main/java/com/example/accord/Auth/EmailAuth.java
     // check 101
+=======
+>>>>>>> parent of 6496026... email link verification:Accord/app/src/main/java/com/example/accord/Firebase/EmailAuth.java
 
     public EmailAuth() {
         mAuth = FirebaseAuth.getInstance();
@@ -58,7 +61,11 @@ public class EmailAuth {
                 });
     }
 
+<<<<<<< HEAD:Accord/app/src/main/java/com/example/accord/Auth/EmailAuth.java
     void registerUser(String email, String pass, final Activity activity) {
+=======
+    public void registerUser(String email, String pass, final Activity activity) {
+>>>>>>> parent of 6496026... email link verification:Accord/app/src/main/java/com/example/accord/Firebase/EmailAuth.java
         mAuth.createUserWithEmailAndPassword(email, pass)
 
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
