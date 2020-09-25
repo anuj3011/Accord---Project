@@ -52,7 +52,7 @@
         android:layout_marginTop="60dp"
         android:fontFamily="@font/atomic_age"
         android:text="Accord"
-        android:textColor="@color/transparentwhite"
+        android:textColor="@color/white"
         android:textSize="48sp"
         android:textStyle="italic" />
 
