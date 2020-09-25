@@ -53,34 +53,16 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         self=this;
         signInButton= (Button)findViewById(R.id.LoginButton) ;
-
-
-    }
-    private void signInWithGoogle() {
-        googleAuth.mGoogleSignInClient = GoogleSignIn.getClient(this, googleAuth.gso);
-        Intent signInIntent = googleAuth.mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent,RC_SIGN_IN);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
-                String token=account.getIdToken();
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w("TAG", "Google sign in failed", e);
-                // ...
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
             }
-        }
+        });
+
     }
+
+
     @Override
     public void onBackPressed() {
 
@@ -99,25 +81,14 @@ public class SignIn extends AppCompatActivity {
     public void signIn(){
         textInput=findViewById(R.id.EmailText);
         email=textInput.getText().toString();
-        textInput=findViewById(R.id.signInPass);
+        textInput=findViewById(R.id.PasswordText);
         pass=textInput.getText().toString();
         emailAuth.signIn(email,pass,this);
 
     }
     public void NewUser(View view){
-        TextView textView = (TextView) findViewById(R.id.PasswordText);
-        textView.animate().alpha(0).setDuration(500);
-        textView = (TextView) findViewById(R.id.NewUser);
-        textView.animate().alpha(0).setDuration(500);
-        textView = (TextView) findViewById(R.id.ForgotPass);
-        textView.setText("Or");
-        textView = (TextView) findViewById(R.id.TopText2);
-        textView.animate().alpha(0).setDuration(600);
-        textView = (TextView) findViewById(R.id.TopText3);
-        textView.animate().alpha(1).setDuration(600);
-        textView = (TextView) findViewById(R.id.GoogleText);
-        textView.animate().alpha(1).setDuration(600);
-        signInButton.setText("Send Link");
+
+        signInButton.setText("Register");
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,8 +112,11 @@ public class SignIn extends AppCompatActivity {
                 }
                 else {
                    //text input
-                    email="dhruvddevasthale@gmail.com";
-                    pass="test@123";
+                    TextView textView = (TextView) findViewById(R.id.PasswordText);
+                    pass=textView.getText().toString();
+                    textView=findViewById(R.id.EmailText);
+                    email=textView.getText().toString();
+                    signInButton.setText("Check Verification");
                     emailSent=true;
                     emailAuth.registerUser(email,pass,self);
 

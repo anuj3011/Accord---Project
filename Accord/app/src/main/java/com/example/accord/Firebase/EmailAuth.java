@@ -64,7 +64,7 @@ public class EmailAuth {
                             Toast.makeText(activity.getApplicationContext(), "Signed In!", Toast.LENGTH_LONG).show();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                            Log.w("TAG", "Please Check your credentials", task.getException());
                             Toast.makeText(activity.getApplicationContext(), task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
 
 
