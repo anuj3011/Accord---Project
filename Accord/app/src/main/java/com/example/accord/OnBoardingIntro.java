@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.accord.Auth.SignIn;
+import com.example.accord.Auth.UserType;
 
 public class OnBoardingIntro extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class OnBoardingIntro extends AppCompatActivity {
 
     public void ToSignUp(View view){
 
-        Intent intent = new Intent(getApplicationContext(), SignIn.class);
+        Intent intent = new Intent(getApplicationContext(), UserType.class);
         startActivity(intent);
         finish();
     }

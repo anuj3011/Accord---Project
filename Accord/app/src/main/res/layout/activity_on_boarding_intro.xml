@@ -23,7 +23,7 @@
         android:layout_marginBottom="-2dp"
         android:animateLayoutChanges="false"
         android:orientation="horizontal"
-        android:padding="20dp"></LinearLayout>
+        android:padding="20dp" />
 
     <Button
         android:id="@+id/SkipButton"
