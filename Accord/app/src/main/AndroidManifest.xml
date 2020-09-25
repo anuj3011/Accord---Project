@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.accord">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,35 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".MainActivity">
-=======
+        <activity android:name=".OnBoardingIntro"></activity>
         <activity
             android:name=".IntroActivity"
             android:theme="@style/AppTheme.NoActionBar">
->>>>>>> parent of c80d9b7... OnBoard Activity
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".Auth.SignIn"></activity>
-        <activity android:name=".Auth.RegisterUser"></activity>
-        <activity android:name=".Auth.RegisterService"></activity>
-        <activity android:name=".Auth.EnterOTP"></activity>
-        <activity android:name=".Auth.InputDocuments"></activity>
-        <activity android:name=".Auth.RegisterNgo"></activity>
-        <activity android:name=".Auth.UserType"></activity>
-=======
         <activity android:name=".Auth.SignIn" />
         <activity android:name=".Auth.RegisterUser" />
         <activity android:name=".Auth.RegisterService" />
         <activity android:name=".Auth.InputDocuments" />
         <activity android:name=".Auth.RegisterNgo" />
         <activity android:name=".Auth.UserType" />
->>>>>>> parent of c80d9b7... OnBoard Activity
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

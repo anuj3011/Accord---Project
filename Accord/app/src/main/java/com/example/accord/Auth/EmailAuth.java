@@ -1,7 +1,6 @@
 package com.example.accord.Auth;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,12 +12,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.concurrent.Executor;
-
 public class EmailAuth {
     FirebaseAuth mAuth;// auth object which handles signing in
     FirebaseUser user;
-    // check 101
 
     public EmailAuth() {
         mAuth = FirebaseAuth.getInstance();
