@@ -109,31 +109,31 @@
             app:layout_constraintTop_toBottomOf="@+id/Password" />
 
         =======
-            android:text="New to Accord?Sign Up."
-            android:textColor="@color/white"
->>>>>>> master
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
+        android:text="New to Accord?Sign Up."
+        android:textColor="@color/white"
+        >>>>>>> master
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
 
         <TextView
             android:id="@+id/TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="68dp"
             android:fontFamily="@font/atomic_age"
             android:text=" New To Accord? Sign Up"
             android:textColor="@color/white"
             android:textColorHighlight="#03A9F4"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/LoginButton"
+            app:layout_constraintStart_toStartOf="@+id/LoginButton"
             app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
 
         =======
->>>>>>> master
+        >>>>>>> master
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

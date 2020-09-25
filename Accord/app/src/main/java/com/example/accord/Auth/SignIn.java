@@ -51,7 +51,7 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         self = this;
         signInButton = (Button) findViewById(R.id.LoginButton);
-        newUserText = findViewById(R.id.NewUser);
+        newUserText = findViewById(R.id.TextView);
         newUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
