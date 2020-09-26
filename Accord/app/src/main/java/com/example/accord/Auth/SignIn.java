@@ -3,6 +3,7 @@ package com.example.accord.Auth;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,12 +53,24 @@ public class SignIn extends AppCompatActivity {
         self = this;
         signInButton = (Button) findViewById(R.id.RegisterButton);
         newUserText = findViewById(R.id.TextView);
+        Intent intent = getIntent();
+        final int flag = intent.getIntExtra("Flag", 0);
         newUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //NewUser();
-                Intent intent = new Intent(getApplicationContext(), RegisterUser.class);
+
+
+                Intent intent;
+                if(flag==0)
+                    intent = new Intent(getApplicationContext(), RegisterUser.class);
+                else if(flag==1)
+                    intent = new Intent(getApplicationContext(), RegisterService.class);
+                else
+                    intent = new Intent(getApplicationContext(), RegisterNgo.class);
+
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 //finish();
             }
         });

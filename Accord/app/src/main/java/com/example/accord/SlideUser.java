@@ -3,8 +3,10 @@ package com.example.accord;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 
 public class SlideUser extends PagerAdapter {
+    int CurPage;
 
     Context context;
     LayoutInflater layoutInflater;
@@ -69,4 +72,5 @@ public class SlideUser extends PagerAdapter {
 
         container.removeView((RelativeLayout)object);
     }
+
 }

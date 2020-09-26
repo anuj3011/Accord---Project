@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:fromAlpha="0.0" android:toAlpha="1.0"
+    android:duration="500"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -64,7 +67,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/Name"
+                android:id="@+id/inputName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -77,7 +80,7 @@
                 android:textColorHint="@color/white" />
 
             <EditText
-                android:id="@+id/InputEmail"
+                android:id="@+id/inputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -90,7 +93,21 @@
                 android:textColorHint="@color/white" />
 
             <EditText
-                android:id="@+id/inputPassword"
+                android:id="@+id/inputNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:inputType="textShortMessage|textVisiblePassword|text"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white" />
+
+            <EditText
+                android:id="@+id/inputPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -103,12 +120,12 @@
                 android:textColorHint="@color/white" />
 
             <EditText
-                android:id="@+id/Something1"
+                android:id="@+id/inputAdd1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Something1"
+                android:hint="Address Line 1"
                 android:inputType="textShortMessage|textVisiblePassword|text"
                 android:padding="15dp"
                 android:singleLine="true"
@@ -116,12 +133,12 @@
                 android:textColorHint="@color/white" />
 
             <EditText
-                android:id="@+id/something"
+                android:id="@+id/inputArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Something1"
+                android:hint="Area"
                 android:inputType="textShortMessage|textVisiblePassword|text"
                 android:padding="15dp"
                 android:singleLine="true"
@@ -130,12 +147,12 @@
                 android:textColorHint="@color/white" />
 
             <EditText
-                android:id="@+id/something3"
+                android:id="@+id/inputCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Something1"
+                android:hint="City"
                 android:inputType="textShortMessage|textVisiblePassword|text"
                 android:padding="15dp"
                 android:singleLine="true"
@@ -144,12 +161,12 @@
                 android:textColorHint="@color/white" />
 
             <EditText
-                android:id="@+id/something4"
+                android:id="@+id/inputZip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Something1"
+                android:hint="Pincode"
                 android:inputType="textShortMessage|textVisiblePassword|text"
                 android:padding="15dp"
                 android:singleLine="true"
@@ -157,47 +174,12 @@
                 android:textColorHighlight="@color/white"
                 android:textColorHint="@color/white" />
 
-            <EditText
-                android:id="@+id/something5"
+            <Button
+                android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Something1"
-                android:inputType="textShortMessage|textVisiblePassword|text"
-                android:padding="15dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white" />
-
-            <EditText
-                android:id="@+id/something6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Something1"
-                android:inputType="textShortMessage|textVisiblePassword|text"
-                android:padding="15dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white" />
-
-            <EditText
-                android:id="@+id/something7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Something1"
-                android:inputType="textShortMessage|textVisiblePassword|text"
-                android:padding="15dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white" />
+                android:onClick="registerUser"
+                android:text="Register" />
 
         </LinearLayout>
     </ScrollView>

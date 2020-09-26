@@ -1,5 +1,6 @@
 package com.example.accord.Auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,7 @@ import com.example.accord.R;
 
 public class RegisterUser extends AppCompatActivity {
     String name=null;
-    int Age=0,pincode;
+    int pincode=0;
     String Phone="";
     String password=null;
     String email=null, add1=null,area=null,city=null;
@@ -37,17 +38,20 @@ public class RegisterUser extends AppCompatActivity {
         });*/
     }
 
-    /*public void registerUser(View view){
+    public void registerUser(View view){
 
 
-
+        int flag=1;
         TextView textView = (TextView) findViewById(R.id.inputName);
         name =  textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputNumber);
         Phone =  textView.getText().toString();
 
-        textView = (TextView) findViewById(R.id.inputEMAIL);
+        textView = (TextView) findViewById(R.id.inputZip);
+        pincode= Integer.parseInt(textView.getText().toString());
+
+        textView = (TextView) findViewById(R.id.inputEmail);
         email=textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputAdd1);
@@ -62,7 +66,51 @@ public class RegisterUser extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.inputPass);
         password = textView.getText().toString();
 
+        if(name.length()==0)
+        {
+            flag=0;
+            Toast.makeText(getApplicationContext(), "Enter Name", Toast.LENGTH_LONG).show();
+        }
+        else if(Phone.length()==0)
+        {
+            Toast.makeText(getApplicationContext(), "Enter Phone", Toast.LENGTH_LONG).show();
+        }
+        else if(email.length()==0)
+        {
+            flag=0;
+            Toast.makeText(getApplicationContext(), "Enter Email", Toast.LENGTH_LONG).show();
+        }
+        else if(String.valueOf(pincode).length() == 0)
+        {
+            Toast.makeText(getApplicationContext(), "Enter Pincode", Toast.LENGTH_LONG).show();
+        }
+        else if(add1.length()==0)
+        {
+            flag=0;
+            Toast.makeText(getApplicationContext(), "EnterAddress line 1", Toast.LENGTH_LONG).show();
+        }
+        else if(area.length()==0)
+        {
+            flag=0;
+            Toast.makeText(getApplicationContext(), "Enter the Date of Complaint", Toast.LENGTH_LONG).show();
+        }else if(city.length()==0)
+        {
+            flag=0;
+            Toast.makeText(getApplicationContext(), "Enter city", Toast.LENGTH_LONG).show();
+        }else if(password.length()==0)
+        {
+            flag=0;
+            Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show();
+        }
+        if(flag==1)
+        {
+//            Intent intent = new Intent(getApplicationContext(),.class);
+//            startActivity(intent);
+//            finish();
+//            // Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();   //to add intent of next activity of user i.e. email verification page
+        }
+
         emailAuth.registerUser(email,password,this);
 
-    }*/
+    }
 }
