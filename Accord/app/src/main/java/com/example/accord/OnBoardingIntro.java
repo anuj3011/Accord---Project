@@ -40,6 +40,7 @@ public class OnBoardingIntro extends AppCompatActivity {
         viewPager.setAdapter(sliderAdapter);
         DotsIndicator(0);
         viewPager.addOnPageChangeListener(onPageChangeListener);
+        //Aditya
     }
 
     public void ToSignUp(View view){
