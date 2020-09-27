@@ -178,8 +178,10 @@
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="registerUser"
-                android:text="Register" />
+                android:layout_marginTop="25dp"
+                android:background="@drawable/round_bg2"
+                android:text="Register"
+                android:textColor="@color/transparentwhite" />
 
         </LinearLayout>
     </ScrollView>

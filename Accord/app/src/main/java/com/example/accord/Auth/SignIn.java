@@ -44,7 +44,6 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         View decorView = getWindow().getDecorView();
-// Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         //Window g = getWindow();
@@ -108,54 +107,5 @@ public class SignIn extends AppCompatActivity {
 
     }
 
-    public void NewUser() {
-
-        signInButton.setText("Register");
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (emailSent) {
-                    final FirebaseUser user = emailAuth.mAuth.getCurrentUser();
-                    user.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (user.isEmailVerified()) {
-                                Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
-                                // got to dashboard
-                                //navigate ahead to Profile Page
-                            } else {
-                                Toast.makeText(getBaseContext(), "Not Verified", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-                } else {
-                    //text input
-                    TextView textView = (TextView) findViewById(R.id.Email);
-                    email = textView.getText().toString();
-                    textView = findViewById(R.id.Password);
-                    pass = textView.getText().toString();
-
-                    if (email == null || email.length() < 1) {
-                        Toast.makeText(getBaseContext(), "Email Empty", Toast.LENGTH_SHORT).show();
-                    } else if (pass == null || pass.length() < 1) {
-                        Toast.makeText(getBaseContext(), "Password Empty", Toast.LENGTH_SHORT).show();
-
-                    } else {
-
-                        emailSent=true;
-                        emailAuth.registerUser(email, pass, self);
-                    }
-
-
-                }
-
-                // email link
-            }
-        });
-
-
-    }
 
 }
