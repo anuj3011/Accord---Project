@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:interpolator="@android:anim/accelerate_interpolator"
-    android:fromAlpha="1.0" android:toAlpha="0.0"
-    android:fillAfter="true"
-    android:duration="500"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash7">
+    android:background="@drawable/splash7"
+    android:backgroundTintMode="screen"
+    android:duration="500"
+    android:fillAfter="true"
+    android:fromAlpha="1.0"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:toAlpha="0.0">
 
     <View
         android:id="@+id/view"
