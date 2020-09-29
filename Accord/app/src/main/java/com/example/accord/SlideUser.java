@@ -27,15 +27,15 @@ public class SlideUser extends PagerAdapter {
     }
 
     public int[] SlideAnimations = {
-            R.raw.cute,
+            R.raw.family,
             R.raw.freelancer,
             R.raw.house,
     };
 
     public String[] SlideHeadings={
-            "Heading1",
-            "Heading2",
-            "Heading3",
+            "User",
+            "Free Lancer",
+            "NGO",
     };
 
 

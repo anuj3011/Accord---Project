@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:interpolator="@android:anim/accelerate_interpolator"
-    android:fromAlpha="0.0" android:toAlpha="1.0"
-    android:duration="500"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash7">
+    android:background="@drawable/splash7blur"
+    android:duration="500"
+    android:fromAlpha="0.0"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:toAlpha="1.0">
 
     <View
         android:id="@+id/view"
@@ -17,10 +18,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="51dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="41dp"
         android:background="@drawable/splash7" />
 
     <TextView
