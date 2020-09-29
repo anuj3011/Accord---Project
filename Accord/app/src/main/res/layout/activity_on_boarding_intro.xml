@@ -11,6 +11,7 @@
     android:background="@drawable/splash4"
     tools:context=".OnBoardingIntro">
 
+<<<<<<< HEAD
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/SlideViewPager"
         android:layout_width="match_parent"
@@ -29,6 +30,8 @@
         android:orientation="horizontal"
         android:padding="20dp" />
 
+=======
+>>>>>>> parent of 2e4a2f3... Revert
     <Button
         android:id="@+id/SkipButton"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -43,6 +46,14 @@
         android:textAllCaps="false"
         android:textColor="@color/transparentwhite"
         android:textSize="20sp"
+<<<<<<< HEAD
         android:textStyle="bold" />
 
 </RelativeLayout>
+=======
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> parent of 2e4a2f3... Revert
