@@ -1,5 +1,6 @@
-@IgnoreExtraProperties
-public class Register_Srvices_class {
+package com.example.accord.Models;
+
+public class ServiceProvider {
 
     //class defined for Service provider registeration purposes.
 
@@ -14,12 +15,12 @@ public class Register_Srvices_class {
     private String profession;
     private String password;
 
-    public Register_Srvices_class ()
+    public ServiceProvider ()
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     {
     }
 
-    public Register_Srvices_class (String first_name, String last_name, int Age, long Phone, String Address, String email, String profession, String password)
+    public ServiceProvider (String first_name, String last_name, int Age, long Phone, String Address, String email, String profession, String password)
     {
        //
     }
