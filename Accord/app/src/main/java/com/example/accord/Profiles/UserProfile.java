@@ -63,6 +63,11 @@ public class UserProfile extends AppCompatActivity {
         textView = findViewById(R.id.userAddressText);
         user.add1 = textView.getText().toString();
         firestoreAPI.pushUserDetails("user",user.uid,user);
+        applyButton.setAlpha((float) 0.0);
+        setTextViewEnable(R.id.userNameText,false);
+        setTextViewEnable(R.id.userPhoneText,false);
+        setTextViewEnable(R.id.userEmailText,false);
+        setTextViewEnable(R.id.userAddressText,false);
         Toast.makeText(getBaseContext(), "Details Updated", Toast.LENGTH_SHORT).show();
     }
 
@@ -72,10 +77,10 @@ public class UserProfile extends AppCompatActivity {
         textView.setText(text);
     }
 
-    void setTextViewEnable(int id) {
+    void setTextViewEnable(int id,boolean enabled) {
         EditText textView = findViewById(id);
 
-        textView.setEnabled(true);
+        textView.setEnabled(enabled);
     }
 
     void updateUserProfile(User user) {
@@ -88,10 +93,10 @@ public class UserProfile extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTextViewEnable(R.id.userNameText);
-                setTextViewEnable(R.id.userPhoneText);
-                setTextViewEnable(R.id.userEmailText);
-                setTextViewEnable(R.id.userAddressText);
+                setTextViewEnable(R.id.userNameText,true);
+                setTextViewEnable(R.id.userPhoneText,true);
+                setTextViewEnable(R.id.userEmailText,true);
+                setTextViewEnable(R.id.userAddressText,true);
                 applyButton=findViewById(R.id.applyButton);
                 applyButton.setAlpha((float) 1.0);
 
