@@ -69,7 +69,7 @@ public class IntroActivity extends AppCompatActivity
 //        Intent intent = new Intent(getApplicationContext(),OnBoardingIntro.class);
 //        startActivity(intent);
 //        finish();
-        startActivity(new Intent(this, UserProfile.class).putExtra("uid", "testUid"));
+        startActivity(new Intent(this, UserProfile.class).putExtra("uid", "testUid")); // change uid to get user
     }
 
     @Override
