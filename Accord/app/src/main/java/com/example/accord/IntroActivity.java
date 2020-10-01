@@ -12,6 +12,7 @@ import com.example.accord.Auth.RegisterService;
 import com.example.accord.Auth.RegisterUser;
 import com.example.accord.Auth.SignIn;
 import com.example.accord.Auth.UserType;
+import com.example.accord.Profiles.UserProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -65,9 +66,10 @@ public class IntroActivity extends AppCompatActivity
     public void ToLogin(View view)
     {
         //Log.i("Tag","Button Pressed!!");
-        Intent intent = new Intent(getApplicationContext(),OnBoardingIntro.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(getApplicationContext(),OnBoardingIntro.class);
+//        startActivity(intent);
+//        finish();
+        startActivity(new Intent(this, UserProfile.class).putExtra("uid", "testUid"));
     }
 
     @Override

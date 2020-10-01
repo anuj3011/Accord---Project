@@ -5,31 +5,33 @@ public class User {
     //class defined for user registeration purposes.
 
 
-    private int Age;
-    private int pincode;
-    private String Phone;
-    private String password;
-    private String email;
-    private String add1;
-    private String area;
-    private String city;
 
+    public int pincode;
+    public String phone;
+    public String password;
+    public String email;
+    public String add1;
+    public String area;
+    public String city;
+    public String name;
+    public String uid;
     public User (){}
 
-    public User(int Age, int pincode, String Phone, String password, String email, String add1, String area, String city) {
-        // ...
+    public User( String name,String phone,String email, String add1) {
+
+        this.name=name;
+        this.phone=phone;
+        this.email=email;
+        this.add1=add1;
     }
 
-    public int getAge() {
-        return Age;
-    }
 
     public int getpincode() {
         return pincode;
     }
 
-    public String getPhone() {
-        return Phone;
+    public String getphone() {
+        return phone;
     }
 
     public String getpassword() {

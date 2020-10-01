@@ -16,8 +16,18 @@ public class NGO {
     public NGO ()
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     {
-    }
 
+    }
+    public NGO (String uid,String full_name, String Phone, String Address, String email, String profession)
+    {
+        this.uid=uid;
+        this.full_name=full_name;
+        this.Phone=Phone;
+        this.Address=Address;
+        this.email=email;
+        this.profession=profession;
+
+    }
     public NGO (String full_name, String Phone, String Address, String email, String profession)
     {
         this.full_name=full_name;

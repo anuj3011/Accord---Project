@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SlideUser"></activity>
+        <activity android:name=".Profiles.UserProfile"></activity>
+        <activity android:name=".SlideUser" />
         <activity android:name=".OnBoardingIntro" />
         <activity
             android:name=".IntroActivity"

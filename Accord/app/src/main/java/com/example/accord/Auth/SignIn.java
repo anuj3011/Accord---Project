@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.accord.Models.User;
 import com.example.accord.R;
 
 
@@ -91,7 +92,9 @@ public class SignIn extends AppCompatActivity {
         emailAuth.signIn(email, pass, this);
 
     }
+    public void pushUserAfterVerifying(){
 
+    }
     public void NewUser() {
 
         signInButton.setText("Register");

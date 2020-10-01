@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.accord.Auth.SignIn;
 import com.example.accord.Auth.UserType;
+import com.example.accord.Profiles.UserProfile;
 
 public class OnBoardingIntro extends AppCompatActivity {
 
@@ -47,6 +48,8 @@ public class OnBoardingIntro extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), UserType.class);
         startActivity(intent);
         finish();
+
+
     }
     public void DotsIndicator(int position){
 
