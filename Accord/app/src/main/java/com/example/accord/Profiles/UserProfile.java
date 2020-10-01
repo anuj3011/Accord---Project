@@ -8,10 +8,14 @@ import com.example.accord.Firestore.FirestoreAPI;
 import com.example.accord.Models.User;
 import com.example.accord.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,14 +32,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserProfile extends AppCompatActivity {
     String uid = " ";
-    FirestoreAPI firestoreAPI=new FirestoreAPI();
+    FirestoreAPI firestoreAPI = new FirestoreAPI();
     User user = new User();
+    FloatingActionButton editButton;
+    FloatingActionButton applyButton;
 
     void getUserProfile() {
         firestoreAPI.getProfile(uid).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(User.class);
+                user.uid=documentSnapshot.getId();
                 updateUserProfile(user);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -45,16 +52,60 @@ public class UserProfile extends AppCompatActivity {
             }
         });
     }
-    void setText(int textId,String text){
-        TextView textView=findViewById(textId);
+
+    void editProfile() {
+        EditText textView = findViewById(R.id.userNameText);
+        user.name = textView.getText().toString();
+        textView = findViewById(R.id.userPhoneText);
+        user.phone = textView.getText().toString();
+        textView = findViewById(R.id.userEmailText);
+        user.email = textView.getText().toString();
+        textView = findViewById(R.id.userAddressText);
+        user.add1 = textView.getText().toString();
+        firestoreAPI.pushUserDetails("user",user.uid,user);
+        Toast.makeText(getBaseContext(), "Details Updated", Toast.LENGTH_SHORT).show();
+    }
+
+    void setText(int textId, String text) {
+        EditText textView = findViewById(textId);
+
         textView.setText(text);
     }
-    void updateUserProfile(User user){
-       setText(R.id.userNameText,user.name);
-       setText(R.id.userPhoneText,user.phone);
-       setText(R.id.userEmailText,user.email);
-       setText(R.id.userAddressText,user.add1);
+
+    void setTextViewEnable(int id) {
+        EditText textView = findViewById(id);
+
+        textView.setEnabled(true);
     }
+
+    void updateUserProfile(User user) {
+        setText(R.id.userNameText, user.name);
+        setText(R.id.userPhoneText, user.phone);
+        setText(R.id.userEmailText, user.email);
+        setText(R.id.userAddressText, user.add1);
+
+        editButton = findViewById(R.id.editUserProfileButton);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTextViewEnable(R.id.userNameText);
+                setTextViewEnable(R.id.userPhoneText);
+                setTextViewEnable(R.id.userEmailText);
+                setTextViewEnable(R.id.userAddressText);
+                applyButton=findViewById(R.id.applyButton);
+                applyButton.setAlpha((float) 1.0);
+
+                applyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        editProfile();
+                    }
+                });
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

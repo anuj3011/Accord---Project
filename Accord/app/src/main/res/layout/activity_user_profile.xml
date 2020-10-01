@@ -6,26 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".Profiles.UserProfile">
 
-    <TextView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/applyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="124dp"
+        android:alpha="0"
+        android:clickable="true"
+        app:backgroundTint="#050505"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userAddressText"
+        app:layout_constraintVertical_bias="0.761"
+        app:srcCompat="@android:drawable/checkbox_on_background" />
+
+    <EditText
         android:id="@+id/userNameText"
         android:layout_width="184dp"
         android:layout_height="43dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginEnd="179dp"
+        android:layout_marginBottom="20dp"
+        android:contextClickable="false"
+        android:duplicateParentState="false"
+        android:editable="false"
+        android:elevation="100dp"
+        android:enabled="false"
+        android:freezesText="true"
         android:hint="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="textShortMessage"
+        app:layout_constraintBottom_toTopOf="@+id/userPhoneText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254" />
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/userPhoneText"
         android:layout_width="184dp"
         android:layout_height="43dp"
         android:layout_marginStart="175dp"
         android:layout_marginEnd="179dp"
+        android:enabled="false"
         android:hint="Phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,12 +54,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.359" />
 
-    <TextView
+    <EditText
         android:id="@+id/userEmailText"
         android:layout_width="184dp"
         android:layout_height="43dp"
         android:layout_marginStart="175dp"
         android:layout_marginEnd="179dp"
+        android:enabled="false"
         android:hint="Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,12 +69,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.469" />
 
-    <TextView
+    <EditText
         android:id="@+id/userAddressText"
         android:layout_width="184dp"
         android:layout_height="43dp"
         android:layout_marginStart="175dp"
         android:layout_marginEnd="179dp"
+        android:enabled="false"
         android:hint="Address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,4 +83,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.574" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="126dp"
+        android:layout_height="32dp"
+        android:text="User Profile"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/userNameText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.421" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editUserProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="#050505"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/applyButton"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userAddressText"
+        app:layout_constraintVertical_bias="0.362"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
