@@ -65,7 +65,7 @@ public class IntroActivity extends AppCompatActivity
     public void ToLogin(View view)
     {
         //Log.i("Tag","Button Pressed!!");
-        Intent intent = new Intent(getApplicationContext(),OnBoardingIntro.class);
+        Intent intent = new Intent(getApplicationContext(),UserType.class);
         startActivity(intent);
         finish();
     }
