@@ -73,7 +73,7 @@ public class IntroActivity extends AppCompatActivity {
     void testBooking(){
 
         BookingAPI bookingAPI = new BookingAPI();
-        bookingAPI.bookService("testUser","testService");
+        bookingAPI.endService("aQULp4XGvDn3aYUKSISI");
     }
 
 

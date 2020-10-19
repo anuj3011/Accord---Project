@@ -15,29 +15,55 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BookingAPI {
     public FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Session session=new Session();
+    Session session = new Session();
     FirestoreAPI firestoreAPI = new FirestoreAPI();
 
-    public void bookService(String userID, String serviceProviderID) {
-        session.userID = userID;
-        session.serviceProviderID = serviceProviderID;
-        DocumentReference sessionReference = db.collection("sessions").document();
-        session.sessionID = sessionReference.getId();
-       sessionReference.set(session).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void endService(String sessionID) {
+        DocumentReference sessionReference = db.collection("sessions").document(sessionID);
+        Map<String, Object> update = new HashMap<>();
+        update.put("isActive", false);
+        update.put("isCompleted", true);
+        sessionReference.update(update).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     //booked
                     //update  ui
-                    Log.d("session","booked !");
-                }
-                else {
+                    Log.d("session", "session ended !");
+                } else {
                     try {
                         throw task.getException();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    catch (Exception e) {
+                }
+            }
+        });
+    }
+
+    public void bookService(String userID, String serviceProviderID) {
+        session.userID = userID;
+        session.isActive = true;
+        session.isCompleted = false;
+        session.serviceProviderID = serviceProviderID;
+        DocumentReference sessionReference = db.collection("sessions").document();
+        session.sessionID = sessionReference.getId();
+        sessionReference.set(session).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    //booked
+                    //update  ui
+                    Log.d("session", "booked !");
+                } else {
+                    try {
+                        throw task.getException();
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }

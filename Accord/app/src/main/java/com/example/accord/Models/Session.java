@@ -10,9 +10,9 @@ public class Session {
     public String sessionID;
     String payment;
     String service;
-    boolean isActive;
+    public boolean isActive;
     boolean isPayed;
-    boolean isCompleted;
+    public boolean isCompleted;
     public Session(){
 
     }
