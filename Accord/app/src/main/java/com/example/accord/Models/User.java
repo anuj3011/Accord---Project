@@ -13,13 +13,15 @@ public class User {
     private String add1;
     private String area;
     private String city;
-
+    String type="user";
     public User (){}
 
     public User(int Age, int pincode, String Phone, String password, String email, String add1, String area, String city) {
         // ...
     }
-
+    public String getType(){
+        return type;
+    }
     public int getAge() {
         return Age;
     }

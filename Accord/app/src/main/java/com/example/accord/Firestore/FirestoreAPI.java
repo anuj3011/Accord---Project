@@ -27,39 +27,19 @@ public class FirestoreAPI {
         db = FirebaseFirestore.getInstance();
     }
 
-    public void getNGO(String uid) {
-        db.collection("ngo")// collection reference
+
+    public Task<DocumentSnapshot> getUser(String uid) {
+       return db.collection("users")// collection reference
                 .document(uid)
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                .get().addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                NGO ngo = documentSnapshot.toObject(NGO.class);
-                Log.d("ngo",ngo.toString());
+            public void onFailure(@NonNull Exception e) {
+
             }
         });
+
     }
 
-    public void getUser(String uid) {
-        db.collection("user")// collection reference
-                .document(uid)
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User ngo = documentSnapshot.toObject(User.class);
-            }
-        });
-    }
-
-    public void getServiceProvider(String uid) {
-        db.collection("ngo")// collection reference
-                .document(uid)
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                ServiceProvider ngo = documentSnapshot.toObject(ServiceProvider.class);
-            }
-        });
-    }
 
     public void pushFirestore(String type, String uid, Object object) {
         // Add a new document with a generated ID

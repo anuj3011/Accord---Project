@@ -5,25 +5,25 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Map;
 
 public class Session {
-    User user;
-    ServiceProvider serviceProvider;
+    public String userID;
+    public String serviceProviderID;
     public String sessionID;
     String payment;
     String service;
     boolean isActive;
     boolean isPayed;
     boolean isCompleted;
-    Session(){
+    public Session(){
 
     }
     public static Session fromSnapshot(DocumentSnapshot snapshot){
         return snapshot.toObject(Session.class);// converts map data to object
     }
-    User getUser(){
-        return user;
+    String getUser(){
+        return userID;
     }
-    ServiceProvider getServiceProvider(){
-        return serviceProvider;
+    String getServiceProvider(){
+        return serviceProviderID;
     }
     String getSessionID(){
         return  sessionID;

@@ -69,25 +69,19 @@ public class IntroActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
     Session session;
+    void testBooking(){
+
+        BookingAPI bookingAPI = new BookingAPI();
+        bookingAPI.bookService("testUser","testService");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        BookingAPI bookingAPI = new BookingAPI();
-        bookingAPI.getCurrentSession("test").addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot snapshot) {
-                session = Session.fromSnapshot(snapshot);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("error", e.getMessage());
-            }
-        });
+        testBooking();
         setContentView(R.layout.activity_intro);
         // change 1
         // startActivity(new Intent(this,SignIn.class));
