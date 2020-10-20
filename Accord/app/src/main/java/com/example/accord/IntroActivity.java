@@ -73,7 +73,17 @@ public class IntroActivity extends AppCompatActivity {
     void testBooking(){
 
         BookingAPI bookingAPI = new BookingAPI();
-        bookingAPI.endService("aQULp4XGvDn3aYUKSISI");
+        bookingAPI.endService("aQULp4XGvDn3aYUKSISI", new BookingAPI.onEndSession() {
+            @Override
+            public void onEndSession() {
+                Log.d("session", "session ended !");
+            }
+
+            @Override
+            public void onFailed() {
+                Log.d("session", "session failed!");
+            }
+        });
     }
 
 

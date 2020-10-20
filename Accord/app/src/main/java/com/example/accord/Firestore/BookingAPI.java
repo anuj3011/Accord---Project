@@ -11,11 +11,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.Function;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BookingAPI {
@@ -23,7 +25,7 @@ public class BookingAPI {
     Session session = new Session();
     FirestoreAPI firestoreAPI = new FirestoreAPI();
 
-    public void endService(String sessionID) {
+    public void endService(String sessionID, final onEndSession callback) {
         DocumentReference sessionReference = db.collection("sessions").document(sessionID);
         Map<String, Object> update = new HashMap<>();
         update.put("isActive", false);
@@ -34,18 +36,23 @@ public class BookingAPI {
                 if (task.isSuccessful()) {
                     //booked
                     //update  ui
-                    Log.d("session", "session ended !");
+
+                    callback.onEndSession();
                 } else {
                     try {
                         throw task.getException();
                     } catch (Exception e) {
                         e.printStackTrace();
+                        callback.onFailed();
                     }
                 }
             }
         });
     }
-
+    public interface onEndSession{
+          void onEndSession();// function to be called when endSession task is completed
+        void onFailed();
+    }
     public void bookService(String userID, String serviceProviderID) {
         session.userID = userID;
         session.isActive = true;
