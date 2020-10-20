@@ -14,25 +14,19 @@ public class ServiceProvider {
     private String email;
     private String profession;
     private String password;
-    String uid;
+    public String type="sp";
     public ServiceProvider ()
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     {
     }
-    public ServiceProvider (String uid,String first_name, String last_name, int Age, long Phone, String Address, String email, String profession, String password)
-    {
-        this.uid=uid;
-        this.first_name=first_name;
-        this.last_name=last_name;
-        this.Age=Age;
-    }
+
     public ServiceProvider (String first_name, String last_name, int Age, long Phone, String Address, String email, String profession, String password)
     {
-       this.first_name=first_name;
-       this.last_name=last_name;
-       this.Age=Age;
+       //
     }
-
+    public String getType(){
+        return type;
+    }
     public String getfirst_name()
     {
         return first_name;

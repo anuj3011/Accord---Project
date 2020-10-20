@@ -4,33 +4,47 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.accord.Models.NGO;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-public class FirestoreAPI {
+import java.util.HashMap;
+import java.util.Map;
+
+public class UserAPI {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public FirestoreAPI() {
+    public UserAPI() {
         db = FirebaseFirestore.getInstance();
     }
 
-    public Task<DocumentSnapshot> getProfile(String uid) {
-       return db.collection("users")// collection reference
+
+    public Task<DocumentSnapshot> getUser(String type,String uid) {
+       return db.collection(type)// collection reference
                 .document(uid)
-                .get();
+                .get().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
     }
 
 
-    public void pushUserDetails(String type, String uid, Object object) {
+    public void pushUser(String type, String uid, Object object) {
         // Add a new document with a generated ID
 
-        db.collection("users")
+        db.collection(type)
                 .document(uid)
                 .set(object).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

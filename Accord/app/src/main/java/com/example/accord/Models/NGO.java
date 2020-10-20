@@ -11,6 +11,7 @@ public class NGO {
     private String email;
     private String profession;
     private String password;
+   public String type="ngo";
     String uid;
 
     public NGO ()
@@ -37,7 +38,9 @@ public class NGO {
         this.profession=profession;
 
     }
-
+public String getType(){
+        return type;
+}
     public String getfull_name()
     {
         return full_name;
