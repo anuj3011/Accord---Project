@@ -49,31 +49,25 @@ public class BookingAPI {
             }
         });
     }
+    public  interface onBooked{
+        void onBooked(Session session);
+        void onBookingFailed();
+    }
     public interface onEndSession{
           void onEndSession();// function to be called when endSession task is completed
         void onFailed();
     }
-    public void bookService(String userID, String serviceProviderID) {
+    public void bookService(String userID, String serviceProviderID, final onBooked onBookedCallBack) {
         session.userID = userID;
         session.isActive = true;
         session.isCompleted = false;
         session.serviceProviderID = serviceProviderID;
         DocumentReference sessionReference = db.collection("sessions").document();
         session.sessionID = sessionReference.getId();
-        sessionReference.set(session).addOnCompleteListener(new OnCompleteListener<Void>() {
+        sessionReference.set(session).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    //booked
-                    //update  ui
-                    Log.d("session", "booked !");
-                } else {
-                    try {
-                        throw task.getException();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+            public void onSuccess(Void aVoid) {
+                onBookedCallBack.onBooked(session);
             }
         });
     }

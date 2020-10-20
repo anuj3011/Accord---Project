@@ -40,6 +40,8 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import static com.example.accord.Firestore.BookingAPI.*;
+
 public class IntroActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -69,19 +71,21 @@ public class IntroActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    Session session;
-    void testBooking(){
+
+    public Session sessionObject;
+
+    void testBooking() {
 
         BookingAPI bookingAPI = new BookingAPI();
-        bookingAPI.endService("aQULp4XGvDn3aYUKSISI", new BookingAPI.onEndSession() {
+        bookingAPI.bookService("testU", "testS", new onBooked() {
             @Override
-            public void onEndSession() {
-                Log.d("session", "session ended !");
+            public void onBooked(Session session) {
+                sessionObject = session;
             }
 
             @Override
-            public void onFailed() {
-                Log.d("session", "session failed!");
+            public void onBookingFailed() {
+
             }
         });
     }
