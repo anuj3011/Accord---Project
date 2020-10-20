@@ -20,16 +20,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FirestoreAPI {
+public class UserAPI {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public FirestoreAPI() {
+    public UserAPI() {
         db = FirebaseFirestore.getInstance();
     }
 
 
-    public Task<DocumentSnapshot> getUser(String uid) {
-       return db.collection("users")// collection reference
+    public Task<DocumentSnapshot> getUser(String type,String uid) {
+       return db.collection(type)// collection reference
                 .document(uid)
                 .get().addOnFailureListener(new OnFailureListener() {
             @Override
@@ -41,7 +41,7 @@ public class FirestoreAPI {
     }
 
 
-    public void pushFirestore(String type, String uid, Object object) {
+    public void pushUser(String type, String uid, Object object) {
         // Add a new document with a generated ID
 
         db.collection(type)

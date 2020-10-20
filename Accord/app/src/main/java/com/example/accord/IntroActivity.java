@@ -77,7 +77,7 @@ public class IntroActivity extends AppCompatActivity {
     void testBooking() {
 
         BookingAPI bookingAPI = new BookingAPI();
-        bookingAPI.bookService("testU", "testS", new onBooked() {
+        bookingAPI.getCurrentSession("oXR51mxIJiNKa2JA0Geo", new onBooked() {
             @Override
             public void onBooked(Session session) {
                 sessionObject = session;
