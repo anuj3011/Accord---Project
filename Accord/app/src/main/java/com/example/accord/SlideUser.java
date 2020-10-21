@@ -27,7 +27,7 @@ public class SlideUser extends PagerAdapter {
     }
 
     public int[] SlideAnimations = {
-            R.raw.cute,
+            R.raw.media,
             R.raw.freelancer,
             R.raw.house,
     };

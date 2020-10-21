@@ -70,7 +70,7 @@ public class UserType extends AppCompatActivity {
         }
 
         if(Dots.length>0){
-            Dots[position].setTextColor(getResources().getColor(R.color.white));
+            Dots[position].setTextColor(getResources().getColor(R.color.black1));
         }
     }
 

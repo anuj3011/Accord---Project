@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:interpolator="@android:anim/accelerate_interpolator"
-    android:fromAlpha="1.0" android:toAlpha="0.0"
-    android:fillAfter="true"
-    android:duration="500"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash4"
+    android:duration="500"
+    android:fillAfter="true"
+    android:fromAlpha="1.0"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:toAlpha="0.0"
     tools:context=".OnBoardingIntro">
 
     <androidx.viewpager.widget.ViewPager
@@ -41,7 +41,7 @@
         android:onClick="ToSignUp"
         android:text="Skip >>"
         android:textAllCaps="false"
-        android:textColor="@color/transparentwhite"
+        android:textColor="@color/black1"
         android:textSize="20sp"
         android:textStyle="bold" />
 
