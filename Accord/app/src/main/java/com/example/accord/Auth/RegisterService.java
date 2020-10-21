@@ -31,8 +31,8 @@ public class RegisterService extends AppCompatActivity {
 
 
 
-        textView = (TextView) findViewById(R.id.Age);
-        Age= Integer.parseInt(textView.getText().toString());
+        //textView = (TextView) findViewById(R.id.Age);
+        //Age= Integer.parseInt(textView.getText().toString());
 
         textView = (TextView) findViewById(R.id.inputNumber);
         Phone= Integer.parseInt(textView.getText().toString());
@@ -52,7 +52,7 @@ public class RegisterService extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.inputEmail);
         email =  textView.getText().toString();
 
-        textView = (TextView) findViewById(R.id.inputProfession);
+        textView = (TextView) findViewById(R.id.Profession);
         profession =  textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputPass);
