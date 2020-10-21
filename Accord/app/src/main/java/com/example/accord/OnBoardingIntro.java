@@ -27,7 +27,6 @@ public class OnBoardingIntro extends AppCompatActivity {
     boolean flag2 = false;
     int CurPage;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         View decorView = getWindow().getDecorView();

@@ -19,7 +19,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Title"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/family"
+        app:lottie_rawRes="@raw/cute"
         app:lottie_speed="1.25" />
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_marginTop="75dp"
         android:layout_marginEnd="35dp"
         android:fontFamily="@font/ubuntu_mono_bold"
-        android:text="User"
+        android:text="Heading"
         android:textColor="@color/transparentwhite"
         android:textSize="30sp"
         android:textStyle="bold" />

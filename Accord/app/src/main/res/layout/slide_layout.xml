@@ -40,7 +40,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/atomic_age"
         android:inputType="textMultiLine"
-        android:text="Do you face difficulty to find the right person for the right job in an emergency? Then this App is just for you.  By using this App you can get skilled workers who are just a few minutes away from your home "
+        android:text="Industrialization is central if any economy is to be successful and the policy attempts at industrialization involve creating systems and institutional arrangements that can help accelerate the process of industrialization."
         android:textColor="@color/transparentwhite"
         android:textSize="20sp"
         android:textStyle="italic" />
