@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.accord.Auth.EmailAuth;
@@ -12,6 +14,7 @@ import com.example.accord.Auth.RegisterService;
 import com.example.accord.Auth.RegisterUser;
 import com.example.accord.Auth.SignIn;
 import com.example.accord.Auth.UserType;
+import com.example.accord.Firestore.StorageAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,13 +73,36 @@ public class IntroActivity extends AppCompatActivity
         startActivity(intent);
         finish();
     }
+    void testStorage(){
+        StorageAPI storageAPI=new StorageAPI();
+        File file =new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)),"test.jpg");
+        Uri uri=Uri.fromFile(file);
+        storageAPI.uploadFile("test", uri, new StorageAPI.StorageTask() {
+            @Override
+            public void onSuccess(Uri url) {
+                //update ui
+            }
 
+            @Override
+            public void trackProgress(double val) {
+                Log.d("progress", String.valueOf(val));
+                //update ui with val
+            }
+
+            @Override
+            public void onFailure() {
+            //update ui
+            }
+
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        testStorage();
         // change 1
         //startActivity(new Intent(this,SignIn.class));
        // EmailAuth emailAuth=new EmailAuth();
