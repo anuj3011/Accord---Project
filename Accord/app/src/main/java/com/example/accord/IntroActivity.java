@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Auth.RegisterService;
@@ -37,11 +38,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
-public class IntroActivity extends AppCompatActivity
-{
+public class IntroActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -66,23 +67,24 @@ public class IntroActivity extends AppCompatActivity
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
-    public void ToLogin(View view)
-    {
+
+    public void ToLogin(View view) {
         //Log.i("Tag","Button Pressed!!");
-        Intent intent = new Intent(getApplicationContext(),OnBoardingIntro.class);
+        Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
         startActivity(intent);
         finish();
     }
-    void testStorage(){
-        StorageAPI storageAPI=new StorageAPI();
-        File file =new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)),"images.png");
 
-        Uri uri=Uri.fromFile(file);
-        storageAPI.uploadFile("test", "profileImage",uri, new StorageAPI.StorageTask() {
+    void testStorage() {
+        StorageAPI storageAPI = new StorageAPI();
+        File file = new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)), "images.png");// fle to upload
+
+        Uri uri = Uri.fromFile(file);
+        storageAPI.uploadFile("test", "profileImage", uri, new StorageAPI.StorageTask() {
             @Override
             public void onSuccess(Uri url) {
                 //update ui
-                Log.d("upload",url.getPath());
+                Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -92,33 +94,33 @@ public class IntroActivity extends AppCompatActivity
             }
 
             @Override
-            public void onFailure() {
-            //update ui
-                Log.d("progress", "failed");
+            public void onFailure(String msg) {
+                //update ui
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
             }
 
         });
     }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         testStorage();
         // change 1
         //startActivity(new Intent(this,SignIn.class));
-       // EmailAuth emailAuth=new EmailAuth();
-       // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
+        // EmailAuth emailAuth=new EmailAuth();
+        // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
         //check:https://console.firebase.google.com/u/0/project/accord-b1f26/authentication/users
         Random d = new Random();
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        final LottieAnimationView lottieAnimationView = (LottieAnimationView)findViewById(R.id.lottieAnimationView);
+                        final LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
                         lottieAnimationView.animate().alpha(0).setDuration(500);
-                        LottieAnimationView lottieAnimationView2 = (LottieAnimationView)findViewById(R.id.lottieAnimationView2);
+                        LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView2);
                         lottieAnimationView2.animate().alpha(1).setDuration(1250);
                         lottieAnimationView2.setProgress(0f);
                         lottieAnimationView2.setClickable(true);

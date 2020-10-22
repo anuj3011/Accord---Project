@@ -24,7 +24,7 @@ public class StorageAPI {
 
         void trackProgress(double val);
 
-        void onFailure();
+        void onFailure(String error);
     }
 
     public void uploadFile(String uid,String path, final Uri file, final StorageTask storageTask) {
@@ -49,8 +49,16 @@ public class StorageAPI {
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("progress", "failed");
+            public void onFailure(@NonNull Exception error) {
+                try{
+                    throw error;
+                }
+                catch (FirebaseNetworkException firebaseNetworkException){
+                    storageTask.onFailure("No Internet");
+                }
+                catch (Exception e){
+
+                }
             }
         });
     }
