@@ -75,12 +75,14 @@ public class IntroActivity extends AppCompatActivity
     }
     void testStorage(){
         StorageAPI storageAPI=new StorageAPI();
-        File file =new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)),"test.jpg");
+        File file =new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)),"images.png");
+
         Uri uri=Uri.fromFile(file);
-        storageAPI.uploadFile("test", uri, new StorageAPI.StorageTask() {
+        storageAPI.uploadFile("test", "profileImage",uri, new StorageAPI.StorageTask() {
             @Override
             public void onSuccess(Uri url) {
                 //update ui
+                Log.d("upload",url.getPath());
             }
 
             @Override
@@ -92,6 +94,7 @@ public class IntroActivity extends AppCompatActivity
             @Override
             public void onFailure() {
             //update ui
+                Log.d("progress", "failed");
             }
 
         });

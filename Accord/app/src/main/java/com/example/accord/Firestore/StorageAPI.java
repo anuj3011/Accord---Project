@@ -1,6 +1,7 @@
 package com.example.accord.Firestore;
 
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -26,29 +27,30 @@ public class StorageAPI {
         void onFailure();
     }
 
-    public void uploadFile(String uid, final Uri file, final StorageTask storageTask) {
-        origin.child(uid + "/profile/image").putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                storageTask.onSuccess(file);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                try {
-                    throw e;
-                } catch (FirebaseNetworkException networkException) {
-                    //toast no internet
-                } catch (FirebaseException firebaseException) {
-                    // generic firebase exception
-                } catch (Exception error) {
-                    storageTask.onFailure();
-                }
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+    public void uploadFile(String uid,String path, final Uri file, final StorageTask storageTask) {
+        origin.child(uid + "/"+path).putFile(file).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                 storageTask.trackProgress(taskSnapshot.getBytesTransferred());
+            }
+        })
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("progress", "completed");
+
+                        taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                storageTask.onSuccess(uri);
+                            }
+                        });
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("progress", "failed");
             }
         });
     }
