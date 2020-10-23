@@ -10,4 +10,5 @@
     <string name="menu_aboutapp">AboutApp</string>
     <string name="menu_History">History</string>
     <string name="menu_Youraccount">Your Account</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
