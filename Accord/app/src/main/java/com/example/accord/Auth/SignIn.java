@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 
+import com.example.accord.AboutApp.AboutAppFragment;
 import com.example.accord.R;
 
 
@@ -55,7 +57,7 @@ public class SignIn extends AppCompatActivity {
         newUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewUser();
+                ToServices();
             }
         });
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +91,16 @@ public class SignIn extends AppCompatActivity {
         textInput = findViewById(R.id.Password);
         pass = textInput.getText().toString();
         emailAuth.signIn(email, pass, this);
+
+    }
+
+    public void ToServices(){
+
+        Fragment fragment = new AboutAppFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack(null)
+                .commit();
 
     }
 

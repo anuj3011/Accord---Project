@@ -12,8 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.accord.AboutApp.AboutAppFragment;
 import com.example.accord.R;
 import com.example.accord.SlideUser;
 import com.example.accord.SliderAdapter;
@@ -52,6 +55,7 @@ public class UserType extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), SignIn.class);
         startActivity(intent);
         finish();
+
     }
 
     public void DotsIndicator(int position){

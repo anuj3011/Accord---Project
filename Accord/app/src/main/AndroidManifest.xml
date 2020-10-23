@@ -14,23 +14,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SlideUser"></activity>
+        <activity android:name=".Items"></activity>
+        <activity android:name=".ServiceGrp" />
+        <activity
+            android:name=".ServicesOption">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SlideUser" />
         <activity android:name=".OnBoardingIntro" />
         <activity
             android:name=".IntroActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".Auth.SignIn" />
-        <activity android:name=".Auth.RegisterUser" />
+        <activity android:name=".Auth.SignIn"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Auth.RegisterUser"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Auth.RegisterService" />
         <activity android:name=".Auth.InputDocuments" />
         <activity android:name=".Auth.RegisterNgo" />
-        <activity android:name=".Auth.UserType" />
+        <activity android:name=".Auth.UserType"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data
             android:name="preloaded_fonts"

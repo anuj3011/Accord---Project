@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash4">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp">
+
+    </FrameLayout>
+
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
