@@ -31,7 +31,7 @@ public class EmailAuth {
         }
     }
 
-    public  void sendEmailLink(final SignIn activity) {
+    public  void sendEmailLink(final Activity activity) {
 
         user.sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -39,7 +39,8 @@ public class EmailAuth {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "Email sent.");
-                            activity.signInButton.setText("Check Verification");
+                            //activity.signInButton.setText("Check Verification");
+                            Toast.makeText(activity.getApplicationContext(), "Email Sent!", Toast.LENGTH_LONG).show();
                         }
                         else{
 
@@ -84,7 +85,7 @@ public class EmailAuth {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-                            sendEmailLink((SignIn) activity);
+                            sendEmailLink((RegisterUser)activity);
 
                             Toast.makeText(activity.getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
 

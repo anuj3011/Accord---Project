@@ -3,6 +3,7 @@ package com.example.accord.Auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,7 +32,7 @@ public class UserType extends AppCompatActivity {
     private SlideUser sliderAdapter;
     private TextView[] Dots;
     boolean flag2 = false;
-    int CurPage;
+    int CurPage=0;
 
 
     @Override
@@ -52,7 +53,9 @@ public class UserType extends AppCompatActivity {
 
     public void ToSignUp(View view){
 
+        //Toast.makeText(getBaseContext(),CurPage,Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), SignIn.class);
+        intent.putExtra("Flag",CurPage);
         startActivity(intent);
         finish();
 
@@ -71,7 +74,7 @@ public class UserType extends AppCompatActivity {
         }
 
         if(Dots.length>0){
-            Dots[position].setTextColor(getResources().getColor(R.color.white));
+            Dots[position].setTextColor(getResources().getColor(R.color.black1));
         }
     }
 
@@ -109,4 +112,5 @@ public class UserType extends AppCompatActivity {
 
         }
     };
+
 }
