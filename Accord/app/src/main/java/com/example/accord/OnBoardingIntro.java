@@ -40,12 +40,14 @@ public class OnBoardingIntro extends AppCompatActivity {
         viewPager.setAdapter(sliderAdapter);
         DotsIndicator(0);
         viewPager.addOnPageChangeListener(onPageChangeListener);
+        //Aditya
     }
 
     public void ToSignUp(View view){
 
         Intent intent = new Intent(getApplicationContext(), UserType.class);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
     public void DotsIndicator(int position){
@@ -61,7 +63,7 @@ public class OnBoardingIntro extends AppCompatActivity {
         }
 
         if(Dots.length>0){
-            Dots[position].setTextColor(getResources().getColor(R.color.white));
+            Dots[position].setTextColor(getResources().getColor(R.color.black1));
         }
     }
     @Override

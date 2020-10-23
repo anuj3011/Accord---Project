@@ -12,10 +12,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 
-import com.example.accord.AboutApp.AboutAppFragment;
+import com.example.accord.OnBoardingIntro;
 import com.example.accord.R;
 
 
@@ -45,19 +44,33 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         View decorView = getWindow().getDecorView();
-// Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         //Window g = getWindow();
         //g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.TYPE_STATUS_BAR);
         setContentView(R.layout.activity_sign_in);
         self = this;
-        signInButton = (Button) findViewById(R.id.LoginButton);
-        newUserText = findViewById(R.id.NewUser);
+        signInButton = (Button) findViewById(R.id.RegisterButton);
+        newUserText = findViewById(R.id.TextView);
+        Intent intent = getIntent();
+        final int flag = intent.getIntExtra("Flag", 0);
         newUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToServices();
+                //NewUser();
+
+
+                Intent intent;
+                if(flag==0)
+                    intent = new Intent(getApplicationContext(), RegisterUser.class);
+                else if(flag==1)
+                    intent = new Intent(getApplicationContext(), RegisterService.class);
+                else
+                    intent = new Intent(getApplicationContext(), RegisterNgo.class);
+
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                //finish();
             }
         });
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -94,64 +107,7 @@ public class SignIn extends AppCompatActivity {
 
     }
 
-    public void ToServices(){
-
-        Fragment fragment = new AboutAppFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-                .addToBackStack(null)
-                .commit();
-
-    }
-
-    public void NewUser() {
-
-        signInButton.setText("Register");
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (emailSent) {
-                    final FirebaseUser user = emailAuth.mAuth.getCurrentUser();
-                    user.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (user.isEmailVerified()) {
-                                Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
-                                // got to dashboard
-                                //navigate ahead to Profile Page
-                            } else {
-                                Toast.makeText(getBaseContext(), "Not Verified", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-                } else {
-                    //text input
-                    TextView textView = (TextView) findViewById(R.id.Email);
-                    email = textView.getText().toString();
-                    textView = findViewById(R.id.Password);
-                    pass = textView.getText().toString();
-
-                    if (email == null || email.length() < 1) {
-                        Toast.makeText(getBaseContext(), "Email Empty", Toast.LENGTH_SHORT).show();
-                    } else if (pass == null || pass.length() < 1) {
-                        Toast.makeText(getBaseContext(), "Password Empty", Toast.LENGTH_SHORT).show();
-
-                    } else {
-
-                        emailSent=true;
-                        emailAuth.registerUser(email, pass, self);
-                    }
 
 
-                }
-
-                // email link
-            }
-        });
-
-
-    }
 
 }
