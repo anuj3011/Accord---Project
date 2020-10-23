@@ -22,23 +22,6 @@
         android:textSize="48sp"
         android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/round_bg2"
-        android:clickable="true"
-        android:padding="-10dp"
-        android:text="Register"
-        android:textAllCaps="false"
-        android:textColor="@color/transparentwhite"
-        android:textSize="24sp" />
-
     <View
         android:id="@+id/loginVIew"
         android:layout_width="match_parent"
@@ -54,7 +37,7 @@
         android:layout_marginBottom="25dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgPictures"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/loginVIew"
@@ -63,6 +46,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
+        android:clickable="true"
+        android:onClick="ImageClick"
         app:srcCompat="@drawable/icon3" />
 
     <ScrollView
@@ -188,6 +173,32 @@
                 android:inputType="textPersonName"
                 android:padding="15dp"
                 android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/inputSkill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="Skilled/Semi-Skilled"
+                android:inputType="textPersonName"
+                android:padding="15dp"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:layout_marginBottom="100dp"
+                android:background="@drawable/round_bg2"
+                android:clickable="true"
+                android:padding="-10dp"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:textColor="@color/transparentwhite"
+                android:textSize="24sp" />
 
         </LinearLayout>
     </ScrollView>

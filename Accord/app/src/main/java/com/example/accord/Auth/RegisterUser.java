@@ -19,15 +19,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterUser extends AppCompatActivity {
     String name = null;
-    int pincode = 0;
+    String pincode = "";
     String Phone = "";
-    String password;
-    String email, add1 = null, area = null, city = null;
+    String password="";
+    String email="", add1 = "", area = "", city = "";
     private int RC_SIGN_IN = 1;
     private long backPressedTime;
     private Toast backToast;
     boolean emailSent = false;
-    int flag = 0;
+    int flag_main = 0;
     EditText textInput;
     EmailAuth emailAuth = new EmailAuth();
     public Button signInButton;
@@ -46,24 +46,30 @@ public class RegisterUser extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              NewUser();
+                registerUser();
             }
         });
     }
 
-    public void registerUser(View view) {
+    public void registerUser() {
 
+        int flag=0;
 
-        int flag = 1;
         TextView textView = (TextView) findViewById(R.id.inputName);
         name = textView.getText().toString();
+
+        textView = (TextView) findViewById(R.id.inputEmail);
+        email = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputNumber);
         Phone = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputZip);
-        pincode = Integer.parseInt(textView.getText().toString());
+        pincode = textView.getText().toString();
 
+
+        textView = (TextView) findViewById(R.id.inputPass);
+        password = textView.getText().toString();
 
 
         textView = (TextView) findViewById(R.id.inputAdd1);
@@ -85,7 +91,7 @@ public class RegisterUser extends AppCompatActivity {
         } else if (email.length() == 0) {
             flag = 0;
             Toast.makeText(getApplicationContext(), "Enter Email", Toast.LENGTH_LONG).show();
-        } else if (String.valueOf(pincode).length() == 0) {
+        } else if (pincode.length() == 0) {
             Toast.makeText(getApplicationContext(), "Enter Pincode", Toast.LENGTH_LONG).show();
         } else if (add1.length() == 0) {
             flag = 0;
@@ -99,10 +105,12 @@ public class RegisterUser extends AppCompatActivity {
         } else if (password.length() == 0) {
             flag = 0;
             Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show();
+        }else{
+            flag=1;
         }
         if (flag == 1) {
-
-              //NewUser();
+                flag_main=1;
+              NewUser();
 //            Intent intent = new Intent(getApplicationContext(),.class);
 //            startActivity(intent);
 //            finish();
@@ -114,11 +122,11 @@ public class RegisterUser extends AppCompatActivity {
 
     public void NewUser() {
 
-        TextView textView;
-        textView = (TextView) findViewById(R.id.inputEmail);
-        email = textView.getText().toString();
-        textView = (TextView) findViewById(R.id.inputPass);
-        password = textView.getText().toString();
+//        TextView textView;
+//        textView = (TextView) findViewById(R.id.inputEmail);
+//        email = textView.getText().toString();
+//        textView = (TextView) findViewById(R.id.inputPass);
+//        password = textView.getText().toString();
 
                 if (emailSent) {
                     final FirebaseUser user = emailAuth.mAuth.getCurrentUser();
@@ -138,13 +146,15 @@ public class RegisterUser extends AppCompatActivity {
 
                 } else {
                     //text input
-                    if (email == null || email.length() < 1) {
-                        Toast.makeText(getBaseContext(), "Email Empty", Toast.LENGTH_SHORT).show();
-                    } else if (password.length() < 1) {
-                        Toast.makeText(getBaseContext(), "Password Empty", Toast.LENGTH_SHORT).show();
+//                    if (email == "" || email.length() < 1) {
+//                        Toast.makeText(getBaseContext(), "Email Empty", Toast.LENGTH_SHORT).show();
+//                    } else if (password.length() < 1) {
+//                        Toast.makeText(getBaseContext(), "Password Empty", Toast.LENGTH_SHORT).show();
 
-                    } else {
-
+//                    } else {
+//
+                    if(flag_main==1){
+                        Toast.makeText(getBaseContext(), "I did it finally", Toast.LENGTH_SHORT).show();
                         emailSent = true;
                         emailAuth.registerUser(email, password, self);
                     }

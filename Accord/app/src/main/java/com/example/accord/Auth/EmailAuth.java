@@ -1,6 +1,7 @@
 package com.example.accord.Auth;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -63,6 +64,12 @@ public class EmailAuth {
                             String uid = user.getUid();
                             Log.d("user", uid);
                             Toast.makeText(activity.getApplicationContext(), "Signed In!", Toast.LENGTH_LONG).show();
+//                            Intent i = new Intent(getActivity())
+//                            startActivity(i);
+//                            ((Activity) getActivity()).overridePendingTransition(0, 0);
+                            
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "Please Check your credentials", task.getException());

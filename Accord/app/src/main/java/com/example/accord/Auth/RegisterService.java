@@ -1,8 +1,14 @@
 package com.example.accord.Auth;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -10,21 +16,42 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.accord.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import javax.annotation.Nullable;
+
+
 public class RegisterService extends AppCompatActivity {
+    public static final int IMAGE_GALLERY_RESULT = 1;
+    ImageView imgPictures;
+
+    String name="";
+    String skill="",zip="";
+    int flag_main=0;
+    String Phone="";
+
+    String add1="",email="",profession="",password="",area="",city="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_service);
+        imgPictures= (ImageView)findViewById(R.id.imgPictures);
+        Button registerButton=(Button) findViewById(R.id.button);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerService();
+            }
+        });
     }
 
-    public void registerService(View view){
+    public void registerService(){
+        int flag=0;
 
-        String name=null;
-        int Age=0,zip,flag=1;
-        long Phone=0;
-
-        String add1=null,email=null,profession=null,password=null,area=null,city=null;
 
         TextView textView = (TextView) findViewById(R.id.inputName);
         name =  textView.getText().toString();
@@ -35,7 +62,7 @@ public class RegisterService extends AppCompatActivity {
         //Age= Integer.parseInt(textView.getText().toString());
 
         textView = (TextView) findViewById(R.id.inputNumber);
-        Phone= Integer.parseInt(textView.getText().toString());
+        Phone= textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputAdd1);
         add1 =  textView.getText().toString();
@@ -44,7 +71,7 @@ public class RegisterService extends AppCompatActivity {
         area=textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputZip);
-        zip= Integer.parseInt(textView.getText().toString());
+        zip= textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputCity);
         city=textView.getText().toString();
@@ -55,6 +82,9 @@ public class RegisterService extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.Profession);
         profession =  textView.getText().toString();
 
+        textView = (TextView) findViewById(R.id.inputSkill);
+        skill =  textView.getText().toString();
+
         textView = (TextView) findViewById(R.id.inputPass);
         password =  textView.getText().toString();
         if(name.length()==0)
@@ -62,7 +92,7 @@ public class RegisterService extends AppCompatActivity {
             flag=0;
             Toast.makeText(getApplicationContext(), "Enter Name", Toast.LENGTH_LONG).show();
         }
-        else if(String.valueOf(Phone).length()==0)
+        else if(Phone.length()==0)
         {
             Toast.makeText(getApplicationContext(), "Enter Phone", Toast.LENGTH_LONG).show();
         }
@@ -71,11 +101,11 @@ public class RegisterService extends AppCompatActivity {
             flag=0;
             Toast.makeText(getApplicationContext(), "Enter Email", Toast.LENGTH_LONG).show();
         }
-        else if(String.valueOf(zip).length() == 0)
+        else if(zip.length() == 0)
         {
             Toast.makeText(getApplicationContext(), "Enter Pincode", Toast.LENGTH_LONG).show();
         }
-        else if(String.valueOf(Age).length() == 0)
+        else if(skill.length() == 0)
         {
             Toast.makeText(getApplicationContext(), "Enter Age", Toast.LENGTH_LONG).show();
         }
@@ -102,7 +132,11 @@ public class RegisterService extends AppCompatActivity {
             flag=0;
             Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show();
         }
+        else{
+            flag=1;
+        }
         if(flag==1) {
+            flag_main=1;
             Intent intent = new Intent(getApplicationContext(),InputDocuments.class);
             startActivity(intent);
             finish();
@@ -110,6 +144,46 @@ public class RegisterService extends AppCompatActivity {
         }
 
 
+    }
+
+    public void ImageClick(View view)
+    {
+        //TextView textView = (TextView)findViewById(R.id.textView);
+        //textView.setVisibility(View.INVISIBLE);
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        String pictureDirectoryPath = pictureDirectory.getPath();
+
+        Uri data = Uri.parse(pictureDirectoryPath);
+
+        photoPickerIntent.setDataAndType(data,"image/*");
+        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_RESULT);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_GALLERY_RESULT) {
+                Uri imageUri = data.getData();
+
+                InputStream inputStream;
+                try {
+                    inputStream = getContentResolver().openInputStream(imageUri);
+                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+
+                    imgPictures.setImageBitmap(image);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Unable to open", Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }
     }
 }
 

@@ -22,23 +22,6 @@
         android:textSize="48sp"
         android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/round_bg2"
-        android:clickable="true"
-        android:padding="-10dp"
-        android:text="Register"
-        android:textAllCaps="false"
-        android:textColor="@color/transparentwhite"
-        android:textSize="24sp" />
-
     <View
         android:id="@+id/loginVIew"
         android:layout_width="match_parent"
@@ -165,6 +148,22 @@
                 android:inputType="textShortMessage|textVisiblePassword|text"
                 android:padding="15dp"
                 android:singleLine="true" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:layout_marginBottom="100dp"
+                android:background="@drawable/round_bg2"
+                android:clickable="true"
+                android:onClick="registerUser"
+                android:padding="-10dp"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:textColor="@color/transparentwhite"
+                android:textSize="24sp" />
 
         </LinearLayout>
     </ScrollView>
