@@ -103,7 +103,12 @@ public class SignIn extends AppCompatActivity {
         email = textInput.getText().toString();
         textInput = findViewById(R.id.Password);
         pass = textInput.getText().toString();
-        emailAuth.signIn(email, pass, this);
+        emailAuth.signIn(email, pass, this, new EmailAuth.AuthTask() {
+            @Override
+            public void onComplete(String uid) {
+                //navigate here
+            }
+        });
 
     }
 

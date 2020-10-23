@@ -51,7 +51,10 @@ public class EmailAuth {
                 });
 
     }
-    public void signIn(String email, String pass, final Activity activity) {
+    interface AuthTask{
+        void onComplete(String uid);
+    }
+    public void signIn(String email, String pass, final Activity activity, final AuthTask authTask ) {
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -67,7 +70,8 @@ public class EmailAuth {
 //                            Intent i = new Intent(getActivity())
 //                            startActivity(i);
 //                            ((Activity) getActivity()).overridePendingTransition(0, 0);
-                            
+                            authTask.onComplete(uid);
+
 
 
                         } else {
