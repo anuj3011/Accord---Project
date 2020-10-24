@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.accord.MainActivity;
 import com.example.accord.OnBoardingIntro;
 import com.example.accord.R;
 
@@ -107,6 +108,8 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onComplete(String uid) {
                 //navigate here
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
