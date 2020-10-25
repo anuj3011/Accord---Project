@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/person_male" />
+                android:src="@drawable/pestcontrol" />
 
             <ImageView
                 android:id="@+id/Service8"
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/person_male" />
+                android:src="@drawable/packers" />
         </LinearLayout>
     </HorizontalScrollView>
 
