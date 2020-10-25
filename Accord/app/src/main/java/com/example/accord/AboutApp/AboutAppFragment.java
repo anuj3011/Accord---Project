@@ -32,8 +32,5 @@ public class AboutAppFragment extends Fragment {
         return root;
     }
 
-    public void ToServices(View view){
-        Intent intent = new Intent(getActivity(),ServicesOption.class);
-        startActivity(intent);
-    }
+
 }

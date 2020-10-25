@@ -84,6 +84,9 @@ public class OrderPage extends FragmentActivity implements OnMapReadyCallback, G
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
 
@@ -110,7 +113,7 @@ public class OrderPage extends FragmentActivity implements OnMapReadyCallback, G
     public void onMapReady(GoogleMap googleMap)
     {
         mMap = googleMap;
-        mMap.setOnMapLongClickListener((GoogleMap.OnMapLongClickListener) this);
+        //mMap.setOnMapLongClickListener((GoogleMap.OnMapLongClickListener) this);
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {

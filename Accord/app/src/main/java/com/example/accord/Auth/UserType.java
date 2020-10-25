@@ -38,9 +38,8 @@ public class UserType extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_type);
         viewPager = (ViewPager) findViewById(R.id.SlideViewPager);

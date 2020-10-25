@@ -39,7 +39,7 @@
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
                 android:text="Name"
-                android:textColor="#FDFAFA"
+                android:textColor="@color/black1"
                 android:textSize="24sp"
                 android:visibility="visible" />
 
@@ -51,7 +51,7 @@
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
                 android:text="Email"
-                android:textColor="#FDF8F8"
+                android:textColor="@color/black1"
                 android:textSize="24sp" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
                 android:text="Phone"
-                android:textColor="#FFFEFE"
+                android:textColor="@color/black1"
                 android:textSize="24sp" />
 
             <TextView
@@ -73,6 +73,7 @@
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
                 android:text="Address"
+                android:textColor="@color/black1"
                 android:textSize="24sp" />
 
             <TextView
@@ -83,6 +84,7 @@
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
                 android:text="Password"
+                android:textColor="@color/black1"
                 android:textSize="24sp" />
         </LinearLayout>
     </ScrollView>
@@ -105,10 +107,10 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/view"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="186dp"
+        android:layout_marginBottom="-115dp"
         android:src="@drawable/ic_wave_1" />
 
     <TextView
@@ -134,7 +136,6 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:gravity="center"
-        android:text="5"
         android:textColor="#f3f4f5"
         android:textSize="30sp" />
 
@@ -149,7 +150,6 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:gravity="center"
-        android:text="5"
         android:textColor="#f3f4f5"
         android:textSize="30sp" />
 

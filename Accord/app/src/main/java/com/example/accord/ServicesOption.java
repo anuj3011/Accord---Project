@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
@@ -24,6 +27,9 @@ public class ServicesOption extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services_option);
 
@@ -78,14 +84,16 @@ public class ServicesOption extends AppCompatActivity {
                 public boolean onChildClick(ExpandableListView parent, View v,
                                             int groupPosition, int childPosition, long id) {
                     // TODO Auto-generated method stub
-                    Toast.makeText(
+                    /*Toast.makeText(
                             getApplicationContext(),
                             listDataHeader.get(groupPosition)
                                     + " : "
                                     + listDataChild.get(
                                     listDataHeader.get(groupPosition)).get(
                                     childPosition), Toast.LENGTH_SHORT)
-                            .show();
+                            .show();*/
+                    Intent intent = new Intent(getApplicationContext(),OrderPage.class);
+                    startActivity(intent);
                     return false;
                 }
             });
