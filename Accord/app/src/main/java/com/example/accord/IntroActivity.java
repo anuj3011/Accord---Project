@@ -105,12 +105,20 @@ public class IntroActivity extends AppCompatActivity {
     void testProfile(){
         startActivity(new Intent(this, YourAccountFragment.class));
     }
+    void autoLogin(){
+        EmailAuth emailAuth=new EmailAuth();
+        FirebaseUser user=emailAuth.checkSignIn();
+        if(user!=null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-
+        autoLogin();
         Random d = new Random();
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
