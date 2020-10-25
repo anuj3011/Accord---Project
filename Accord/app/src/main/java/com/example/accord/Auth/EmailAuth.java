@@ -1,6 +1,7 @@
 package com.example.accord.Auth;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class EmailAuth {
         }
     }
 
-    public  void sendEmailLink(final SignIn activity) {
+    public  void sendEmailLink(final Activity activity) {
 
         user.sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -39,7 +40,8 @@ public class EmailAuth {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "Email sent.");
-                            activity.signInButton.setText("Check Verification");
+                            //activity.signInButton.setText("Check Verification");
+                            Toast.makeText(activity.getApplicationContext(), "Email Sent!", Toast.LENGTH_LONG).show();
                         }
                         else{
 
@@ -49,7 +51,10 @@ public class EmailAuth {
                 });
 
     }
-    public void signIn(String email, String pass, final Activity activity) {
+    interface AuthTask{
+        void onComplete(String uid);
+    }
+    public void signIn(String email, String pass, final Activity activity, final AuthTask authTask ) {
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -62,6 +67,13 @@ public class EmailAuth {
                             String uid = user.getUid();
                             Log.d("user", uid);
                             Toast.makeText(activity.getApplicationContext(), "Signed In!", Toast.LENGTH_LONG).show();
+//                            Intent i = new Intent(getActivity())
+//                            startActivity(i);
+//                            ((Activity) getActivity()).overridePendingTransition(0, 0);
+                            authTask.onComplete(uid);
+
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "Please Check your credentials", task.getException());
@@ -84,7 +96,7 @@ public class EmailAuth {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-                            sendEmailLink((SignIn) activity);
+                            sendEmailLink((RegisterUser)activity);
 
                             Toast.makeText(activity.getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
 

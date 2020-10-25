@@ -4,15 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Auth.RegisterService;
 import com.example.accord.Auth.RegisterUser;
 import com.example.accord.Auth.SignIn;
 import com.example.accord.Auth.UserType;
-import com.example.accord.Profiles.UserProfile;
+import com.example.accord.Firestore.StorageAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +38,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
-public class IntroActivity extends AppCompatActivity
-{
+public class IntroActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -63,34 +67,60 @@ public class IntroActivity extends AppCompatActivity
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
-    public void ToLogin(View view)
-    {
+
+    public void ToLogin(View view) {
         //Log.i("Tag","Button Pressed!!");
-//        Intent intent = new Intent(getApplicationContext(),OnBoardingIntro.class);
-//        startActivity(intent);
-//        finish();
-        startActivity(new Intent(this, UserProfile.class).putExtra("uid", "testUid")); // change uid to get user
+        Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
+        startActivity(intent);
+        finish();
+    }
+
+    void testStorage() {
+        StorageAPI storageAPI = new StorageAPI();
+        File file = new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)), "images.png");// fle to upload
+
+        Uri uri = Uri.fromFile(file);
+        storageAPI.uploadFile("test", "profileImage", uri, new StorageAPI.StorageTask() {
+            @Override
+            public void onSuccess(Uri url) {
+                //update ui
+                Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void trackProgress(double val) {
+                Log.d("progress", String.valueOf(val));
+                //update ui with val
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                //update ui
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        testStorage();
         // change 1
         //startActivity(new Intent(this,SignIn.class));
-       // EmailAuth emailAuth=new EmailAuth();
-       // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
+        // EmailAuth emailAuth=new EmailAuth();
+        // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
         //check:https://console.firebase.google.com/u/0/project/accord-b1f26/authentication/users
         Random d = new Random();
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        final LottieAnimationView lottieAnimationView = (LottieAnimationView)findViewById(R.id.lottieAnimationView);
+                        final LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
                         lottieAnimationView.animate().alpha(0).setDuration(500);
-                        LottieAnimationView lottieAnimationView2 = (LottieAnimationView)findViewById(R.id.lottieAnimationView2);
+                        LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView2);
                         lottieAnimationView2.animate().alpha(1).setDuration(1250);
                         lottieAnimationView2.setProgress(0f);
                         lottieAnimationView2.setClickable(true);

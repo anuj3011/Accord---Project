@@ -3,6 +3,7 @@ package com.example.accord.Auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.accord.AboutApp.AboutAppFragment;
 import com.example.accord.R;
 import com.example.accord.SlideUser;
 import com.example.accord.SliderAdapter;
@@ -28,7 +32,7 @@ public class UserType extends AppCompatActivity {
     private SlideUser sliderAdapter;
     private TextView[] Dots;
     boolean flag2 = false;
-    int CurPage;
+    int CurPage=0;
 
 
     @Override
@@ -49,9 +53,12 @@ public class UserType extends AppCompatActivity {
 
     public void ToSignUp(View view){
 
+        //Toast.makeText(getBaseContext(),CurPage,Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), SignIn.class);
+        intent.putExtra("Flag",CurPage);
         startActivity(intent);
         finish();
+
     }
 
     public void DotsIndicator(int position){
@@ -67,7 +74,7 @@ public class UserType extends AppCompatActivity {
         }
 
         if(Dots.length>0){
-            Dots[position].setTextColor(getResources().getColor(R.color.white));
+            Dots[position].setTextColor(getResources().getColor(R.color.black1));
         }
     }
 
@@ -105,4 +112,5 @@ public class UserType extends AppCompatActivity {
 
         }
     };
+
 }
