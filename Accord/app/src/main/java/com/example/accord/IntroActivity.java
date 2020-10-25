@@ -110,8 +110,7 @@ public class IntroActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+
         Random d = new Random();
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {

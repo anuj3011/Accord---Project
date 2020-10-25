@@ -33,9 +33,10 @@ public class YourAccountFragment extends Fragment {
     FloatingActionButton applyButton;
     EmailAuth emailAuth = new EmailAuth();
     User user=new User();
-
+    String userId;
     void getUserProfile() {
-        firestoreAPI.getUser("user", "testUid", new UserAPI.UserTask() {
+        userId=new EmailAuth().checkSignIn().getUid();
+        firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
             @Override
             public void onSuccess(Object object) {
                 user = (User) object;

@@ -7,7 +7,7 @@ public class User {
 
     private int Age;
     private int pincode;
-    private String Phone;
+    private String phone;
     private String password;
     private String email;
     String name;
@@ -19,8 +19,13 @@ public class User {
     int donationCount;
     public User (){}
 
-    public User(int Age, int pincode, String Phone, String password, String email, String add1, String area, String city) {
-        // ...
+    public User(String name,String Phone, String email, String add1, String area, String city) {
+        this.name=name;
+        this.phone=Phone;
+        this.email=email;
+        this.add1=add1;
+        this.area=area;
+        this.city=city;
     }
     public int getOrderCount(){
         return  orderCount;
@@ -42,7 +47,7 @@ public class User {
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public String getpassword() {

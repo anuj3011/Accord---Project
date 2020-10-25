@@ -36,7 +36,7 @@ public class UserAPI {
 
     public void getUser(final String type, String uid, final UserTask userTask) {
         db.collection(type)// collection reference
-                .document("testUid")
+                .document(uid)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

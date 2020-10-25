@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.accord.Firestore.UserAPI;
+import com.example.accord.MainActivity;
+import com.example.accord.Models.User;
 import com.example.accord.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +35,7 @@ public class RegisterUser extends AppCompatActivity {
     EmailAuth emailAuth = new EmailAuth();
     public Button signInButton;
     Activity self;
-
+    User user= new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -110,6 +113,7 @@ public class RegisterUser extends AppCompatActivity {
         }
         if (flag == 1) {
                 flag_main=1;
+
               NewUser();
 //            Intent intent = new Intent(getApplicationContext(),.class);
 //            startActivity(intent);
@@ -129,13 +133,27 @@ public class RegisterUser extends AppCompatActivity {
 //        password = textView.getText().toString();
 
                 if (emailSent) {
-                    final FirebaseUser user = emailAuth.mAuth.getCurrentUser();
-                    assert user != null;
-                    user.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    final FirebaseUser firebaseUser = emailAuth.mAuth.getCurrentUser();
+                    assert firebaseUser != null;
+                    firebaseUser.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (user.isEmailVerified()) {
+                            if (firebaseUser.isEmailVerified()) {
                                 Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "Completing Registration Process", Toast.LENGTH_LONG).show();
+                                user=new User(name,Phone,email,add1,area,city);
+                                new UserAPI().pushUser("user", firebaseUser.getUid(), user, new UserAPI.UserTask() {
+                                    @Override
+                                    public void onSuccess(Object object) {
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onFailure(String msg) {
+                                        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                                 // got to dashboard
                                 //navigate ahead to Profile Page
                             } else {
