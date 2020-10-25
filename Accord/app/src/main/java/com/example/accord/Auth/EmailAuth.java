@@ -23,13 +23,9 @@ public class EmailAuth {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    boolean checkSignIn() { // checks if user is signed in, call this on app start
+  public FirebaseUser checkSignIn() { // checks if user is signed in, call this on app start
         user = mAuth.getCurrentUser();
-        if (user != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return  user;
     }
 
     public  void sendEmailLink(final Activity activity) {
@@ -103,7 +99,7 @@ public class EmailAuth {
 
 
                         } else {
-                            if(checkSignIn()){
+                            if(checkSignIn()!=null){
                                 Toast.makeText(activity.getApplicationContext(), "Signed in,Checking Verification", Toast.LENGTH_LONG).show();
                             }
                             Toast.makeText(activity.getApplicationContext(), task.getException().toString(),  Toast.LENGTH_LONG).show();

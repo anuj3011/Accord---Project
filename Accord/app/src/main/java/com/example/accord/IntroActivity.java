@@ -16,6 +16,7 @@ import com.example.accord.Auth.RegisterUser;
 import com.example.accord.Auth.SignIn;
 import com.example.accord.Auth.UserType;
 import com.example.accord.Firestore.StorageAPI;
+import com.example.accord.YourAccount.YourAccountFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -101,18 +102,16 @@ public class IntroActivity extends AppCompatActivity {
 
         });
     }
-
+    void testProfile(){
+        startActivity(new Intent(this, YourAccountFragment.class));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        testStorage();
-        // change 1
-        //startActivity(new Intent(this,SignIn.class));
-        // EmailAuth emailAuth=new EmailAuth();
-        // emailAuth.signIn("dhruvddevasthale@gmail.com","test123",MainActivity.this);// signs in and prints uid
-        //check:https://console.firebase.google.com/u/0/project/accord-b1f26/authentication/users
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
         Random d = new Random();
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {

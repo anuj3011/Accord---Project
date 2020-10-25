@@ -10,14 +10,23 @@ public class User {
     private String Phone;
     private String password;
     private String email;
+    String name;
     private String add1;
     private String area;
     private String city;
     String type="user";
+    int orderCount;
+    int donationCount;
     public User (){}
 
     public User(int Age, int pincode, String Phone, String password, String email, String add1, String area, String city) {
         // ...
+    }
+    public int getOrderCount(){
+        return  orderCount;
+    }
+    public  int getDonationCount(){
+        return  donationCount;
     }
     public String getType(){
         return type;
@@ -25,7 +34,9 @@ public class User {
     public int getAge() {
         return Age;
     }
-
+    public String getName(){
+        return name;
+    }
     public int getpincode() {
         return pincode;
     }

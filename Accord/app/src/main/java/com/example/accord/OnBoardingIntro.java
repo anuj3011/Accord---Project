@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.accord.Auth.SignIn;
 import com.example.accord.Auth.UserType;
-import com.example.accord.Profiles.UserProfile;
+
 
 public class OnBoardingIntro extends AppCompatActivity {
 

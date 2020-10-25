@@ -39,7 +39,9 @@
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
                 android:text="Name"
-                android:textSize="24sp" />
+                android:textColor="#FDFAFA"
+                android:textSize="24sp"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/Email"
@@ -48,7 +50,19 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
-                android:text="Address"
+                android:text="Email"
+                android:textColor="#FDF8F8"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/Phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:padding="15dp"
+                android:text="Phone"
+                android:textColor="#FFFEFE"
                 android:textSize="24sp" />
 
             <TextView
@@ -58,17 +72,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
-                android:text="Phone"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/OtherInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:padding="15dp"
-                android:text="Email"
+                android:text="Address"
                 android:textSize="24sp" />
 
             <TextView
