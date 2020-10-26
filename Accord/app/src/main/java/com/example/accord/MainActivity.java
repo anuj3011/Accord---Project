@@ -30,32 +30,30 @@ package com.example.accord;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.example.accord.Firestore.LocationService;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.example.accord.Firestore.LocationService;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private long backPressedTime;
     private Toast backToast;
+    int realTimePush = 0;
 
     @Override
     public void onBackPressed() {
@@ -73,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void testLocation() {
-        new LocationService().getDistance("19.237500, 72.971638",
-                "19.236477, 72.972089", new LocationService.LocationTask() {
+        new LocationService().startRealTimeLocationThread("user",
+                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", "105", new LocationService.LocationTask() {
                     @Override
                     public void onGetDistance(String value) {
 
@@ -87,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(Object location) {
+                        Log.d("location", "success");
                         Toast.makeText(getApplicationContext(),location.toString(),Toast.LENGTH_LONG).show();
                     }
                 });
