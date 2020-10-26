@@ -28,15 +28,17 @@ package com.example.accord;
 //}
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.LocaleList;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.accord.Firestore.LocationService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -70,6 +72,26 @@ public class MainActivity extends AppCompatActivity {
         backPressedTime = System.currentTimeMillis();
     }
 
+    void testLocation() {
+        new LocationService().getLocation("user",
+                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", new LocationService.LocationTask() {
+                    @Override
+                    public void onGetDistance(String value) {
+
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onSuccess(Object location) {
+                        Toast.makeText(getApplicationContext(),location.toString(),Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -77,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        testLocation();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        FloatingActionButton fab = findViewById(R.id.fab);
@@ -114,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void ToServices(View view){
-        Intent intent = new Intent(this,ServicesOption.class);
+    public void ToServices(View view) {
+        Intent intent = new Intent(this, ServicesOption.class);
         startActivity(intent);
     }
 }
