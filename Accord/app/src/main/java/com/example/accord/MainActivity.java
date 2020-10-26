@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void testLocation() {
-        new LocationService().getLocation("user",
-                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", new LocationService.LocationTask() {
+        new LocationService().getDistance("19.237500, 72.971638",
+                "19.236477, 72.972089", new LocationService.LocationTask() {
                     @Override
                     public void onGetDistance(String value) {
 
