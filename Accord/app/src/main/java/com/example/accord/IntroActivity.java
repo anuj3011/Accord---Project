@@ -44,6 +44,9 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class IntroActivity extends AppCompatActivity {
+
+
+    int flag = 1;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -109,8 +112,7 @@ public class IntroActivity extends AppCompatActivity {
         EmailAuth emailAuth=new EmailAuth();
         FirebaseUser user=emailAuth.checkSignIn();
         if(user!=null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+            flag = 0;
         }
     }
     @Override
@@ -124,16 +126,17 @@ public class IntroActivity extends AppCompatActivity {
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        final LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
-                        lottieAnimationView.animate().alpha(0).setDuration(500);
-                        LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView2);
-                        lottieAnimationView2.animate().alpha(1).setDuration(1250);
-                        lottieAnimationView2.setProgress(0f);
-                        lottieAnimationView2.setClickable(true);
-                        boolean isAnimating = true;
-                        while (isAnimating) {
-                            if (lottieAnimationView2.getProgress() == 1f)
-                                lottieAnimationView2.pauseAnimation();
+
+                        if(flag == 1){
+
+                            Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
 
                     }

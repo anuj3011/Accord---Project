@@ -35,7 +35,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="375dp"
         android:layout_marginEnd="10dp">
 
         <LinearLayout
@@ -48,17 +48,16 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
-                android:src="@drawable/carpenter" />
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/electrician" />
 
             <ImageView
                 android:id="@+id/Service2"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_weight="1"
-
-                android:src="@drawable/electrician" />
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/packers" />
 
             <ImageView
                 android:id="@+id/Service3"
@@ -66,8 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/gardner"
-                 />
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/painter" />
 
             <ImageView
                 android:id="@+id/Service4"
@@ -75,8 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/plumber"
-                />
+                app:srcCompat="@drawable/plumber" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -101,8 +99,9 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/cleaner"
-              />
+
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/pestcontrol" />
 
             <ImageView
                 android:id="@+id/Service6"
@@ -110,8 +109,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/painter"
-              />
+
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/carpenter" />
 
             <ImageView
                 android:id="@+id/Service7"
@@ -119,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/pestcontrol" />
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/cleaner" />
 
             <ImageView
                 android:id="@+id/Service8"
@@ -127,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/packers" />
+                app:srcCompat="@drawable/gardner" />
         </LinearLayout>
     </HorizontalScrollView>
 
