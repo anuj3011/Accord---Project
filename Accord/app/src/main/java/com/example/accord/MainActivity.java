@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     void testLocation() {
         new LocationService().startRealTimeLocationThread("user",
-                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", "105", new LocationService.LocationTask() {
+                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", "106", new LocationService.LocationTask() {
                     @Override
                     public void onGetDistance(String value) {
 
@@ -86,14 +86,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Object location) {
                         Log.d("location", "success");
-                        Toast.makeText(getApplicationContext(),location.toString(),Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getApplicationContext(),location.toString(),Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);

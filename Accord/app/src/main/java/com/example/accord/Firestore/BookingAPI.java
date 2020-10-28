@@ -3,15 +3,21 @@ package com.example.accord.Firestore;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.Session;
+import com.example.accord.Models.User;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,9 +93,31 @@ public class BookingAPI {
 
     }
 
-    void cancelBooking(String uid) {
+    public void getLocationInCurrentSession(final String type, String uid, final LocationService.LocationTask locationTask){
+        db.collection(type).document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                try{
+                    if(error!=null){
+                        throw error;
+                    }
+                    if(type.equals("user")){
+                        LatLng latLng=value.toObject(User.class).currentLocation;
+                        locationTask.onSuccess(latLng);
+                    }
+                    else if(type.equals("sp")){
+                        LatLng latLng=value.toObject(ServiceProvider.class).currentLocation;
+                        locationTask.onSuccess(latLng);
+                    }
 
+                }
+                catch (Exception e){
+                        locationTask.onFailure(e.getMessage());
+                }
+            }
+        });
     }
+
 
 
 }

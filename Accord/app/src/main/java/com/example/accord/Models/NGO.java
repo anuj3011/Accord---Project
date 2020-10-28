@@ -1,6 +1,6 @@
 package com.example.accord.Models;
 
-public class NGO {
+public class NGO extends CustomUser{
 
     //class defined for NGO_Registration purposes
 
@@ -12,32 +12,14 @@ public class NGO {
     private String profession;
     private String password;
    public String type="ngo";
-    String uid;
+
 
     public NGO ()
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     {
 
     }
-    public NGO (String uid,String full_name, String Phone, String Address, String email, String profession)
-    {
-        this.uid=uid;
-        this.full_name=full_name;
-        this.Phone=Phone;
-        this.Address=Address;
-        this.email=email;
-        this.profession=profession;
 
-    }
-    public NGO (String full_name, String Phone, String Address, String email, String profession)
-    {
-        this.full_name=full_name;
-        this.Phone=Phone;
-        this.Address=Address;
-        this.email=email;
-        this.profession=profession;
-
-    }
 public String getType(){
         return type;
 }
