@@ -76,13 +76,13 @@ public class YourAccountFragment extends Fragment {
 
 
     void updateUserProfile(User user) {
-        setText(R.id.Name, "Name:"+user.getName());
-        setText(R.id.Email, "Email:"+user.getemail());
+        setText(R.id.Name, "Name: "+user.getName());
+        setText(R.id.Email, "Email: "+user.getemail());
 
-        setText(R.id.Phone, "Phone:"+user.getPhone());
+        setText(R.id.Phone, "Phone: "+user.getPhone());
         setText(R.id.OrderNumber, String.valueOf(user.getOrderCount()));
         setText(R.id.DonateNumber,String.valueOf(user.getDonationCount()));
-        setText(R.id.Address,"Address:"+user.getadd1());
+        setText(R.id.Address,"Address: "+user.getadd1());
 
     }
     View root;

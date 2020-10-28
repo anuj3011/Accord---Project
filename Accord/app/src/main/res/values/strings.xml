@@ -11,4 +11,5 @@
     <string name="menu_History">History</string>
     <string name="menu_Youraccount">Your Account</string>
     <string name="title_activity_maps">Map</string>
+    <string name="address">1203 Sun Palazzo Building, Lower Parel, Mumbai</string>
 </resources>

@@ -76,7 +76,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/inputName"
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -87,7 +87,7 @@
                 android:singleLine="true" />
 
             <EditText
-                android:id="@+id/inputEmail"
+                android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -98,7 +98,7 @@
                 android:singleLine="true" />
 
             <EditText
-                android:id="@+id/inputNumber"
+                android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
