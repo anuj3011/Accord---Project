@@ -46,7 +46,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.accord.Firestore.LocationService;
+import com.example.accord.Models.ServiceProvider;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,9 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
     void testLocation() {
         new LocationService().startRealTimeLocationThread("user",
-                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", "106", new LocationService.LocationTask() {
+                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", new LatLng(0.2,0.1), new LocationService.LocationTask() {
                     @Override
                     public void onGetDistance(String value) {
+
+                    }
+
+                    @Override
+                    public void onGetServiceProvidersWithinDistance(List<ServiceProvider> serviceProviders) {
 
                     }
 

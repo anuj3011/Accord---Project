@@ -4,7 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class CustomUser {
     public String uid;
-    public LatLng currentLocation;
+    public CustomLatLng currentLocation;
     public CustomUser(){
 
     }
@@ -14,7 +14,7 @@ public class CustomUser {
 
     }
 
-    public LatLng getCurrentLocation() {
+    public CustomLatLng getCurrentLocation() {
         return currentLocation;
     }
 }

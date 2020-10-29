@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.Session;
 import com.example.accord.Models.User;
@@ -102,11 +103,11 @@ public class BookingAPI {
                         throw error;
                     }
                     if(type.equals("user")){
-                        LatLng latLng=value.toObject(User.class).currentLocation;
+                        CustomLatLng latLng=value.toObject(User.class).currentLocation;
                         locationTask.onSuccess(latLng);
                     }
                     else if(type.equals("sp")){
-                        LatLng latLng=value.toObject(ServiceProvider.class).currentLocation;
+                        CustomLatLng latLng=value.toObject(ServiceProvider.class).currentLocation;
                         locationTask.onSuccess(latLng);
                     }
 

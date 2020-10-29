@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.User;
 import com.google.android.gms.maps.model.LatLng;
@@ -49,9 +50,10 @@ public class LocationService {
     }
 
 
-
-    public double getDistance(LatLng origin, LatLng dest) {
-        return SphericalUtil.computeDistanceBetween(origin, dest);
+    public double getDistance(CustomLatLng origin, CustomLatLng dest) {
+        LatLng originLoc=new LatLng(origin.getLatitude(),origin.getLongitude());
+        LatLng destLoc=new LatLng(dest.getLatitude(),dest.getLongitude());
+        return SphericalUtil.computeDistanceBetween(originLoc, destLoc);
 
     }
 
@@ -78,7 +80,7 @@ public class LocationService {
 
     void pushLocation(final String type, final String uid, final Object location, final LocationTask locationTask) {
         final Map<String, Object> loc = new HashMap();
-        loc.put("location", location);
+        loc.put("currentLocation", location);
         firebaseFirestore.collection(type).document(uid).set(loc, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -104,12 +106,8 @@ public class LocationService {
             @Override
             public void run() {
 
-                new Timer().scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        pushLocation(type, uid, location, locationTask);
-                    }
-                }, 0, 5000);
+
+                pushLocation(type, uid, location, locationTask);
 
 
             }
