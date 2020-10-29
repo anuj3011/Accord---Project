@@ -8,6 +8,8 @@ public class Session {
     public String userID;
     public String serviceProviderID;
     public String sessionID;
+    public boolean isSearchStarted;
+    public  boolean isAccepted;
     String payment;
     String service;
     public boolean isActive;
@@ -32,4 +34,19 @@ public class Session {
         return isActive;
     }
 
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public boolean isPayed() {
+        return isPayed;
+    }
+
+    public boolean isSearchStarted() {
+        return isSearchStarted;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
 }
