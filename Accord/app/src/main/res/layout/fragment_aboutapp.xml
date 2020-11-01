@@ -142,7 +142,9 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="-2dp"
         android:layout_marginBottom="-150dp"
-        android:background="@drawable/roundbg" />
+        android:background="@drawable/roundbg"
+        android:clickable="true"
+        android:onClick="ToNGO" />
 
     <TextView
         android:id="@+id/textView2"
@@ -184,7 +186,7 @@
         android:gravity="center_horizontal"
         android:text="Donate NGO"
         android:textAlignment="center"
-        android:textColor="@color/black1"
+        android:textColor="@color/white"
         android:textSize="24sp" />
 
 </RelativeLayout>
