@@ -37,8 +37,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.accord.NGOMainMenu.ngo;
+import com.example.accord.ServiceMainMenu.ServicesOption;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -115,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ToServices(View view){
-        Intent intent = new Intent(this,ServicesOption.class);
+        Intent intent = new Intent(this, ServicesOption.class);
         startActivity(intent);
     }
 
     public void ToNGO(View view){
-        Intent intent = new Intent(this,ngo.class);
+        Intent intent = new Intent(this, ngo.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }

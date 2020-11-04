@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ngo"
+        <activity android:name=".NGOMainMenu.ngo"
             android:theme="@style/AppTheme3"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -35,13 +35,13 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".OrderPage"></activity>
+        <activity android:name=".UserMainMenu.OrderPage"></activity>
         <activity android:name=".Items" />
-        <activity android:name=".ServiceGrp" />
+        <activity android:name=".ServiceMainMenu.ServiceGrp" />
         <activity
-            android:name=".ServicesOption"
+            android:name=".ServiceMainMenu.ServicesOption"
             android:theme="@style/AppTheme2" />
-        <activity android:name=".SlideUser" />
+        <activity android:name=".UserMainMenu.SlideUser" />
         <activity
             android:name=".OnBoardingIntro"
             android:theme="@style/AppTheme.NoActionBar" />

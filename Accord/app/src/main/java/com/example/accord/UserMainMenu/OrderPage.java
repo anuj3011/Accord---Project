@@ -1,4 +1,4 @@
-package com.example.accord;
+package com.example.accord.UserMainMenu;
 
 import android.Manifest;
 import android.content.Context;
@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.accord.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;

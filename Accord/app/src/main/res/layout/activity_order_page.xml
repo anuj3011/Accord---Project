@@ -16,7 +16,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        tools:context=".OrderPage" />
+        tools:context=".UserMainMenu.OrderPage" />
 
     <RadioButton
         android:id="@+id/radioButton1"

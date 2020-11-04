@@ -1,10 +1,10 @@
-package com.example.accord;
+package com.example.accord.ServiceMainMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +17,9 @@ import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
-import android.os.Bundle;
+import com.example.accord.ExpandableListAdapter;
+import com.example.accord.UserMainMenu.OrderPage;
+import com.example.accord.R;
 
 public class ServicesOption extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
@@ -92,7 +94,7 @@ public class ServicesOption extends AppCompatActivity {
                                     listDataHeader.get(groupPosition)).get(
                                     childPosition), Toast.LENGTH_SHORT)
                             .show();*/
-                    Intent intent = new Intent(getApplicationContext(),OrderPage.class);
+                    Intent intent = new Intent(getApplicationContext(), OrderPage.class);
                     startActivity(intent);
                     return false;
                 }

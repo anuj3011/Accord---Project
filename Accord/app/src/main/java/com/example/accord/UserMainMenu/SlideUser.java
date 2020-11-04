@@ -1,4 +1,4 @@
-package com.example.accord;
+package com.example.accord.UserMainMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.accord.R;
 
 public class SlideUser extends PagerAdapter {
     int CurPage;
