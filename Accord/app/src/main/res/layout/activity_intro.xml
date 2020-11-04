@@ -9,8 +9,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
         android:layout_marginTop="116dp"
         android:alpha="1"
         android:background="#FFFFFF"
@@ -21,31 +21,8 @@
         app:layout_constraintTop_toBottomOf="@+id/Title"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/seesaw"
+        app:lottie_rawRes="@raw/loading111"
         app:lottie_speed="1.25" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:alpha="0"
-        android:background="#FFFFFF"
-        android:clickable="false"
-        android:onClick="ToLogin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lottieAnimationView"
-        app:layout_constraintVertical_bias="1.0"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/startbutton2"
-        app:lottie_speed="1.00" />
 
     <ImageView
         android:id="@+id/Title"

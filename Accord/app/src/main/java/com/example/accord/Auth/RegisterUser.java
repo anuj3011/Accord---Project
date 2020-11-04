@@ -58,13 +58,13 @@ public class RegisterUser extends AppCompatActivity {
 
         int flag=0;
 
-        TextView textView = (TextView) findViewById(R.id.inputName);
+        TextView textView = (TextView) findViewById(R.id.name);
         name = textView.getText().toString();
 
-        textView = (TextView) findViewById(R.id.inputEmail);
+        textView = (TextView) findViewById(R.id.address);
         email = textView.getText().toString();
 
-        textView = (TextView) findViewById(R.id.inputNumber);
+        textView = (TextView) findViewById(R.id.number);
         Phone = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputZip);

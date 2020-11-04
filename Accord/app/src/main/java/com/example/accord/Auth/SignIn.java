@@ -111,6 +111,7 @@ public class SignIn extends AppCompatActivity {
                 //navigate here
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

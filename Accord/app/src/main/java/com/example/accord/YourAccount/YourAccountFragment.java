@@ -76,14 +76,25 @@ public class YourAccountFragment extends Fragment {
 
 
     void updateUserProfile(User user) {
-        setText(R.id.Name, "Name:"+user.getName());
-        setText(R.id.Email, "Email:"+user.getemail());
+        setText(R.id.Name, "Name: "+user.getName());
+        setText(R.id.Email, "Email: "+user.getemail());
 
-        setText(R.id.Phone, "Phone:"+user.getPhone());
+        setText(R.id.Phone, "Phone: "+user.getPhone());
         setText(R.id.OrderNumber, String.valueOf(user.getOrderCount()));
         setText(R.id.DonateNumber,String.valueOf(user.getDonationCount()));
-        setText(R.id.Address,"Address:"+user.getadd1());
-
+        setText(R.id.Address,"Address: "+user.getadd1());
+        TextView textView = root.findViewById(R.id.Name);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.OrderNumber);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.DonateNumber);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.Email);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.Phone);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.Address);
+        textView.animate().alpha(1).setDuration(100);
     }
     View root;
     public View onCreateView(@NonNull LayoutInflater inflater,

@@ -148,4 +148,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ServicesOption.class);
         startActivity(intent);
     }
+
+    public void ToNGO(View view){
+        Intent intent = new Intent(this,ngo.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+    }
 }
