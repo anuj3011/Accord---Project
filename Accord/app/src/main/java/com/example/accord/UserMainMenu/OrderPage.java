@@ -29,6 +29,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.accord.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -55,8 +56,10 @@ public class OrderPage extends FragmentActivity {
     public void CenterOnMap(Location location, String title) {
         LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SelectedLocation, 14));
+
+        //mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SelectedLocation, 15));
+
     }
 
 
@@ -74,7 +77,7 @@ public class OrderPage extends FragmentActivity {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap=googleMap;
-                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 Log.d("location","checking location");
                checkPermissionsForLocation();
             }
@@ -110,6 +113,7 @@ public class OrderPage extends FragmentActivity {
 
         }
         Log.d("location","getting location");
+        mMap.setMyLocationEnabled(true);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
