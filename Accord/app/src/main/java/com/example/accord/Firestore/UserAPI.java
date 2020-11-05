@@ -4,9 +4,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.accord.Models.CustomUser;
 import com.example.accord.Models.NGO;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.User;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +42,10 @@ public class UserAPI {
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                Map locationMap= (Map) documentSnapshot.getData().get("currentLocation");
+                Log.d("location", String.valueOf(locationMap));
+
                 if (type.equals("user")) {
                     User test = documentSnapshot.toObject(User.class);
                     userTask.onSuccess(test);
