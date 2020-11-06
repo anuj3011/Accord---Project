@@ -1,8 +1,10 @@
-package com.example.accord;
+package com.example.accord.ServiceMainMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.accord.R;
 
 public class ServiceGrp extends AppCompatActivity {
 

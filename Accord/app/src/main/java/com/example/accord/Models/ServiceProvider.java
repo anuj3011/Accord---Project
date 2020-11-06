@@ -1,6 +1,8 @@
 package com.example.accord.Models;
 
-public class ServiceProvider {
+import com.google.android.gms.maps.model.LatLng;
+
+public class ServiceProvider extends CustomUser {
 
     //class defined for Service provider registeration purposes.
 
@@ -15,6 +17,7 @@ public class ServiceProvider {
     private String profession;
     private String password;
     public String type="sp";
+
     public ServiceProvider ()
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     {
@@ -24,6 +27,7 @@ public class ServiceProvider {
     {
        //
     }
+
     public String getType(){
         return type;
     }

@@ -28,32 +28,40 @@ package com.example.accord;
 //}
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.accord.NGOMainMenu.ngo;
+import com.example.accord.ServiceMainMenu.ServicesOption;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.example.accord.Firestore.LocationService;
+import com.example.accord.Models.ServiceProvider;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private long backPressedTime;
     private Toast backToast;
+    int realTimePush = 0;
 
     @Override
     public void onBackPressed() {
@@ -70,13 +78,39 @@ public class MainActivity extends AppCompatActivity {
         backPressedTime = System.currentTimeMillis();
     }
 
+    void testLocation() {
+        new LocationService().startRealTimeLocationThread("user",
+                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", new LatLng(0.2,0.1), new LocationService.LocationTask() {
+                    @Override
+                    public void onGetDistance(String value) {
+
+                    }
+
+                    @Override
+                    public void onGetServiceProvidersWithinDistance(List<ServiceProvider> serviceProviders) {
+
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onSuccess(Object location) {
+                        Log.d("location", "success");
+                      //  Toast.makeText(getApplicationContext(),location.toString(),Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        testLocation();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        FloatingActionButton fab = findViewById(R.id.fab);
@@ -114,13 +148,13 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void ToServices(View view){
-        Intent intent = new Intent(this,ServicesOption.class);
+    public void ToServices(View view) {
+        Intent intent = new Intent(this, ServicesOption.class);
         startActivity(intent);
     }
 
     public void ToNGO(View view){
-        Intent intent = new Intent(this,ngo.class);
+        Intent intent = new Intent(this, ngo.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }

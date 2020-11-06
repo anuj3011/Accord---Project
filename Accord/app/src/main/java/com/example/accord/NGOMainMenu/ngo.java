@@ -1,4 +1,4 @@
-package com.example.accord;
+package com.example.accord.NGOMainMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
 import android.widget.Toast;
+
+import com.example.accord.MainActivity;
+import com.example.accord.UserMainMenu.OrderPage;
+import com.example.accord.R;
 
 public class ngo extends AppCompatActivity {
     GridLayout mainGrid;
@@ -74,7 +76,7 @@ public class ngo extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(getApplicationContext(),OrderPage.class);
+                    Intent intent = new Intent(getApplicationContext(), OrderPage.class);
                     startActivity(intent);
                     finish();
 

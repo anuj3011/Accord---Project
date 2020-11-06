@@ -1,6 +1,8 @@
 package com.example.accord.Models;
 
-public class User {
+import com.google.android.gms.maps.model.LatLng;
+
+public class User extends CustomUser{
 
     //class defined for user registeration purposes.
 
@@ -17,6 +19,7 @@ public class User {
     String type="user";
     int orderCount;
     int donationCount;
+
     public User (){}
 
     public User(String name,String Phone, String email, String add1, String area, String city) {
@@ -26,7 +29,9 @@ public class User {
         this.add1=add1;
         this.area=area;
         this.city=city;
+
     }
+
     public int getOrderCount(){
         return  orderCount;
     }
