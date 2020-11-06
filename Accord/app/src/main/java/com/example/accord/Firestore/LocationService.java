@@ -75,7 +75,7 @@ public class LocationService {
         });
     }
 
-    void pushLocation(final String type, final String uid, final Object location, final LocationTask locationTask) {
+    public void pushLocation(final String type, final String uid, final Object location, final LocationTask locationTask) {
         final Map<String, Object> loc = new HashMap();
         loc.put("currentLocation", location);
         firebaseFirestore.collection(type).document(uid).set(loc, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -97,21 +97,6 @@ public class LocationService {
         });
     }
 
-    public void startRealTimeLocationThread(final String type, final String uid, final Object location, final LocationTask locationTask) {
 
-        realTimeLocation = new Thread() {
-            @Override
-            public void run() {
-
-
-                pushLocation(type, uid, location, locationTask);
-
-
-            }
-        };
-        realTimeLocation.start();// starts a loop location write after every 10 seconds on a different thread
-
-
-    }
 
 }

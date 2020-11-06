@@ -26,6 +26,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.accord.Auth.EmailAuth;
+import com.example.accord.Firestore.LocationService;
+import com.example.accord.Models.CustomLatLng;
+import com.example.accord.Models.ServiceProvider;
 import com.example.accord.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -49,10 +53,11 @@ public class OrderPage extends FragmentActivity {
     private GoogleMap mMap;
     LocationManager locationManager;
     LocationListener locationListener;
-
-    LatLng CurrentLocation;
-
-
+    LocationService locationService = new LocationService();
+    CustomLatLng currentLocation=null;
+    String uid="";
+    EmailAuth emailAuth=new EmailAuth();
+    boolean getLocationCounter=false;
     public void CenterOnMap(Location location, String title) {
         LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.clear();
@@ -76,10 +81,10 @@ public class OrderPage extends FragmentActivity {
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                mMap=googleMap;
+                mMap = googleMap;
                 mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                Log.d("location","checking location");
-               checkPermissionsForLocation();
+                Log.d("location", "checking location");
+                checkPermissionsForLocation();
             }
         });
     }
@@ -90,8 +95,8 @@ public class OrderPage extends FragmentActivity {
         if (grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // Permission is granted
-            Log.d("location","permission granted");
-                requestLocationUpdates();
+            Log.d("location", "permission granted");
+            requestLocationUpdates();
 
         } else {
             // toast need permission for location
@@ -100,9 +105,38 @@ public class OrderPage extends FragmentActivity {
 
     }
 
+    void pushUserLocationOnOrder() {
+        uid=emailAuth.checkSignIn().getUid();
+        if(!getLocationCounter){
+            locationService.pushLocation("user", uid, currentLocation, new LocationService.LocationTask() {
+                @Override
+                public void onGetDistance(String value) {
+
+                }
+
+                @Override
+                public void onGetServiceProvidersWithinDistance(List<ServiceProvider> serviceProviders) {
+
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    Toast.makeText(getApplicationContext(),"Push Location Failed",Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onSuccess(Object location) {
+                    getLocationCounter=true;
+                    Toast.makeText(getApplicationContext(),"Pushing Location",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+    }
+
     void requestLocationUpdates() {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -112,14 +146,18 @@ public class OrderPage extends FragmentActivity {
             // for ActivityCompat#requestPermissions for more details.
 
         }
-        Log.d("location","getting location");
+        Log.d("location", "getting location");
         mMap.setMyLocationEnabled(true);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 Log.d("location", location.toString());
+                currentLocation=new CustomLatLng();
+                currentLocation.latitude=location.getLatitude();
+                currentLocation.longitude=location.getLongitude();
 
-                CenterOnMap(location,"Test");
+                pushUserLocationOnOrder();
+                CenterOnMap(location, "Test");
             }
 
             @Override
@@ -133,14 +171,12 @@ public class OrderPage extends FragmentActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
         } else {
             requestLocationUpdates();
         }
 
     }
-
-
 
 
     public void onMapLongClick(LatLng latLng) {

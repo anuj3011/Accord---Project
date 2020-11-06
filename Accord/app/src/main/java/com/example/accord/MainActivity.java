@@ -78,31 +78,7 @@ public class MainActivity extends AppCompatActivity {
         backPressedTime = System.currentTimeMillis();
     }
 
-    void testLocation() {
-        new LocationService().startRealTimeLocationThread("user",
-                "GP5cbamsnnUyWnJlzZ1reqAKv5z2", new LatLng(0.2,0.1), new LocationService.LocationTask() {
-                    @Override
-                    public void onGetDistance(String value) {
 
-                    }
-
-                    @Override
-                    public void onGetServiceProvidersWithinDistance(List<ServiceProvider> serviceProviders) {
-
-                    }
-
-                    @Override
-                    public void onFailure(String msg) {
-                        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onSuccess(Object location) {
-                        Log.d("location", "success");
-                      //  Toast.makeText(getApplicationContext(),location.toString(),Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testLocation();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        FloatingActionButton fab = findViewById(R.id.fab);
