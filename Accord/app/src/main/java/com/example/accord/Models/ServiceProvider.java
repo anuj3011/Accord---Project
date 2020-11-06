@@ -6,16 +6,17 @@ public class ServiceProvider extends CustomUser {
 
     //class defined for Service provider registeration purposes.
 
-    private String first_name;
-    private String last_name;
+    public String first_name;
+    public String last_name;
+    public boolean isSkilled;
+    public int Age;
+    public  String category;
 
-    private int Age;
-    private long Phone;
-
-    private String Address;
-    private String email;
-    private String profession;
-    private String password;
+    public String Address;
+    public String email;
+    public String profession;
+    public String password;
+    String phone;
     public String type="sp";
 
     public ServiceProvider ()
@@ -23,9 +24,8 @@ public class ServiceProvider extends CustomUser {
     {
     }
 
-    public ServiceProvider (String first_name, String last_name, int Age, long Phone, String Address, String email, String profession, String password)
-    {
-       //
+    public String getCategory() {
+        return category;
     }
 
     public String getType(){
@@ -40,16 +40,15 @@ public class ServiceProvider extends CustomUser {
     {
         return last_name;
     }
-
+    public boolean getisSkilled(){
+        return isSkilled;
+    }
     public int getAge()
     {
         return Age;
     }
 
-    public long getPhone()
-    {
-        return Phone;
-    }
+  
 
     public String getAddress()
     {
@@ -71,4 +70,7 @@ public class ServiceProvider extends CustomUser {
         return password;
     }
 
+    public String getPhone() {
+        return phone;
+    }
 }

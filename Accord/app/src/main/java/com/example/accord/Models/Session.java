@@ -10,6 +10,9 @@ public class Session {
     public String sessionID;
     public boolean isSearchStarted;
     public  boolean isAccepted;
+    public  boolean isServiceSkilled;
+    public String serviceCategory;
+
     String payment;
     String service;
     public boolean isActive;
@@ -32,6 +35,13 @@ public class Session {
     }
     boolean checkisActive(){
         return isActive;
+    }
+
+    public String getServiceCategory() {
+        return serviceCategory;
+    }
+    public  boolean getIsSkilled(){
+        return  isServiceSkilled;
     }
 
     public boolean isCompleted() {
