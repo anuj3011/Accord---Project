@@ -75,11 +75,13 @@ public class BookingAPI {
     }
 
 
-    public void bookService(String userID, final onBooked onBookedCallBack) {
+    public void bookService(String userID, String category,boolean isSkilled ,final onBooked onBookedCallBack) {
         session.userID = userID;
         session.isActive = true;
         session.isCompleted = false;
         session.isSearchStarted = true;
+        session.serviceCategory=category;
+        session.isServiceSkilled=isSkilled;
 
         DocumentReference sessionReference = db.collection("sessions").document();
         session.sessionID = sessionReference.getId();
@@ -87,6 +89,11 @@ public class BookingAPI {
             @Override
             public void onSuccess(Void aVoid) {
                 onBookedCallBack.onBooked(session);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                onBookedCallBack.onBookingFailed();
             }
         });
     }

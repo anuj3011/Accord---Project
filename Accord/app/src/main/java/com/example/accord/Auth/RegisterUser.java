@@ -45,7 +45,7 @@ public class RegisterUser extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         self = this;
-       Button registerButton=(Button) findViewById(R.id.button);
+       Button registerButton=(Button) findViewById(R.id.confirmOrderButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

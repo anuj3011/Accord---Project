@@ -40,7 +40,7 @@ public class RegisterService extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_service);
         imgPictures= (ImageView)findViewById(R.id.imgPictures);
-        Button registerButton=(Button) findViewById(R.id.button);
+        Button registerButton=(Button) findViewById(R.id.confirmOrderButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

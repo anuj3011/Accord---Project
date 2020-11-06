@@ -27,9 +27,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.accord.Auth.EmailAuth;
+import com.example.accord.Firestore.BookingAPI;
 import com.example.accord.Firestore.LocationService;
 import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
+import com.example.accord.Models.Session;
 import com.example.accord.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -54,28 +56,47 @@ public class OrderPage extends FragmentActivity {
     LocationManager locationManager;
     LocationListener locationListener;
     LocationService locationService = new LocationService();
-    CustomLatLng currentLocation=null;
-    String uid="";
-    EmailAuth emailAuth=new EmailAuth();
-    boolean getLocationCounter=false;
+    CustomLatLng currentLocation = null;
+    String uid = "";
+    EmailAuth emailAuth = new EmailAuth();
+    boolean getLocationCounter = false;
+    boolean isSkilled = true;
+    String serviceCatgeory = "category";
+
     public void CenterOnMap(Location location, String title) {
         LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.clear();
 
         //mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SelectedLocation, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SelectedLocation, 10));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(SelectedLocation, 18));
 
     }
 
+    void setButtonOnClickListeners() {
+        Button button = findViewById(R.id.confirmOrderButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookingAPI bookingAPI = new BookingAPI();
+                bookingAPI.bookService(uid, serviceCatgeory, isSkilled, new BookingAPI.onBooked() {
+                    @Override
+                    public void onBooked(Session session) {
+                        Toast.makeText(getApplicationContext(), "Order Placed, Searching for Service Providers", Toast.LENGTH_LONG).show();
+                        //navigate to current order activity
+                    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+                    @Override
+                    public void onBookingFailed() {
+                        Toast.makeText(getApplicationContext(), "Booking Failed", Toast.LENGTH_LONG).show();
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    }
+                });
+            }
+        });
+    }
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_page);
+    void getGoogleMapAsync() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -90,6 +111,18 @@ public class OrderPage extends FragmentActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_page);
+        getGoogleMapAsync();
+        setButtonOnClickListeners();
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         if (grantResults.length > 0 &&
@@ -100,37 +133,38 @@ public class OrderPage extends FragmentActivity {
 
         } else {
             // toast need permission for location
+            Toast.makeText(getApplicationContext(), "Please Grant permission for location", Toast.LENGTH_LONG).show();
         }
 
 
     }
 
     void pushUserLocationOnOrder() {
-        uid=emailAuth.checkSignIn().getUid();
-        if(!getLocationCounter){
-            locationService.pushLocation("user", uid, currentLocation, new LocationService.LocationTask() {
-                @Override
-                public void onGetDistance(String value) {
+        uid = emailAuth.checkSignIn().getUid();
 
-                }
+        locationService.pushLocation("user", uid, currentLocation, new LocationService.LocationTask() {
+            @Override
+            public void onGetDistance(String value) {
 
-                @Override
-                public void onGetServiceProvidersWithinDistance(List<ServiceProvider> serviceProviders) {
+            }
 
-                }
+            @Override
+            public void onGetServiceProvidersWithinDistance(List<ServiceProvider> serviceProviders) {
 
-                @Override
-                public void onFailure(String msg) {
-                    Toast.makeText(getApplicationContext(),"Push Location Failed",Toast.LENGTH_LONG).show();
-                }
+            }
 
-                @Override
-                public void onSuccess(Object location) {
-                    getLocationCounter=true;
-                    Toast.makeText(getApplicationContext(),"Pushing Location",Toast.LENGTH_LONG).show();
-                }
-            });
-        }
+            @Override
+            public void onFailure(String msg) {
+                Toast.makeText(getApplicationContext(), "Push Location Failed", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onSuccess(Object location) {
+
+                Toast.makeText(getApplicationContext(), "Pushing Location", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 
@@ -152,12 +186,15 @@ public class OrderPage extends FragmentActivity {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 Log.d("location", location.toString());
-                currentLocation=new CustomLatLng();
-                currentLocation.latitude=location.getLatitude();
-                currentLocation.longitude=location.getLongitude();
+                currentLocation = new CustomLatLng();
+                currentLocation.latitude = location.getLatitude();
+                currentLocation.longitude = location.getLongitude();
+                if (!getLocationCounter) {
+                    pushUserLocationOnOrder();
+                    CenterOnMap(location, "Test");
+                    getLocationCounter = true;
+                }
 
-                pushUserLocationOnOrder();
-                CenterOnMap(location, "Test");
             }
 
             @Override
