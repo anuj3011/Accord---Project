@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ToNGO(View view){
+    public void ToNGO(View view) {
         Intent intent = new Intent(this, ngo.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);

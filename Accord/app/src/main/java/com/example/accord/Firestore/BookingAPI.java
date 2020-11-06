@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.accord.Models.CustomLatLng;
+import com.example.accord.Models.NGO;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.Session;
 import com.example.accord.Models.User;
@@ -27,7 +28,26 @@ import java.util.Map;
 public class BookingAPI {
     public FirebaseFirestore db = FirebaseFirestore.getInstance();
     Session session = new Session();
-    UserAPI firestoreAPI = new UserAPI();
+
+    public interface onBooked {
+        void onBooked(Session session);
+
+        void onBookingFailed();
+    }
+
+    public interface onEndSession {
+        void onEndSession();// function to be called when endSession task is completed
+
+        void onFailed();
+    }
+
+    public interface BookingTask {
+        void onSuccess(List<Session> sessions);
+
+        void onSuccess();
+
+        void onFailed(String msg);
+    }
 
     public void endService(String sessionID, final onEndSession callback) {
         DocumentReference sessionReference = db.collection("sessions").document(sessionID);
@@ -54,23 +74,13 @@ public class BookingAPI {
         });
     }
 
-    public interface onBooked {
-        void onBooked(Session session);
 
-        void onBookingFailed();
-    }
-
-    public interface onEndSession {
-        void onEndSession();// function to be called when endSession task is completed
-
-        void onFailed();
-    }
-
-    public void bookService(String userID, String serviceProviderID, final onBooked onBookedCallBack) {
+    public void bookService(String userID, final onBooked onBookedCallBack) {
         session.userID = userID;
         session.isActive = true;
         session.isCompleted = false;
-        session.serviceProviderID = serviceProviderID;
+        session.isSearchStarted = true;
+
         DocumentReference sessionReference = db.collection("sessions").document();
         session.sessionID = sessionReference.getId();
         sessionReference.set(session).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -81,19 +91,13 @@ public class BookingAPI {
         });
     }
 
-    interface BookingTask {
-        void onSuccess(List<String> sessions);
-
-        void onSuccess();
-
-        void onFailed(String msg);
-    }
 
     public void acceptServiceSession(String serviceProviderID, final String sessionID, final BookingTask bookingTask) {
         Map<String, Object> map = new HashMap<>();
         map.put("isAccepted", true);
         map.put("serviceProviderID", serviceProviderID);
         map.put("isActive", true);
+        map.put("isSearchStarted", false);
         db.collection("sessions").document(sessionID).set(map, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -108,56 +112,34 @@ public class BookingAPI {
         });
     }
 
-    public void getOpenSessionsForProviders(String serviceProviderID, int range, final BookingTask bookingTask) { // un
-        // accepted
-        // sessions
-        // within
-        // a
-        // range
+    public void getOpenSessionsForProviders(final ServiceProvider serviceProvider, final BookingTask bookingTask) { // un
+
         db.collection("sessions").whereEqualTo("isActive", true).whereEqualTo("isSearchStarted", true)
-                .whereEqualTo("isAccepted", false).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    try {
-                        throw error;
-                    } catch (FirebaseFirestoreException e) {
-                        e.printStackTrace();
-                        bookingTask.onFailed(e.getMessage());
+                .whereEqualTo("isAccepted", false)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            try {
+                                throw error;
+                            } catch (FirebaseFirestoreException e) {
+                                e.printStackTrace();
+                                bookingTask.onFailed(e.getMessage());
+                            } catch (Exception exception) {
+                                bookingTask.onFailed(exception.getMessage());
+                            }
+                        } else {
+                            List<Session> sessions = new ArrayList<Session>();
+                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                Session session = snapshot.toObject(Session.class);
+                                sessions.add(session);
+                            }
+
+                            bookingTask.onSuccess(sessions);
+                        }
                     }
-                } else {
-                    List<String> sessions = new ArrayList<String>();
-                    for (DocumentSnapshot snapshot : value.getDocuments()) {
-                        sessions.add(snapshot.getId());
-                    }
-                    bookingTask.onSuccess(sessions);
-                }
-            }
-        });
+                });
     }
 
-    public void getLocationInCurrentSession(final String type, String uid,
-                                            final LocationService.LocationTask locationTask) {
-        db.collection(type).document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                try {
-                    if (error != null) {
-                        throw error;
-                    }
-                    if (type.equals("user")) {
-                        CustomLatLng latLng = value.toObject(User.class).currentLocation;
-                        locationTask.onSuccess(latLng);
-                    } else if (type.equals("sp")) {
-                        CustomLatLng latLng = value.toObject(ServiceProvider.class).currentLocation;
-                        locationTask.onSuccess(latLng);
-                    }
-
-                } catch (Exception e) {
-                    locationTask.onFailure(e.getMessage());
-                }
-            }
-        });
-    }
 
 }

@@ -3,18 +3,22 @@ package com.example.accord.Firestore;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.accord.Models.CustomLatLng;
+import com.example.accord.Models.NGO;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.User;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import  com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap;
 
 
 import org.json.JSONObject;
@@ -47,10 +51,10 @@ public class LocationService {
 
 
     public double getDistance(CustomLatLng origin, CustomLatLng dest) {
-        LatLng originLoc=new LatLng(origin.getLatitude(),origin.getLongitude());
-        LatLng destLoc=new LatLng(dest.getLatitude(),dest.getLongitude());
+        LatLng originLoc = new LatLng(origin.getLatitude(), origin.getLongitude());
+        LatLng destLoc = new LatLng(dest.getLatitude(), dest.getLongitude());
         return 1;
-      //  return SphericalUtil.computeDistanceBetween(originLoc, destLoc);
+        //  return SphericalUtil.computeDistanceBetween(originLoc, destLoc);
 
     }
 
@@ -97,6 +101,34 @@ public class LocationService {
         });
     }
 
+    public void getLocationOfActiveUser(final String type, String uid,
+                                        final LocationService.LocationTask locationTask) {
+        firebaseFirestore.collection(type).document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                try {
+                    if (error != null) {
+                        throw error;
+                    }
+                    CustomLatLng latLng = new CustomLatLng();
+                    if (type.equals("user")) {
+                        latLng = value.toObject(User.class).currentLocation;
+
+                    } else if (type.equals("sp")) {
+                        latLng = value.toObject(ServiceProvider.class).currentLocation;
+
+                    } else if (type.equals("ngo")) {
+                        latLng = value.toObject(NGO.class).currentLocation;
+
+                    }
+                    locationTask.onSuccess(latLng);
+
+                } catch (Exception e) {
+                    locationTask.onFailure(e.getMessage());
+                }
+            }
+        });
+    }
 
 
 }
