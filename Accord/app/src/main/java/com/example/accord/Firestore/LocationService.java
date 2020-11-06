@@ -14,11 +14,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import com.google.maps.android.SphericalUtil;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpRequest;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import  com.google.android.gms.maps.GoogleMap;
+
 
 import org.json.JSONObject;
 
@@ -29,11 +26,10 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cz.msebera.android.httpclient.Header;
 
 public class LocationService {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    AsyncHttpClient client = new AsyncHttpClient();
+
     Thread realTimeLocation;
 
 
@@ -53,7 +49,8 @@ public class LocationService {
     public double getDistance(CustomLatLng origin, CustomLatLng dest) {
         LatLng originLoc=new LatLng(origin.getLatitude(),origin.getLongitude());
         LatLng destLoc=new LatLng(dest.getLatitude(),dest.getLongitude());
-        return SphericalUtil.computeDistanceBetween(originLoc, destLoc);
+        return 1;
+      //  return SphericalUtil.computeDistanceBetween(originLoc, destLoc);
 
     }
 
