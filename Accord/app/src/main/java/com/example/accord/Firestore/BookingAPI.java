@@ -41,7 +41,7 @@ public class BookingAPI {
         void onFailed();
     }
 
-    interface BookingTask {
+    public interface BookingTask {
         void onSuccess(List<Session> sessions);
 
         void onSuccess();
@@ -112,7 +112,7 @@ public class BookingAPI {
         });
     }
 
-    public void getOpenSessionsForProviders(final ServiceProvider serviceProvider, int range, final BookingTask bookingTask) { // un
+    public void getOpenSessionsForProviders(final ServiceProvider serviceProvider, final BookingTask bookingTask) { // un
 
         db.collection("sessions").whereEqualTo("isActive", true).whereEqualTo("isSearchStarted", true)
                 .whereEqualTo("isAccepted", false)
@@ -126,14 +126,16 @@ public class BookingAPI {
                                 e.printStackTrace();
                                 bookingTask.onFailed(e.getMessage());
                             }
+                            catch (Exception exception){
+                                bookingTask.onFailed(exception.getMessage());
+                            }
                         } else {
                             List<Session> sessions = new ArrayList<Session>();
                             for (DocumentSnapshot snapshot : value.getDocuments()) {
                                 Session session = snapshot.toObject(Session.class);
-                                if (session.isServiceSkilled == serviceProvider.isSkilled && session.serviceCategory.equals(serviceProvider.category)) {
-                                    sessions.add(session);
-                                }
+                               sessions.add(session);
                             }
+
                             bookingTask.onSuccess(sessions);
                         }
                     }
