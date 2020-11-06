@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_aboutapp">AboutApp</string>
+    <string name="menu_aboutapp">Home</string>
     <string name="menu_History">History</string>
     <string name="menu_Youraccount">Your Account</string>
     <string name="title_activity_maps">Map</string>
