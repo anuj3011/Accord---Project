@@ -1,10 +1,11 @@
 package com.example.accord.Models;
 
 public class CustomLatLng {
-    double latitude;
-    double longitude;
-    CustomLatLng(){
-
+   public double latitude;
+    public double longitude;
+    public CustomLatLng(){
+        latitude=0;
+        longitude=0;
     }
 
     public double getLatitude() {

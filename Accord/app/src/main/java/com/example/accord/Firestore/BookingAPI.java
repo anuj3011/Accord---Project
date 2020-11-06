@@ -1,7 +1,5 @@
 package com.example.accord.Firestore;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -9,7 +7,6 @@ import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.Session;
 import com.example.accord.Models.User;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,8 +16,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BookingAPI {
@@ -80,26 +81,15 @@ public class BookingAPI {
         });
     }
 
-    public void getCurrentSession(String uid, final onBooked sessionCallBack) {// returns a task for current session
-        db.collection("sessions").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot snapshot) {
+    interface BookingTask {
+        void onSuccess(List<String> sessions);
 
-                session = Session.fromSnapshot(snapshot);
-                sessionCallBack.onBooked(session);
+        void onSuccess();
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("error", e.getMessage());
-            }
-        });
-        ;
-
+        void onFailed(String msg);
     }
 
-    public void acceptServiceSession(String serviceProviderID, String sessionID, final BookingTask bookingTask) {
+    public void acceptServiceSession(String serviceProviderID, final String sessionID, final BookingTask bookingTask) {
         Map<String, Object> map = new HashMap<>();
         map.put("isAccepted", true);
         map.put("serviceProviderID", serviceProviderID);
@@ -111,43 +101,43 @@ public class BookingAPI {
                         bookingTask.onSuccess();// accepted
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        bookingTask.onFailed(e.getMessage());
-                    }
-                });
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                bookingTask.onFailed(e.getMessage());
+            }
+        });
     }
 
     public void getOpenSessionsForProviders(String serviceProviderID, int range, final BookingTask bookingTask) { // un
-                                                                                                                  // accepted
-                                                                                                                  // sessions
-                                                                                                                  // within
-                                                                                                                  // a
-                                                                                                                  // range
+        // accepted
+        // sessions
+        // within
+        // a
+        // range
         db.collection("sessions").whereEqualTo("isActive", true).whereEqualTo("isSearchStarted", true)
                 .whereEqualTo("isAccepted", false).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            try {
-                                throw error;
-                            } catch (FirebaseFirestoreException e) {
-                                e.printStackTrace();
-                                bookingTask.onFailed(e.getMessage());
-                            }
-                        } else {
-                            List<String> sessions = new ArrayList<String>();
-                            for (DocumentSnapshot snapshot : value.getDocuments()) {
-                                sessions.add(snapshot.getId());
-                            }
-                            bookingTask.onSuccess(sessions);
-                        }
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    try {
+                        throw error;
+                    } catch (FirebaseFirestoreException e) {
+                        e.printStackTrace();
+                        bookingTask.onFailed(e.getMessage());
                     }
-                });
+                } else {
+                    List<String> sessions = new ArrayList<String>();
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+                        sessions.add(snapshot.getId());
+                    }
+                    bookingTask.onSuccess(sessions);
+                }
+            }
+        });
     }
 
     public void getLocationInCurrentSession(final String type, String uid,
-            final LocationService.LocationTask locationTask) {
+                                            final LocationService.LocationTask locationTask) {
         db.collection(type).document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
