@@ -125,15 +125,14 @@ public class BookingAPI {
                             } catch (FirebaseFirestoreException e) {
                                 e.printStackTrace();
                                 bookingTask.onFailed(e.getMessage());
-                            }
-                            catch (Exception exception){
+                            } catch (Exception exception) {
                                 bookingTask.onFailed(exception.getMessage());
                             }
                         } else {
                             List<Session> sessions = new ArrayList<Session>();
                             for (DocumentSnapshot snapshot : value.getDocuments()) {
                                 Session session = snapshot.toObject(Session.class);
-                               sessions.add(session);
+                                sessions.add(session);
                             }
 
                             bookingTask.onSuccess(sessions);
@@ -142,33 +141,5 @@ public class BookingAPI {
                 });
     }
 
-    public void getLocationInCurrentSession(final String type, String uid,
-                                            final LocationService.LocationTask locationTask) {
-        db.collection(type).document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                try {
-                    if (error != null) {
-                        throw error;
-                    }
-                    CustomLatLng latLng = new CustomLatLng();
-                    if (type.equals("user")) {
-                        latLng = value.toObject(User.class).currentLocation;
-
-                    } else if (type.equals("sp")) {
-                        latLng = value.toObject(ServiceProvider.class).currentLocation;
-
-                    } else if (type.equals("ngo")) {
-                        latLng = value.toObject(NGO.class).currentLocation;
-
-                    }
-                    locationTask.onSuccess(latLng);
-
-                } catch (Exception e) {
-                    locationTask.onFailure(e.getMessage());
-                }
-            }
-        });
-    }
 
 }
