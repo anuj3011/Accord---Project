@@ -26,18 +26,5 @@ public class OrderHistoryAPI {
         });
     }
 
-    public void getOrderHistory(String uid, final FirebaseTaskInterface firebaseTaskInterface) {
-        firebaseFirestore.collection("user").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                firebaseTaskInterface.onSuccess();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                firebaseTaskInterface.onFailure(e.getMessage());
-            }
-        });
-    }
 }

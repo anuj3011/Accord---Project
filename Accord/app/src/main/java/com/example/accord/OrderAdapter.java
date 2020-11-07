@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.accord.Models.Order;
+
 import java.util.List;
 
 
@@ -18,10 +20,10 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-    List<Order_Type> OrderList;
+    List<Order> OrderList;
     Context context;
 
-    public OrderAdapter(List<Order_Type>OrderList){
+    public OrderAdapter(List<Order>OrderList){
         this.OrderList = OrderList;
     }
 
@@ -50,10 +52,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Order_Type order_type = OrderList.get(position);
+        Order order_type = OrderList.get(position);
 
-        holder.textorder.setText(order_type.GetOrder());
-        holder.img.setImageResource(order_type.GetImg());
+        holder.textorder.setText(order_type.getServiceName());
+        holder.img.setImageResource(R.drawable.down2);
 
 
     }

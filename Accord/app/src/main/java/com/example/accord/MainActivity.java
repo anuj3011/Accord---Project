@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Object object) {
                 user = (User) object;
 
-             
+
                 updateNavHeader(user);
             }
 

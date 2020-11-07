@@ -6,9 +6,16 @@ public class Order {
     public  String serviceProviderId;
     public  String completedOnDate;
     public  boolean isActive;
+    String serviceName;
+    String serviceProviderName;
     public Order(){
 
     }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
     public String getCompletedOnDate() {
         return completedOnDate;
     }
