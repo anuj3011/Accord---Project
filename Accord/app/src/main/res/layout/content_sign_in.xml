@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/accord" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/navHeaderEmail"
         android:layout_width="358dp"
         android:layout_height="57dp"
         android:layout_marginStart="31dp"
@@ -43,7 +43,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/navHeaderEmail" />
 
     <EditText
         android:id="@+id/signInPass"

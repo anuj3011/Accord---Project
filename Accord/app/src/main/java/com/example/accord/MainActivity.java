@@ -35,16 +35,23 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.accord.Auth.EmailAuth;
+import com.example.accord.Firestore.UserAPI;
+import com.example.accord.Models.User;
 import com.example.accord.NGOMainMenu.ngo;
 import com.example.accord.ServiceMainMenu.ServicesOption;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -62,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
     int realTimePush = 0;
+    String userId = "";
+    UserAPI firestoreAPI = new UserAPI();
+    User user = new User();
 
     @Override
     public void onBackPressed() {
@@ -78,6 +88,53 @@ public class MainActivity extends AppCompatActivity {
         backPressedTime = System.currentTimeMillis();
     }
 
+    void updateNavHeader(User user) {
+        try {
+            TextView textView=navigationView.getHeaderView(0).findViewById(R.id.navHeaderName);
+            textView.setText(user.getName());
+            textView=navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
+            textView.setText(user.getemail());
+        } catch (NullPointerException nullPointerException) {
+            getUserProfile();
+        } catch (Exception exception) {
+
+        }
+    }
+
+    void getUserProfile() {
+        userId = new EmailAuth().checkSignIn().getUid();
+        firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
+            @Override
+            public void onSuccess(Object object) {
+                user = (User) object;
+                updateNavHeader(user);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    NavigationView navigationView;
+
+    void setupNavigationView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,28 +142,10 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getUserProfile();
+        setupNavigationView();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override
