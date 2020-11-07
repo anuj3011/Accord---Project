@@ -37,17 +37,16 @@ public class UserAPI {
     }
 
     public void getUser(final String type, String uid, final UserTask userTask) {
-        db.collection(type)// collection reference
+       db.collection(type)// collection reference
                 .document(uid)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                Map locationMap= (Map) documentSnapshot.getData().get("currentLocation");
-                Log.d("location", String.valueOf(locationMap));
 
                 if (type.equals("user")) {
                     User test = documentSnapshot.toObject(User.class);
+                    Log.d("user",test.toString());
                     userTask.onSuccess(test);
                 } else if (type.equals("ngo")) {
                     userTask.onSuccess(documentSnapshot.toObject((NGO.class)));

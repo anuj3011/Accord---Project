@@ -39,7 +39,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.accord.Auth.EmailAuth;
+import com.example.accord.Firestore.FirebaseTaskInterface;
+import com.example.accord.Firestore.OrderHistoryAPI;
 import com.example.accord.Firestore.UserAPI;
+import com.example.accord.Models.Order;
 import com.example.accord.Models.User;
 import com.example.accord.NGOMainMenu.ngo;
 import com.example.accord.ServiceMainMenu.ServicesOption;
@@ -103,10 +106,13 @@ public class MainActivity extends AppCompatActivity {
 
     void getUserProfile() {
         userId = new EmailAuth().checkSignIn().getUid();
+
         firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
             @Override
             public void onSuccess(Object object) {
                 user = (User) object;
+
+             
                 updateNavHeader(user);
             }
 
@@ -142,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         getUserProfile();
         setupNavigationView();
 

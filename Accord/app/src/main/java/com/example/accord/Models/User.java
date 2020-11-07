@@ -2,6 +2,9 @@ package com.example.accord.Models;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User extends CustomUser{
 
     //class defined for user registeration purposes.
@@ -19,7 +22,7 @@ public class User extends CustomUser{
     String type="user";
     int orderCount;
     int donationCount;
-
+    ArrayList<Order> orders=new ArrayList<Order>();
     public User (){}
 
     public User(String name,String Phone, String email, String add1, String area, String city) {
@@ -30,6 +33,10 @@ public class User extends CustomUser{
         this.area=area;
         this.city=city;
 
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
     }
 
     public int getOrderCount(){
