@@ -32,9 +32,9 @@
         android:layout_marginBottom="-4dp"
         android:editable="false"
         android:gravity="center_horizontal"
-        android:text="Order Details"
+        android:text="Track Order"
         android:textColor="@color/black1"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
     <ScrollView
         android:id="@+id/Scroll"

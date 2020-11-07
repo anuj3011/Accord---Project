@@ -118,7 +118,7 @@ public class TrackOrder extends AppCompatActivity {
         route.setClickable(true);
         route.setTag("Route");
         route.setGeodesic(true);
-      
+
     }
 
     void getServiceProviderLocation(String serviceProviderID) {
