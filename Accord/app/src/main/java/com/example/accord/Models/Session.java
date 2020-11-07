@@ -9,29 +9,46 @@ public class Session {
     public String serviceProviderID;
     public String sessionID;
     public boolean isSearchStarted;
-    public  boolean isAccepted;
+    public boolean isAccepted;
+    public boolean isServiceSkilled;
+    public String serviceCategory;
+
     String payment;
     String service;
     public boolean isActive;
     boolean isPayed;
     public boolean isCompleted;
-    public Session(){
+
+    public Session() {
 
     }
-    public static Session fromSnapshot(DocumentSnapshot snapshot){
+
+    public static Session fromSnapshot(DocumentSnapshot snapshot) {
         return snapshot.toObject(Session.class);// converts map data to object
     }
-    String getUser(){
+
+    String getUser() {
         return userID;
     }
-    String getServiceProvider(){
+
+    String getServiceProvider() {
         return serviceProviderID;
     }
-    String getSessionID(){
-        return  sessionID;
+
+    String getSessionID() {
+        return sessionID;
     }
-    boolean checkisActive(){
+
+    boolean checkisActive() {
         return isActive;
+    }
+
+    public String getServiceCategory() {
+        return serviceCategory;
+    }
+
+    public boolean getIsSkilled() {
+        return isServiceSkilled;
     }
 
     public boolean isCompleted() {

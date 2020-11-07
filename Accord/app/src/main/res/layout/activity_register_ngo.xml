@@ -23,7 +23,7 @@
         android:textStyle="italic" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/confirmOrderButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -43,7 +43,7 @@
         android:id="@+id/loginVIew"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/confirmOrderButton"
         android:layout_below="@+id/title2"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"

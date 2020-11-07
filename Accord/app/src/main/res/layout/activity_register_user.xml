@@ -148,7 +148,7 @@
                 android:singleLine="true" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/confirmOrderButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
