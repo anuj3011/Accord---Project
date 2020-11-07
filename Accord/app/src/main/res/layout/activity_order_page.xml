@@ -168,6 +168,7 @@
                 android:background="@drawable/round_border"
                 android:clickable="true"
                 android:gravity="center|center_horizontal|center_vertical"
+                android:onClick="Confirmation"
                 android:padding="-5dp"
                 android:text="Confirm Order"
                 android:textAllCaps="false"

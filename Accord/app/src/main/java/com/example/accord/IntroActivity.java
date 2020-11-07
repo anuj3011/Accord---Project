@@ -131,17 +131,19 @@ public class IntroActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                             finish();
                         }
                         else{
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                             finish();
                         }
 
                     }
                 },
-                4500
+                2500
         );
 
 

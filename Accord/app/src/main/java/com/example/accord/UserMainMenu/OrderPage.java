@@ -3,6 +3,7 @@ package com.example.accord.UserMainMenu;
 import android.Manifest;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -30,6 +31,8 @@ import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.LocationService;
 import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
+import com.example.accord.OnBoardingIntro;
+import com.example.accord.OrderConfirmation;
 import com.example.accord.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -218,6 +221,13 @@ public class OrderPage extends FragmentActivity {
         CompoundButton button = findViewById(R.id.radioButton1);
         button.setChecked(false);
 
+    }
+
+    public void Confirmation(View view){
+        Intent intent = new Intent(getApplicationContext(), OrderConfirmation.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        finish();
     }
 
 }
