@@ -10,40 +10,15 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="450dp"
+        android:layout_above="@+id/Price"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
+        android:layout_marginBottom="40dp"
         tools:context=".UserMainMenu.OrderPage" />
-
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/trackOrderMap"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="25dp"
-        android:checked="true"
-        android:onClick="Toggle1"
-        android:text="Skilled"
-        android:textColor="@color/black1"
-        android:textSize="20sp" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/trackOrderMap"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="70dp"
-        android:onClick="Toggle2"
-        android:text="Semi-Skilled"
-        android:textColor="@color/black1"
-        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/Price"
@@ -51,13 +26,15 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/Scroll"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="-4dp"
         android:editable="false"
         android:gravity="center_horizontal"
-        android:text="₹ Total Price"
+        android:text="Order Details"
         android:textColor="@color/black1"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
     <ScrollView
         android:id="@+id/Scroll"
@@ -83,7 +60,7 @@
             android:layout_marginBottom="0dp"
             android:orientation="vertical">
 
-            <EditText
+            <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,12 +68,12 @@
                 android:layout_marginTop="40dp"
                 android:editable="false"
                 android:ems="10"
-                android:hint="Name"
+                android:hint="Service Provider Name"
                 android:inputType="textPersonName"
                 android:padding="15dp"
                 android:singleLine="true" />
 
-            <EditText
+            <TextView
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,61 +81,13 @@
                 android:layout_marginTop="20dp"
                 android:editable="false"
                 android:ems="10"
-                android:hint="address"
+                android:hint="Service Provider Number"
                 android:inputType="textPostalAddress"
                 android:padding="15dp"
                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/inputAdd1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Landmark"
-                android:inputType="textShortMessage|textVisiblePassword|text"
-                android:padding="15dp"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Phone Number"
-                android:inputType="number|phone"
-                android:padding="15dp"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/inputArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Area"
-                android:inputType="textShortMessage|textVisiblePassword|text"
-                android:padding="15dp"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/inputZip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Pincode"
-                android:inputType="number"
-                android:padding="15dp"
-                android:singleLine="true" />
-
             <Button
-                android:id="@+id/confirmOrderButton"
+                android:id="@+id/cancelOrderButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -170,7 +99,7 @@
                 android:gravity="center|center_horizontal|center_vertical"
                 android:onClick="Confirmation"
                 android:padding="-5dp"
-                android:text="Confirm Order"
+                android:text="Cancel Order"
                 android:textAllCaps="false"
                 android:textColor="@color/black1"
                 android:textSize="24sp" />

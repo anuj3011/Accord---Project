@@ -30,6 +30,15 @@
                 android:layout_gravity="center"
                 android:id="@+id/order"
                 android:text="Place_holder"/>
+
+            <Button
+                android:id="@+id/trackOrderButton"
+                android:layout_width="105dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:background="@drawable/round_border"
+                android:text="Track" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
