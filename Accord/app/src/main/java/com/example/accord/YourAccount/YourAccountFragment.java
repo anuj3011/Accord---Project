@@ -25,6 +25,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 public class YourAccountFragment extends Fragment {
 
+
+    //boolean User = true;
+    //boolean Service = false;
+
     private YourAccountModel yourAccountModel;
     String uid = " ";
     UserAPI firestoreAPI = new UserAPI();

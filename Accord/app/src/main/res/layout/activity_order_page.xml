@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/trackOrderMap"
+        android:id="@+id/trackOrderMap2"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="450dp"
@@ -22,7 +22,7 @@
         android:id="@+id/radioButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/trackOrderMap"
+        android:layout_below="@id/trackOrderMap2"
         android:layout_alignParentStart="true"
         android:layout_marginStart="75dp"
         android:layout_marginTop="25dp"
@@ -36,7 +36,7 @@
         android:id="@+id/radioButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/trackOrderMap"
+        android:layout_below="@id/trackOrderMap2"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="70dp"

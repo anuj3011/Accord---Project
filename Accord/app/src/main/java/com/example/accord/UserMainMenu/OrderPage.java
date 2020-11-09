@@ -68,7 +68,7 @@ public class OrderPage extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.trackOrderMap);
+                .findFragmentById(R.id.trackOrderMap2);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
