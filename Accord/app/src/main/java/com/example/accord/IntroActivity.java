@@ -47,6 +47,7 @@ public class IntroActivity extends AppCompatActivity {
 
 
     int flag = 1;
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -105,46 +106,53 @@ public class IntroActivity extends AppCompatActivity {
 
         });
     }
-    void testProfile(){
+
+    void testProfile() {
         startActivity(new Intent(this, YourAccountFragment.class));
     }
-    void autoLogin(){
-        EmailAuth emailAuth=new EmailAuth();
-        FirebaseUser user=emailAuth.checkSignIn();
-        if(user!=null){
-            flag = 0;
-        }
+
+    void autoLogin() {
+        EmailAuth emailAuth = new EmailAuth();
+        final FirebaseUser user = emailAuth.checkSignIn();
+
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+
+                        if(user==null){
+                            navigateToOnBoarding();
+                        }
+                        else{
+                            navigateToMainActivity();
+                        }
+                    }
+                },
+                2500
+        );
+
     }
+
+    void navigateToOnBoarding() {
+        Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        finish();
+    }
+
+    void navigateToMainActivity() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         autoLogin();
-        Random d = new Random();
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-
-                        if(flag == 1){
-
-                            Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                            finish();
-                        }
-                        else{
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                            finish();
-                        }
-
-                    }
-                },
-                2500
-        );
 
 
     }

@@ -27,7 +27,9 @@ public class EmailAuth {
         user = mAuth.getCurrentUser();
         return  user;
     }
-
+    public void logout(){
+        mAuth.signOut();
+    }
     public  void sendEmailLink(final Activity activity) {
 
         user.sendEmailVerification()

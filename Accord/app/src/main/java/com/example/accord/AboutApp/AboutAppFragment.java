@@ -41,7 +41,7 @@ public class AboutAppFragment extends Fragment implements OnMapReadyCallback{
 
 
     private AboutAppModel aboutAppModel;
-    boolean User = false;
+    boolean User = true;
     boolean Service = false;
     private GoogleMap mMap;
     LocationManager locationManager;

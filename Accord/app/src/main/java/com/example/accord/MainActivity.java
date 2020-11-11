@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     String userId = "";
     UserAPI firestoreAPI = new UserAPI();
     User user = new User();
-
+    EmailAuth emailAuth=new EmailAuth();
     @Override
     public void onBackPressed() {
 
@@ -105,8 +105,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void getUserProfile() {
-        userId = new EmailAuth().checkSignIn().getUid();
+        userId = emailAuth.checkSignIn().getUid();
+        if(userId==null || userId.length()<1){
 
+                emailAuth.logout();
+            Toast.makeText(getApplicationContext(), "Loggin out", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this,IntroActivity.class));
+
+        }
         firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
             @Override
             public void onSuccess(Object object) {

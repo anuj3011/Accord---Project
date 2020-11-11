@@ -45,13 +45,32 @@ public class UserAPI {
 
 
                 if (type.equals("user")) {
-                    User test = documentSnapshot.toObject(User.class);
-                    Log.d("user",test.toString());
-                    userTask.onSuccess(test);
+                    User user = documentSnapshot.toObject(User.class);
+                    if(user!=null){
+                        userTask.onSuccess(user);
+                    }
+                    else {
+                        userTask.onFailure("Could not get User");
+                    }
+
                 } else if (type.equals("ngo")) {
-                    userTask.onSuccess(documentSnapshot.toObject((NGO.class)));
+
+                    NGO user = documentSnapshot.toObject(NGO.class);
+                    if(user!=null){
+                        userTask.onSuccess(user);
+                    }
+                    else {
+                        userTask.onFailure("Could not get User");
+                    }
+
                 } else {
-                    userTask.onSuccess(documentSnapshot.toObject(ServiceProvider.class));
+                    NGO user = documentSnapshot.toObject(NGO.class);
+                    if(user!=null){
+                        userTask.onSuccess(user);
+                    }
+                    else {
+                        userTask.onFailure("Could not get User");
+                    }
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
