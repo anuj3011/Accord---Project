@@ -42,6 +42,7 @@ import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.FirebaseTaskInterface;
 import com.example.accord.Firestore.OrderHistoryAPI;
 import com.example.accord.Firestore.UserAPI;
+import com.example.accord.Models.CustomUser;
 import com.example.accord.Models.Order;
 import com.example.accord.Models.User;
 import com.example.accord.NGOMainMenu.ngo;
@@ -72,9 +73,11 @@ public class MainActivity extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
     int realTimePush = 0;
+    String type="";
     String userId = "";
     UserAPI firestoreAPI = new UserAPI();
     User user = new User();
+    ServiceProvider serviceProvider=new ServiceProvider();
     EmailAuth emailAuth=new EmailAuth();
     @Override
     public void onBackPressed() {
@@ -109,14 +112,21 @@ public class MainActivity extends AppCompatActivity {
         if(userId==null || userId.length()<1){
 
                 emailAuth.logout();
-            Toast.makeText(getApplicationContext(), "Loggin out", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this,IntroActivity.class));
 
         }
-        firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
+        firestoreAPI.getUser(type, userId, new UserAPI.UserTask() {
             @Override
             public void onSuccess(Object object) {
-                user = (User) object;
+                if(type=="user"){
+                    user=(User) object;
+                    serviceProvider=null;
+                }
+                else if(type=="sp"){
+                    serviceProvider=(ServiceProvider) object;
+                    user=null;
+                }
 
 
                 updateNavHeader(user);
@@ -144,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        
 
 
     }
@@ -154,7 +165,18 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle user=getIntent().getExtras();
+        if(user!=null){
+           String type=user.getString("type");
+          this.type=type;
+          if(type=="user"){
 
+          }
+          else if(type=="sp"){
+
+          }
+
+        }
         getUserProfile();
         setupNavigationView();
 

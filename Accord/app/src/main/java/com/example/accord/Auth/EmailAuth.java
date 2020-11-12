@@ -87,30 +87,27 @@ public class EmailAuth {
 
     public void registerUser(String email, String pass, final Activity activity) {
 
-        mAuth.createUserWithEmailAndPassword(email, pass)
+        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    user = mAuth.getCurrentUser();
+                    sendEmailLink((RegisterUser)activity);
 
-                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            user = mAuth.getCurrentUser();
-                            sendEmailLink((RegisterUser)activity);
-
-                            Toast.makeText(activity.getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity.getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
 
 
 
-                        } else {
-                            if(checkSignIn()!=null){
-                                Toast.makeText(activity.getApplicationContext(), "Signed in,Checking Verification", Toast.LENGTH_LONG).show();
-                            }
-                            Toast.makeText(activity.getApplicationContext(), task.getException().toString(),  Toast.LENGTH_LONG).show();
-                        }
-
-
-                        // ...
+                } else {
+                    if(checkSignIn()!=null){
+                        Toast.makeText(activity.getApplicationContext(), "Signed in,Checking Verification", Toast.LENGTH_LONG).show();
                     }
-                });
+                    Toast.makeText(activity.getApplicationContext(), task.getException().toString(),  Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
     }
 
 

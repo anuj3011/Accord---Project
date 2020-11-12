@@ -12,13 +12,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.accord.Firestore.UserAPI;
+import com.example.accord.MainActivity;
+import com.example.accord.Models.ServiceProvider;
+import com.example.accord.Models.User;
 import com.example.accord.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import javax.annotation.Nullable;
 
@@ -33,8 +42,9 @@ public class RegisterService extends AppCompatActivity {
     String Phone="";
 
     String add1="",email="",profession="",password="",area="",city="";
-
-
+    boolean emailSent=false;
+    EmailAuth emailAuth=new EmailAuth();
+    ServiceProvider serviceProvider=new ServiceProvider();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +155,55 @@ public class RegisterService extends AppCompatActivity {
 
 
     }
+    public void NewUser() {
 
+
+
+        if (emailSent) {
+            final FirebaseUser firebaseUser = emailAuth.mAuth.getCurrentUser();
+            assert firebaseUser != null;
+            firebaseUser.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (firebaseUser.isEmailVerified()) {
+                        Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Completing Registration Process", Toast.LENGTH_LONG).show();
+
+                        new UserAPI().pushUser("sp", firebaseUser.getUid(), serviceProvider, new UserAPI.UserTask() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.putExtra("user", (Serializable) serviceProvider);
+                                intent.putExtra("type","sp");
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+                                Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        // got to dashboard
+                        //navigate ahead to Profile Page
+                    } else {
+                        Toast.makeText(getBaseContext(), "Not Verified", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        } else {
+
+            if(flag_main==1){
+
+                emailSent = true;
+                emailAuth.registerUser(email, password,this );
+            }
+
+
+        }
+
+        // email link
+    }
     public void ImageClick(View view)
     {
         //TextView textView = (TextView)findViewById(R.id.textView);

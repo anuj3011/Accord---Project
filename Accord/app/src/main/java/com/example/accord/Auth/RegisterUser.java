@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.Serializable;
+
 public class RegisterUser extends AppCompatActivity {
     String name = null;
     String pincode = "";
@@ -126,11 +128,7 @@ public class RegisterUser extends AppCompatActivity {
 
     public void NewUser() {
 
-//        TextView textView;
-//        textView = (TextView) findViewById(R.id.inputEmail);
-//        email = textView.getText().toString();
-//        textView = (TextView) findViewById(R.id.inputPass);
-//        password = textView.getText().toString();
+
 
                 if (emailSent) {
                     final FirebaseUser firebaseUser = emailAuth.mAuth.getCurrentUser();
@@ -146,6 +144,8 @@ public class RegisterUser extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Object object) {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        intent.putExtra("user", (Serializable) user);
+                                        intent.putExtra("type","user");
                                         startActivity(intent);
                                     }
 
