@@ -41,8 +41,9 @@ public class AboutAppFragment extends Fragment implements OnMapReadyCallback{
 
 
     private AboutAppModel aboutAppModel;
-    boolean User = true;
+    boolean User = false;
     boolean Service = false;
+    String type;
     private GoogleMap mMap;
     LocationManager locationManager;
     LocationListener locationListener;
@@ -71,6 +72,19 @@ public class AboutAppFragment extends Fragment implements OnMapReadyCallback{
         aboutAppModel =
                 ViewModelProviders.of(this).get(AboutAppModel.class);
         View root;
+        Bundle args=getArguments();
+        if(args!=null){
+            type=args.getString("type");
+            uid=args.getString("id");
+            if(type.equals("user")){
+                User=true;
+                Service=false;
+            }
+            else if(type.equals("sp")){
+                User=false;
+                Service=true;
+            }
+        }
         if(User) {
              root = inflater.inflate(R.layout.fragment_aboutapp, container, false);
             return root;
@@ -107,7 +121,7 @@ public class AboutAppFragment extends Fragment implements OnMapReadyCallback{
     void pushUserLocationOnOrder() {
         uid=emailAuth.checkSignIn().getUid();
         if(!getLocationCounter){
-            locationService.pushLocation("user", uid, currentLocation, new LocationService.LocationTask() {
+            locationService.pushLocation(type, uid, currentLocation, new LocationService.LocationTask() {
                 @Override
                 public void onGetDistance(String value) {
 

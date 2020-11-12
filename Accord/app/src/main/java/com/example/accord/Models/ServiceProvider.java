@@ -9,14 +9,14 @@ public class ServiceProvider extends CustomUser {
     public String first_name;
     public String last_name;
     public boolean isSkilled;
-    public int Age;
+
     public  String category;
 
-    public String Address;
+    public String address;
     public String email;
     public String profession;
     public String password;
-    String phone;
+    public String phone;
     public String type="sp";
 
     public ServiceProvider ()
@@ -31,42 +31,32 @@ public class ServiceProvider extends CustomUser {
     public String getType(){
         return type;
     }
-    public String getfirst_name()
-    {
+
+    public String getFirst_name() {
         return first_name;
     }
 
-    public String getlast_name()
-    {
+    public String getLast_name() {
         return last_name;
     }
-    public boolean getisSkilled(){
+
+    public boolean getIsSkilled(){
         return isSkilled;
     }
-    public int getAge()
-    {
-        return Age;
+
+    public String getAddress() {
+        return address;
     }
 
-  
-
-    public String getAddress()
-    {
-        return Address;
-    }
-
-    public String getemail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public String getprofession()
-    {
+    public String getProfession() {
         return profession;
     }
 
-    public String getpassword()
-    {
+    public String getPassword() {
         return password;
     }
 

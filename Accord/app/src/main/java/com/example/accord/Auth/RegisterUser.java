@@ -1,5 +1,6 @@
 package com.example.accord.Auth;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class RegisterUser extends AppCompatActivity {
     public Button signInButton;
     Activity self;
     User user= new User();
+    Button registerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,7 +49,7 @@ public class RegisterUser extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         self = this;
-       Button registerButton=(Button) findViewById(R.id.confirmOrderButton);
+        registerButton=(Button) findViewById(R.id.confirmOrderButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +146,7 @@ public class RegisterUser extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Object object) {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        intent.putExtra("user", (Serializable) user);
+                                        intent.putExtra("id", firebaseUser.getUid());
                                         intent.putExtra("type","user");
                                         startActivity(intent);
                                     }
@@ -163,18 +165,35 @@ public class RegisterUser extends AppCompatActivity {
                     });
 
                 } else {
-                    //text input
-//                    if (email == "" || email.length() < 1) {
-//                        Toast.makeText(getBaseContext(), "Email Empty", Toast.LENGTH_SHORT).show();
-//                    } else if (password.length() < 1) {
-//                        Toast.makeText(getBaseContext(), "Password Empty", Toast.LENGTH_SHORT).show();
 
-//                    } else {
-//
                     if(flag_main==1){
-                        Toast.makeText(getBaseContext(), "I did it finally", Toast.LENGTH_SHORT).show();
                         emailSent = true;
-                        emailAuth.registerUser(email, password, self);
+                        registerButton.setText("Check Email Verification");
+                        registerButton.setTextSize(12);
+                        emailAuth.registerUser(email, password, new EmailAuth.AuthTask() {
+                            @Override
+                            public void onComplete(String uid) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onEmailSent() {
+
+
+                                Toast.makeText(getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
 

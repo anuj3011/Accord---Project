@@ -23,36 +23,43 @@ public class EmailAuth {
         mAuth = FirebaseAuth.getInstance();
     }
 
-  public FirebaseUser checkSignIn() { // checks if user is signed in, call this on app start
+    public FirebaseUser checkSignIn() { // checks if user is signed in, call this on app start
         user = mAuth.getCurrentUser();
-        return  user;
+        return user;
     }
-    public void logout(){
+
+    public void logout() {
         mAuth.signOut();
     }
-    public  void sendEmailLink(final Activity activity) {
+
+    public void sendEmailLink(final AuthTask authTask) {
 
         user.sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("TAG", "Email sent.");
-                            //activity.signInButton.setText("Check Verification");
-                            Toast.makeText(activity.getApplicationContext(), "Email Sent!", Toast.LENGTH_LONG).show();
-                        }
-                        else{
+                            authTask.onComplete();
 
-                            Log.d("TAG", task.getException().toString());
+
+                        } else {
+
+                            authTask.onFailure(task.getException().getMessage());
                         }
                     }
                 });
 
     }
-    interface AuthTask{
+
+    public interface AuthTask {
         void onComplete(String uid);
+
+        void onComplete();
+        void onEmailSent();
+        void onFailure(String msg);
     }
-    public void signIn(String email, String pass, final Activity activity, final AuthTask authTask ) {
+
+    public void signIn(String email, String pass, final Activity activity, final AuthTask authTask) {
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -71,7 +78,6 @@ public class EmailAuth {
                             authTask.onComplete(uid);
 
 
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "Please Check your credentials", task.getException());
@@ -85,27 +91,28 @@ public class EmailAuth {
                 });
     }
 
-    public void registerUser(String email, String pass, final Activity activity) {
+    public void registerUser(String email, String pass, final AuthTask authTask) {
+        try{
+            mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        user = mAuth.getCurrentUser();
 
-        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    user = mAuth.getCurrentUser();
-                    sendEmailLink((RegisterUser)activity);
-
-                    Toast.makeText(activity.getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
+                        authTask.onEmailSent();
+                        sendEmailLink(authTask);
 
 
-
-                } else {
-                    if(checkSignIn()!=null){
-                        Toast.makeText(activity.getApplicationContext(), "Signed in,Checking Verification", Toast.LENGTH_LONG).show();
+                    } else {
+                        authTask.onFailure(task.getException().getMessage());
                     }
-                    Toast.makeText(activity.getApplicationContext(), task.getException().toString(),  Toast.LENGTH_LONG).show();
                 }
-            }
-        });
+            });
+        }
+        catch (Exception e){
+            authTask.onFailure(e.getMessage());
+        }
+
 
 
     }

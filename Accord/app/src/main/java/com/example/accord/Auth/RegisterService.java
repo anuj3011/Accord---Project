@@ -1,5 +1,6 @@
 package com.example.accord.Auth;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,21 +37,23 @@ public class RegisterService extends AppCompatActivity {
     public static final int IMAGE_GALLERY_RESULT = 1;
     ImageView imgPictures;
 
-    String name="";
-    String skill="",zip="";
-    int flag_main=0;
-    String Phone="";
+    String name = "";
+    String skill = "", zip = "";
+    int flag_main = 0;
+    String Phone = "";
 
-    String add1="",email="",profession="",password="",area="",city="";
-    boolean emailSent=false;
-    EmailAuth emailAuth=new EmailAuth();
-    ServiceProvider serviceProvider=new ServiceProvider();
+    String add1 = "", email = "", profession = "", password = "", area = "", city = "";
+    boolean emailSent = false;
+    EmailAuth emailAuth = new EmailAuth();
+    ServiceProvider serviceProvider = new ServiceProvider();
+    Button registerButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_service);
-        imgPictures= (ImageView)findViewById(R.id.imgPictures);
-        Button registerButton=(Button) findViewById(R.id.confirmOrderButton);
+        imgPictures = (ImageView) findViewById(R.id.imgPictures);
+        registerButton = (Button) findViewById(R.id.confirmOrderButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,109 +62,94 @@ public class RegisterService extends AppCompatActivity {
         });
     }
 
-    public void registerService(){
-        int flag=0;
+    public void registerService() {
+        int flag = 0;
 
 
         TextView textView = (TextView) findViewById(R.id.name);
-        name =  textView.getText().toString();
+        name = textView.getText().toString();
 
-
-
-        //textView = (TextView) findViewById(R.id.Age);
-        //Age= Integer.parseInt(textView.getText().toString());
 
         textView = (TextView) findViewById(R.id.number);
-        Phone= textView.getText().toString();
+        Phone = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputAdd1);
-        add1 =  textView.getText().toString();
+        add1 = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputArea);
-        area=textView.getText().toString();
+        area = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputZip);
-        zip= textView.getText().toString();
+        zip = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputCity);
-        city=textView.getText().toString();
+        city = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.address);
-        email =  textView.getText().toString();
+        email = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.Profession);
-        profession =  textView.getText().toString();
+        profession = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputSkill);
-        skill =  textView.getText().toString();
+        skill = textView.getText().toString();
 
         textView = (TextView) findViewById(R.id.inputPass);
-        password =  textView.getText().toString();
-        if(name.length()==0)
-        {
-            flag=0;
+        password = textView.getText().toString();
+
+        if (name.length() == 0) {
+            flag = 0;
             Toast.makeText(getApplicationContext(), "Enter Name", Toast.LENGTH_LONG).show();
-        }
-        else if(Phone.length()==0)
-        {
+        } else if (Phone.length() == 0) {
             Toast.makeText(getApplicationContext(), "Enter Phone", Toast.LENGTH_LONG).show();
-        }
-        else if(email.length()==0)
-        {
-            flag=0;
+        } else if (email.length() == 0) {
+            flag = 0;
             Toast.makeText(getApplicationContext(), "Enter Email", Toast.LENGTH_LONG).show();
-        }
-        else if(zip.length() == 0)
-        {
+        } else if (zip.length() == 0) {
             Toast.makeText(getApplicationContext(), "Enter Pincode", Toast.LENGTH_LONG).show();
-        }
-        else if(skill.length() == 0)
-        {
+        } else if (skill.length() == 0) {
             Toast.makeText(getApplicationContext(), "Enter Age", Toast.LENGTH_LONG).show();
-        }
-        else if(add1.length()==0)
-        {
-            flag=0;
+        } else if (add1.length() == 0) {
+            flag = 0;
             Toast.makeText(getApplicationContext(), "EnterAddress line 1", Toast.LENGTH_LONG).show();
-        }
-        else if(profession.length()==0)
-        {
-            flag=0;
+        } else if (profession.length() == 0) {
+            flag = 0;
             Toast.makeText(getApplicationContext(), "Enter Profession", Toast.LENGTH_LONG).show();
-        }
-        else if(area.length()==0)
-        {
-            flag=0;
+        } else if (area.length() == 0) {
+            flag = 0;
             Toast.makeText(getApplicationContext(), "Enter area", Toast.LENGTH_LONG).show();
-        }else if(city.length()==0)
-        {
-            flag=0;
+        } else if (city.length() == 0) {
+            flag = 0;
             Toast.makeText(getApplicationContext(), "Enter city", Toast.LENGTH_LONG).show();
-        }else if(password.length()==0)
-        {
-            flag=0;
+        } else if (password.length() == 0) {
+            flag = 0;
             Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show();
+        } else {
+            flag = 1;
         }
-        else{
-            flag=1;
-        }
-        if(flag==1) {
-            flag_main=1;
-            Intent intent = new Intent(getApplicationContext(),InputDocuments.class);
-            startActivity(intent);
-            finish();
-            // Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
+        if (flag == 1) {
+            serviceProvider.address = add1;
+            serviceProvider.first_name = name;
+            serviceProvider.email = email;
+            serviceProvider.phone = Phone;
+            serviceProvider.profession = profession;
+            serviceProvider.isSkilled = true;
+
+
+            flag_main = 1;
+//            // Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
+            NewServiceProvider();
         }
 
 
     }
-    public void NewUser() {
 
+    public void NewServiceProvider() {
 
 
         if (emailSent) {
             final FirebaseUser firebaseUser = emailAuth.mAuth.getCurrentUser();
-            assert firebaseUser != null;
+
             firebaseUser.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -172,10 +160,16 @@ public class RegisterService extends AppCompatActivity {
                         new UserAPI().pushUser("sp", firebaseUser.getUid(), serviceProvider, new UserAPI.UserTask() {
                             @Override
                             public void onSuccess(Object object) {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.putExtra("user", (Serializable) serviceProvider);
-                                intent.putExtra("type","sp");
+                                serviceProvider = (ServiceProvider) object;
+                                Intent intent = new Intent(getApplicationContext(), InputDocuments.class);
+                                intent.putExtra("id", firebaseUser.getUid());
+                                intent.putExtra("type", "sp");
                                 startActivity(intent);
+                                finish();
+//                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                intent.putExtra("user", (Serializable) serviceProvider);
+//                                intent.putExtra("type","sp");
+//                                startActivity(intent);
                             }
 
                             @Override
@@ -193,10 +187,35 @@ public class RegisterService extends AppCompatActivity {
 
         } else {
 
-            if(flag_main==1){
+            if (flag_main == 1) {
 
-                emailSent = true;
-                emailAuth.registerUser(email, password,this );
+
+                registerButton.setText("Check Email Verification");
+                registerButton.setTextSize(10);
+                emailAuth.registerUser(email, password, new EmailAuth.AuthTask() {
+                    @Override
+                    public void onComplete(String uid) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onEmailSent() {
+                        emailSent = true;
+
+                        Toast.makeText(getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
 
@@ -204,8 +223,8 @@ public class RegisterService extends AppCompatActivity {
 
         // email link
     }
-    public void ImageClick(View view)
-    {
+
+    public void ImageClick(View view) {
         //TextView textView = (TextView)findViewById(R.id.textView);
         //textView.setVisibility(View.INVISIBLE);
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
@@ -216,7 +235,7 @@ public class RegisterService extends AppCompatActivity {
 
         Uri data = Uri.parse(pictureDirectoryPath);
 
-        photoPickerIntent.setDataAndType(data,"image/*");
+        photoPickerIntent.setDataAndType(data, "image/*");
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_RESULT);
 
     }

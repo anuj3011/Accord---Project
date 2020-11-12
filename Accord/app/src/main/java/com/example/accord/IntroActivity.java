@@ -16,6 +16,7 @@ import com.example.accord.Auth.RegisterUser;
 import com.example.accord.Auth.SignIn;
 import com.example.accord.Auth.UserType;
 import com.example.accord.Firestore.StorageAPI;
+import com.example.accord.Firestore.UserAPI;
 import com.example.accord.YourAccount.YourAccountFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -111,25 +112,57 @@ public class IntroActivity extends AppCompatActivity {
         startActivity(new Intent(this, YourAccountFragment.class));
     }
 
+    String uid;
+    String type;
+    UserAPI userAPI=new UserAPI();
+    void getUserType() {
+
+            userAPI.getUser("user", uid, new UserAPI.UserTask() {
+                @Override
+                public void onSuccess(Object object) {
+                    type="user";
+                    navigateToMainActivity();
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    userAPI.getUser("sp", uid, new UserAPI.UserTask() {
+                        @Override
+                        public void onSuccess(Object object) {
+                            type="sp";
+                            navigateToMainActivity();
+                        }
+
+                        @Override
+                        public void onFailure(String msg) {
+                                userAPI.getUser("ngo", uid, new UserAPI.UserTask() {
+                                    @Override
+                                    public void onSuccess(Object object) {
+                                        type="ngo";
+                                        navigateToMainActivity();
+                                    }
+
+                                    @Override
+                                    public void onFailure(String msg) {
+                                                    navigateToMainActivity();// no type found;
+                                    }
+                                });
+                        }
+                    });
+                }
+            });
+    }
     void autoLogin() {
         EmailAuth emailAuth = new EmailAuth();
         final FirebaseUser user = emailAuth.checkSignIn();
 
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
+        if (user == null) {
+            navigateToOnBoarding();
+        } else {
+            uid = user.getUid();
+           getUserType();
+        }
 
-                        if(user==null){
-                            navigateToOnBoarding();
-                        }
-                        else{
-                            navigateToMainActivity();
-                        }
-                    }
-                },
-                2500
-        );
 
     }
 
@@ -142,7 +175,11 @@ public class IntroActivity extends AppCompatActivity {
 
     void navigateToMainActivity() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+        intent.putExtra("id", uid);
+        intent.putExtra("type", type);
         startActivity(intent);
+
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         finish();
     }
