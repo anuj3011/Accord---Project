@@ -63,6 +63,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".MainActivity"
@@ -80,6 +81,11 @@
         <activity
             android:name=".Auth.UserType"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddingRecord"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

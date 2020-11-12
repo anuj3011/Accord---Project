@@ -7,7 +7,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.accord.AddingRecord;
 import com.example.accord.Auth.SignIn;
+import com.example.accord.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.ActionCodeSettings;
@@ -97,7 +99,10 @@ public class EmailAuth {
                             sendEmailLink((RegisterUser)activity);
 
                             Toast.makeText(activity.getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
-
+                            //Intent intent = new Intent(getApplicationContext(), AddingRecord.class);
+                            //startActivity(intent);
+                            //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                            //finish();
 
 
                         } else {

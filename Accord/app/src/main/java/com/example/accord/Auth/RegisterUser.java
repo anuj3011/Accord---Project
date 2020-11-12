@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.accord.AddingRecord;
 import com.example.accord.Firestore.UserAPI;
 import com.example.accord.MainActivity;
 import com.example.accord.Models.User;
@@ -175,6 +176,7 @@ public class RegisterUser extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "I did it finally", Toast.LENGTH_SHORT).show();
                         emailSent = true;
                         emailAuth.registerUser(email, password, self);
+
                     }
 
 

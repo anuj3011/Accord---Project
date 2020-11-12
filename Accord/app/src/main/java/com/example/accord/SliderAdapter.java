@@ -27,18 +27,16 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] SlideHeadings={
-            "Heading1",
+            "Welcome To Accord",
             "Heading2",
             "Heading3",
     };
 
     public String[] SlideTexts={
-            "Industrialization is central if any economy is to be successful and the policy attempts at industrialization involve creating systems and " +
-                    "institutional arrangements that can help accelerate the process of industrialization.",
-            "Industrialization is central if any economy is to be successful and the policy attempts at industrialization involve creating systems and " +
-                    "institutional arrangements that can help accelerate the process of industrialization.",
-            "Industrialization is central if any economy is to be successful and the policy attempts at industrialization involve creating systems and " +
-                    "institutional arrangements that can help accelerate the process of industrialization.",
+            "If you are looking for an easy and affordable way to get your home chores done by professionals in no time, then this is the App/ place for you.",
+            "Being able to donate your belongings to an NGO whilst sitting in your comfortable home, how does it sound? Accord enables you to feel the contentment after donating from the comfort of your home with just some clicks",
+            "Do you find it difficult to be an independent contractor? How does getting customers while still being your own boss sounds?\n" +
+                    "Register on Accord and join our family and be your own boss",
     };
 
     @Override

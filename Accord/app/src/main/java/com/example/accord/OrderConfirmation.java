@@ -26,7 +26,7 @@ public class OrderConfirmation extends AppCompatActivity {
         if(Falied) {
             Intent intent = new Intent(getApplicationContext(), OrderPage.class);
             startActivity(intent);
-            //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            overridePendingTransition(R.anim.slide_right, R.anim.slide_out_right);
             finish();
         }
         else if(Success){

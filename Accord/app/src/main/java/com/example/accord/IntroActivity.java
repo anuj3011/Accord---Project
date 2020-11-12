@@ -128,7 +128,7 @@ public class IntroActivity extends AppCompatActivity {
                         }
                     }
                 },
-                2500
+                3500
         );
 
     }

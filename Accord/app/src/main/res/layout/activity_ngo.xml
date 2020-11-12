@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".NGOMainMenu.ngo">
@@ -70,15 +68,16 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:scaleType="centerInside"
+                            android:src="@drawable/food" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="126dp"
                             android:layout_height="wrap_content"
-                            android:text="Title 1"
+                            android:text="Food"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -108,15 +107,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/clothes" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 2"
+                            android:text="Clothes"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -149,15 +148,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/stationary" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 3"
+                            android:text="Stationary"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -187,15 +186,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/toiletries" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 4"
+                            android:text="Tolietiers"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -228,15 +227,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/utensils" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 5"
+                            android:text="Utensils"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -266,15 +265,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/hardware" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 5"
+                            android:text="Hardware"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -303,15 +302,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/bedsheet" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 5"
+                            android:text="Bedsheet"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -340,15 +339,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/medicine" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 5"
+                            android:text="Medicine"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -377,15 +376,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/money" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 5"
+                            android:text="Money"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
@@ -414,89 +413,16 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
+                            android:src="@drawable/family_time"
+                            app:srcCompat="@android:drawable/ic_menu_help" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title 5"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_margin="16dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Title 5"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_margin="16dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Title 5"
+                            android:text="Other Items"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"

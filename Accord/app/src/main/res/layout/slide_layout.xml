@@ -22,12 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Image"
         android:layout_alignStart="@+id/Image"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="-5dp"
         android:layout_marginTop="40dp"
-        android:fontFamily="@font/ubuntu_mono_bold"
+        android:fontFamily="@font/walter_turncoat"
         android:text="Heading"
         android:textColor="@color/transparentwhite"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
@@ -36,12 +36,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Heading"
         android:layout_centerHorizontal="false"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/atomic_age"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="75dp"
+        android:fontFamily="@font/walter_turncoat"
         android:inputType="textMultiLine"
-        android:text="Industrialization is central if any economy is to be successful and the policy attempts at industrialization involve creating systems and institutional arrangements that can help accelerate the process of industrialization."
-        android:textColor="@color/transparentwhite"
+        android:text="@string/Intro1"
+        android:textColor="@color/black1"
         android:textSize="20sp"
         android:textStyle="italic" />
 </RelativeLayout>
