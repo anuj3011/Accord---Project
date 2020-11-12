@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,6 +43,8 @@ import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.FirebaseTaskInterface;
 import com.example.accord.Firestore.OrderHistoryAPI;
 import com.example.accord.Firestore.UserAPI;
+import com.example.accord.Models.CustomUser;
+import com.example.accord.Models.NGO;
 import com.example.accord.Models.Order;
 import com.example.accord.Models.User;
 import com.example.accord.NGOMainMenu.ngo;
@@ -72,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
     int realTimePush = 0;
+    String type="";
     String userId = "";
     UserAPI firestoreAPI = new UserAPI();
     User user = new User();
+    ServiceProvider serviceProvider=new ServiceProvider();
     EmailAuth emailAuth=new EmailAuth();
     @Override
     public void onBackPressed() {
@@ -90,7 +95,30 @@ public class MainActivity extends AppCompatActivity {
         }
         backPressedTime = System.currentTimeMillis();
     }
+    void updateNavHeader(ServiceProvider user) {
+        try {
+            TextView textView=navigationView.getHeaderView(0).findViewById(R.id.navHeaderName);
+            textView.setText(user.getFirst_name());
+            textView=navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
+            textView.setText(user.getEmail());
+        } catch (NullPointerException nullPointerException) {
+            getUserProfile();
+        } catch (Exception exception) {
 
+        }
+    }
+    void updateNavHeader(NGO user) {
+        try {
+            TextView textView=navigationView.getHeaderView(0).findViewById(R.id.navHeaderName);
+            textView.setText(user.getfull_name());
+            textView=navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
+            textView.setText(user.getemail());
+        } catch (NullPointerException nullPointerException) {
+            getUserProfile();
+        } catch (Exception exception) {
+
+        }
+    }
     void updateNavHeader(User user) {
         try {
             TextView textView=navigationView.getHeaderView(0).findViewById(R.id.navHeaderName);
@@ -103,23 +131,36 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
+    NGO ngo=new NGO();
     void getUserProfile() {
         userId = emailAuth.checkSignIn().getUid();
         if(userId==null || userId.length()<1){
 
                 emailAuth.logout();
-            Toast.makeText(getApplicationContext(), "Loggin out", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this,IntroActivity.class));
 
         }
-        firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
+        firestoreAPI.getUser(type, userId, new UserAPI.UserTask() {
             @Override
             public void onSuccess(Object object) {
-                user = (User) object;
+                if(type.equals("user")){
+                    user=(User) object;
+                    serviceProvider=null;
+                    updateNavHeader(user);
+                }
+                else if(type.equals("sp")){
+                    serviceProvider=(ServiceProvider) object;
+                    user=null;
+                    updateNavHeader(serviceProvider);
+                }
+                else{
+                    ngo=(NGO) object;
+
+                }
 
 
-                updateNavHeader(user);
+
             }
 
             @Override
@@ -130,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     NavigationView navigationView;
+    NavController navController ;
 
     void setupNavigationView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -141,9 +183,13 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        Bundle args=new Bundle();
+        args.putString("type",type);
+        args.putString("id",userId);
+       navController.navigate(R.id.nav_home,args);
 
 
     }
@@ -154,7 +200,14 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle user=getIntent().getExtras();
+        if(user!=null){
+           String type=user.getString("type");
+          this.type=type;
+         String uid=user.getString("id");
+         this.userId=uid;
 
+        }
         getUserProfile();
         setupNavigationView();
 

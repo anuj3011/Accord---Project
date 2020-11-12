@@ -1,5 +1,6 @@
 package com.example.accord.Auth;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.accord.AddingRecord;
 import com.example.accord.Firestore.UserAPI;
 import com.example.accord.MainActivity;
 import com.example.accord.Models.User;
@@ -20,6 +20,8 @@ import com.example.accord.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.Serializable;
 
 public class RegisterUser extends AppCompatActivity {
     String name = null;
@@ -37,6 +39,7 @@ public class RegisterUser extends AppCompatActivity {
     public Button signInButton;
     Activity self;
     User user= new User();
+    Button registerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,7 +49,7 @@ public class RegisterUser extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         self = this;
-       Button registerButton=(Button) findViewById(R.id.confirmOrderButton);
+        registerButton=(Button) findViewById(R.id.confirmOrderButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,11 +130,7 @@ public class RegisterUser extends AppCompatActivity {
 
     public void NewUser() {
 
-//        TextView textView;
-//        textView = (TextView) findViewById(R.id.inputEmail);
-//        email = textView.getText().toString();
-//        textView = (TextView) findViewById(R.id.inputPass);
-//        password = textView.getText().toString();
+
 
                 if (emailSent) {
                     final FirebaseUser firebaseUser = emailAuth.mAuth.getCurrentUser();
@@ -147,6 +146,8 @@ public class RegisterUser extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Object object) {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        intent.putExtra("id", firebaseUser.getUid());
+                                        intent.putExtra("type","user");
                                         startActivity(intent);
                                     }
 
@@ -164,19 +165,35 @@ public class RegisterUser extends AppCompatActivity {
                     });
 
                 } else {
-                    //text input
-//                    if (email == "" || email.length() < 1) {
-//                        Toast.makeText(getBaseContext(), "Email Empty", Toast.LENGTH_SHORT).show();
-//                    } else if (password.length() < 1) {
-//                        Toast.makeText(getBaseContext(), "Password Empty", Toast.LENGTH_SHORT).show();
 
-//                    } else {
-//
                     if(flag_main==1){
-                        Toast.makeText(getBaseContext(), "I did it finally", Toast.LENGTH_SHORT).show();
                         emailSent = true;
-                        emailAuth.registerUser(email, password, self);
+                        registerButton.setText("Check Email Verification");
+                        registerButton.setTextSize(12);
+                        emailAuth.registerUser(email, password, new EmailAuth.AuthTask() {
+                            @Override
+                            public void onComplete(String uid) {
 
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onEmailSent() {
+
+
+                                Toast.makeText(getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
 

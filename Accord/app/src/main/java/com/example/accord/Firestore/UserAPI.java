@@ -53,9 +53,9 @@ public class UserAPI {
                         userTask.onFailure("Could not get User");
                     }
 
-                } else if (type.equals("ngo")) {
+                } else if (type.equals("sp")) {
 
-                    NGO user = documentSnapshot.toObject(NGO.class);
+                    ServiceProvider user = documentSnapshot.toObject(ServiceProvider.class);
                     if(user!=null){
                         userTask.onSuccess(user);
                     }

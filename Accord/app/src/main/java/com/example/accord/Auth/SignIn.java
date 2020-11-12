@@ -16,7 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.accord.Firestore.UserAPI;
+import com.example.accord.IntroActivity;
 import com.example.accord.MainActivity;
+import com.example.accord.Models.ServiceProvider;
+import com.example.accord.Models.User;
 import com.example.accord.OnBoardingIntro;
 import com.example.accord.R;
 
@@ -99,7 +103,42 @@ public class SignIn extends AppCompatActivity {
         }
         backPressedTime = System.currentTimeMillis();
     }
+    String userId;
+    String type;
+    UserAPI firestoreAPI=new UserAPI();
+    void getUserProfile() {
+        userId = emailAuth.checkSignIn().getUid();
+        if(flag==0){
+            type="user";
+        }
+        else if(flag==1){
+            type="sp";
+        }
+        else{
+            type="ngo";
+        }
+        if(userId==null || userId.length()<1){
 
+            emailAuth.logout();
+            Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, IntroActivity.class));
+
+        }
+        firestoreAPI.getUser(type, userId, new UserAPI.UserTask() {
+            @Override
+            public void onSuccess(Object object) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("id", userId);
+                intent.putExtra("type","user");
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     public void signIn() {
         textInput = findViewById(R.id.Email);
         email = textInput.getText().toString();
@@ -109,9 +148,23 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onComplete(String uid) {
                 //navigate here
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+              userId=uid;
+              getUserProfile();
+            }
+
+            @Override
+            public void onComplete() {
+          //   getUserProfile();
+            }
+
+            @Override
+            public void onEmailSent() {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                //auto login failed
             }
         });
 

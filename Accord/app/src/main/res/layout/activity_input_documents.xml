@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context="Auth.InputDocuments">
 
+    <Button
+        android:id="@+id/skipDocsButton"
+        android:layout_width="154dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="404dp"
+        android:layout_marginEnd="129dp"
+        android:text="Skip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.022" />
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="372dp"
