@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     void setupNavigationView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -186,10 +186,21 @@ public class MainActivity extends AppCompatActivity {
          navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        Bundle args=new Bundle();
+
+        final Bundle args=new Bundle();
         args.putString("type",type);
         args.putString("id",userId);
        navController.navigate(R.id.nav_home,args);
+       navigationView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+           @Override
+           public boolean onMenuItemClick(MenuItem item) {
+               args.putString("type",type);
+               args.putString("id",userId);
+               navController.navigate(R.id.nav_home,args);
+               drawer.closeDrawers();
+               return true;
+           }
+       });
 
 
     }
