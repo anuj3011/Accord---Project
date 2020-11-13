@@ -48,34 +48,34 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/electrician2" />
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/cleaning" />
 
             <ImageView
                 android:id="@+id/Service2"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/movers2" />
+                app:srcCompat="@drawable/electrician" />
 
             <ImageView
                 android:id="@+id/Service3"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/carpenter2" />
-
-            <ImageView
-                android:id="@+id/Service4"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/plumber" />
+
+            <ImageView
+                android:id="@+id/Service4"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:scaleType="center"
+                app:srcCompat="@drawable/gardener" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -101,8 +101,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
 
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/pestcontrol2" />
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/pestcontrol" />
 
             <ImageView
                 android:id="@+id/Service6"
@@ -112,7 +112,7 @@
                 android:layout_weight="1"
 
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/barber" />
+                app:srcCompat="@drawable/babber" />
 
             <ImageView
                 android:id="@+id/Service7"
@@ -120,8 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/gardner2" />
+                android:scaleType="centerInside" />
 
             <ImageView
                 android:id="@+id/Service8"
@@ -129,8 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/doggroomer" />
+                android:scaleType="centerInside" />
         </LinearLayout>
     </HorizontalScrollView>
 

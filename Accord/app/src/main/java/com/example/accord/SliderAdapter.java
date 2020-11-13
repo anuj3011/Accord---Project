@@ -21,15 +21,15 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     public int[] SlideImages = {
-            R.drawable.icon1,
-            R.drawable.icon2,
-            R.drawable.icon3,
+            R.drawable.serviceuserintro,
+            R.drawable.donationintropage,
+            R.drawable.serviceproviderintro,
     };
 
     public String[] SlideHeadings={
             "Welcome To Accord",
-            "Heading2",
-            "Heading3",
+            "Welcome To Accord",
+            "Welcome To Accord",
     };
 
     public String[] SlideTexts={

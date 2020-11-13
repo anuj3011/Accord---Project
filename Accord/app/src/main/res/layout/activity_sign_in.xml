@@ -17,8 +17,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
-        android:fontFamily="@font/atomic_age"
+        android:fontFamily="@font/cambay_bold_italic"
         android:text="Accord"
+        android:textAlignment="center"
         android:textColor="@color/black1"
         android:textSize="48sp" />
 
@@ -47,7 +48,7 @@
         android:layout_below="@+id/RegisterButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:fontFamily="@font/atomic_age"
+        android:fontFamily="@font/cambay_bold_italic"
         android:text=" New To Accord? Sign Up"
         android:textColor="@color/black1"
         android:textSize="20sp"
@@ -122,7 +123,7 @@
         android:layout_alignEnd="@+id/LoginVIew"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="0dp"
-        android:fontFamily="@font/atomic_age"
+        android:fontFamily="@font/cambay_bold_italic"
         android:text="Forgot Password"
         android:textColor="@color/black1"
         android:textSize="18sp"

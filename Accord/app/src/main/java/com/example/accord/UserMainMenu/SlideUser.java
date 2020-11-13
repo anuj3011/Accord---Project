@@ -34,9 +34,9 @@ public class SlideUser extends PagerAdapter {
     };
 
     public String[] SlideHeadings={
-            "Heading1",
-            "Heading2",
-            "Heading3",
+            "User",
+            "Service provider",
+            "NGO",
     };
 
 

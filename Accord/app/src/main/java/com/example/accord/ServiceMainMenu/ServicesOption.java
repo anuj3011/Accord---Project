@@ -106,19 +106,19 @@ public class ServicesOption extends AppCompatActivity {
             listDataChild = new HashMap<String, List<String>>();
 
             // Adding child data
-            listDataHeader.add("Category1");
-            listDataHeader.add("Category2");
-            listDataHeader.add("Category3");
-            listDataHeader.add("Category4");
-            listDataHeader.add("Category5");
+            listDataHeader.add("Electrical");
+            listDataHeader.add("Wood Work");
+            listDataHeader.add("Plumbing");
+            listDataHeader.add("Cleaning");
+            listDataHeader.add("Others");
 
             // Adding child data
             List<String> Category1 = new ArrayList<String>();
-            Category1.add("SubCategory");
-            Category1.add("SubCategory");
-            Category1.add("SubCategory");
-            Category1.add("SubCategory");
-            Category1.add("SubCategory");
+            Category1.add("AC Servicing");
+            Category1.add("Washing Machine Servicing");
+            Category1.add("TV Servicing");
+            Category1.add("Basic Electrical Services ");
+            Category1.add("Other");
 
             List<String> Category2 = new ArrayList<String>();
             Category2.add("SubCategory");
@@ -143,9 +143,9 @@ public class ServicesOption extends AppCompatActivity {
             Category4.add("SubCategory");
 
             List<String> Category5 = new ArrayList<String>();
-            Category5.add("SubCategory");
-            Category5.add("SubCategory");
-            Category5.add("SubCategory");
+            Category5.add("Pest Control");
+            Category5.add("Grooming");
+            Category5.add("Pet Services");
             Category5.add("SubCategory");
             Category5.add("SubCategory");
 
