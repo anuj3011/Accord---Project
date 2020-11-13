@@ -1,7 +1,6 @@
-package com.example.accord.AboutApp;
+package com.example.accord.MainMenu;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,9 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.accord.Auth.EmailAuth;
@@ -37,10 +34,10 @@ import java.util.List;
 
 
 
-public class AboutAppFragment extends Fragment implements OnMapReadyCallback{
+public class MainMenuFragment extends Fragment implements OnMapReadyCallback{
 
 
-    private AboutAppModel aboutAppModel;
+    private MainMenuModel mainMenuModel;
     boolean User = false;
     boolean Service = false;
     String type;
@@ -61,16 +58,16 @@ public class AboutAppFragment extends Fragment implements OnMapReadyCallback{
 
     }
 
-    public static AboutAppFragment newInstance() {
-        AboutAppFragment fragment = new AboutAppFragment();
+    public static MainMenuFragment newInstance() {
+        MainMenuFragment fragment = new MainMenuFragment();
         return fragment;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        aboutAppModel =
-                ViewModelProviders.of(this).get(AboutAppModel.class);
+        mainMenuModel =
+                ViewModelProviders.of(this).get(MainMenuModel.class);
         View root;
         Bundle args=getArguments();
         if(args!=null){

@@ -1,14 +1,14 @@
-package com.example.accord.AboutApp;
+package com.example.accord.MainMenu;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AboutAppModel extends ViewModel {
+public class MainMenuModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public AboutAppModel() {
+    public MainMenuModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is About App fragment");
     }
