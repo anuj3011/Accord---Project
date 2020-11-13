@@ -21,7 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TrackOrder"></activity>
+        <activity android:name=".TrackOrder" android:exported="true">
+
+        </activity>
         <activity
             android:name=".OrderConfirmation"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -39,6 +41,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MapsActivity"
@@ -89,7 +94,8 @@
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:resource="@array/preloaded_fonts"
+            />
     </application>
 
 </manifest>
