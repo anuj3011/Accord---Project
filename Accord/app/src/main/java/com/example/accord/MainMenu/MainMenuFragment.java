@@ -69,7 +69,7 @@ public class MainMenuFragment extends Fragment implements OnMapReadyCallback {
 
 
         mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title));
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 15));
 
     }
 
@@ -122,24 +122,28 @@ public class MainMenuFragment extends Fragment implements OnMapReadyCallback {
     }
     void dummyOpenSessionMarkers(){
         try{
-            for(int i=0;i<5;i++){
-                CustomLatLng customLatLng=new CustomLatLng();
-                Random random=new Random();
-                int rand=random.nextInt(6);
-                boolean rbool=random.nextBoolean();
+            if(!getLocationCounter){
+                for(int i=0;i<5;i++){
+                    CustomLatLng customLatLng=new CustomLatLng();
+                    Random random=new Random();
+                    int rand=random.nextInt(6);
+                    boolean rbool=random.nextBoolean();
 
-                double offset1=rand/1000.0;
-                rand=random.nextInt(5);
+                    double offset1=rand/1000.0;
+                    rand=random.nextInt(5);
 
-                double offset2=rand/1000.0;
-                if(rbool){
-                    offset1=offset1*-1;
-                    offset2=offset2*-1;
+                    double offset2=rand/1000.0;
+                    if(rbool){
+                        offset1=offset1*-1;
+                        offset2=offset2*-1;
+                    }
+                    customLatLng.latitude=currentLocation.latitude+offset1;
+                    customLatLng.longitude=currentLocation.longitude+offset2;
+                    CenterOnMap(customLatLng,String.valueOf(i));
                 }
-                customLatLng.latitude=currentLocation.latitude+offset1;
-                customLatLng.longitude=currentLocation.longitude+offset2;
-                CenterOnMap(customLatLng,String.valueOf(i));
+                getLocationCounter=true;
             }
+
         }
         catch (Exception e){
 
