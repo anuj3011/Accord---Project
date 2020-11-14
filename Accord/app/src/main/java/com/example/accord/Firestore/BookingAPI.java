@@ -118,7 +118,22 @@ public class BookingAPI {
             }
         });
     }
-
+    public void checkIfSessionAccepted(String sessionID, final BookingTask bookingTask){
+        db.collection("sessions").document(sessionID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Session session=documentSnapshot.toObject(Session.class);
+                if(session.isAccepted){
+                    bookingTask.onSuccess();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                bookingTask.onFailed(e.getMessage());
+            }
+        });
+    }
     public void getOpenSessionsForProviders(final ServiceProvider serviceProvider, final BookingTask bookingTask) { // un
 
         db.collection("sessions").whereEqualTo("isActive", true).whereEqualTo("isSearchStarted", true)

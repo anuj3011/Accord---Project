@@ -1,6 +1,7 @@
 package com.example.accord.ServiceMainMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,40 +53,40 @@ public class ServicesOption extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition, long id) {
-                    // Toast.makeText(getApplicationContext(),
-                    // "Group Clicked " + listDataHeader.get(groupPosition),
-                    // Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            });
+                // Toast.makeText(getApplicationContext(),
+                // "Group Clicked " + listDataHeader.get(groupPosition),
+                // Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
-            // Listview Group expanded listener
+        // Listview Group expanded listener
         expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                    Toast.makeText(getApplicationContext(),
-                            listDataHeader.get(groupPosition) + " Expanded",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
-            // Listview Group collasped listener
-            expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
-                @Override
-                public void onGroupCollapse(int groupPosition) {
-                    Toast.makeText(getApplicationContext(),
-                            listDataHeader.get(groupPosition) + " Collapsed",
-                            Toast.LENGTH_SHORT).show();
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
 
-                }
-            });
+            }
+        });
 
-            // Listview on child click listener
-            expListView.setOnChildClickListener(new OnChildClickListener() {
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v,
-                                            int groupPosition, int childPosition, long id) {
-                    // TODO Auto-generated method stub
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                // TODO Auto-generated method stub
                     /*Toast.makeText(
                             getApplicationContext(),
                             listDataHeader.get(groupPosition)
@@ -94,67 +95,73 @@ public class ServicesOption extends AppCompatActivity {
                                     listDataHeader.get(groupPosition)).get(
                                     childPosition), Toast.LENGTH_SHORT)
                             .show();*/
-                    Intent intent = new Intent(getApplicationContext(), OrderPage.class);
-                    startActivity(intent);
-                    return false;
-                }
-            });
-        }
+                List<String> childCategory = listDataChild.get(listDataHeader.get(groupPosition));
 
-        private void prepareListData() {
-            listDataHeader = new ArrayList<String>();
-            listDataChild = new HashMap<String, List<String>>();
 
-            // Adding child data
-            listDataHeader.add("Electrical");
-            listDataHeader.add("Wood Work");
-            listDataHeader.add("Plumbing");
-            listDataHeader.add("Cleaning");
-            listDataHeader.add("Others");
+                String category = listDataHeader.get(groupPosition) + ":"+childCategory.get(childPosition);
 
-            // Adding child data
-            List<String> Category1 = new ArrayList<String>();
-            Category1.add("AC Servicing");
-            Category1.add("Washing Machine Servicing");
-            Category1.add("TV Servicing");
-            Category1.add("Basic Electrical Services ");
-            Category1.add("Other");
+                Intent intent = new Intent(getApplicationContext(), OrderPage.class);
+                intent.putExtra("category",category);
+                startActivity(intent);
+                return false;
+            }
+        });
+    }
 
-            List<String> Category2 = new ArrayList<String>();
-            Category2.add("SubCategory");
-            Category2.add("SubCategory");
-            Category2.add("SubCategory");
-            Category2.add("SubCategory");
-            Category2.add("SubCategory");
-            Category2.add("SubCategory");
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
 
-            List<String> Category3 = new ArrayList<String>();
-            Category3.add("SubCategory");
-            Category3.add("SubCategory");
-            Category3.add("SubCategory");
-            Category3.add("SubCategory");
-            Category3.add("SubCategory");
+        // Adding child data
+        listDataHeader.add("Electrical");
+        listDataHeader.add("Wood Work");
+        listDataHeader.add("Plumbing");
+        listDataHeader.add("Cleaning");
+        listDataHeader.add("Others");
 
-            List<String> Category4 = new ArrayList<String>();
-            Category4.add("SubCategory");
-            Category4.add("SubCategory");
-            Category4.add("SubCategory");
-            Category4.add("SubCategory");
-            Category4.add("SubCategory");
+        // Adding child data
+        List<String> Category1 = new ArrayList<String>();
+        Category1.add("AC Servicing");
+        Category1.add("Washing Machine Servicing");
+        Category1.add("TV Servicing");
+        Category1.add("Basic Electrical Services ");
+        Category1.add("Other");
 
-            List<String> Category5 = new ArrayList<String>();
-            Category5.add("Pest Control");
-            Category5.add("Grooming");
-            Category5.add("Pet Services");
-            Category5.add("SubCategory");
-            Category5.add("SubCategory");
+        List<String> Category2 = new ArrayList<String>();
+        Category2.add("SubCategory");
+        Category2.add("SubCategory");
+        Category2.add("SubCategory");
+        Category2.add("SubCategory");
+        Category2.add("SubCategory");
+        Category2.add("SubCategory");
 
-            listDataChild.put(listDataHeader.get(0),Category1);
-            listDataChild.put(listDataHeader.get(1), Category2);
-            listDataChild.put(listDataHeader.get(2), Category3);
-            listDataChild.put(listDataHeader.get(3), Category4);
-            listDataChild.put(listDataHeader.get(4), Category5);
-        }
+        List<String> Category3 = new ArrayList<String>();
+        Category3.add("SubCategory");
+        Category3.add("SubCategory");
+        Category3.add("SubCategory");
+        Category3.add("SubCategory");
+        Category3.add("SubCategory");
+
+        List<String> Category4 = new ArrayList<String>();
+        Category4.add("SubCategory");
+        Category4.add("SubCategory");
+        Category4.add("SubCategory");
+        Category4.add("SubCategory");
+        Category4.add("SubCategory");
+
+        List<String> Category5 = new ArrayList<String>();
+        Category5.add("Pest Control");
+        Category5.add("Grooming");
+        Category5.add("Pet Services");
+        Category5.add("SubCategory");
+        Category5.add("SubCategory");
+
+        listDataChild.put(listDataHeader.get(0), Category1);
+        listDataChild.put(listDataHeader.get(1), Category2);
+        listDataChild.put(listDataHeader.get(2), Category3);
+        listDataChild.put(listDataHeader.get(3), Category4);
+        listDataChild.put(listDataHeader.get(4), Category5);
+    }
 }
 
 

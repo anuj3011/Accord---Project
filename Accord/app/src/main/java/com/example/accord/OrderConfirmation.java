@@ -10,10 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.accord.Firestore.BookingAPI;
 import com.example.accord.History.HistoryFragment;
+import com.example.accord.Models.Session;
 import com.example.accord.UserMainMenu.OrderPage;
 import com.example.accord.YourAccount.YourAccountFragment;
 
+import java.util.List;
 import java.util.Random;
 
 public class OrderConfirmation extends AppCompatActivity {
@@ -39,6 +42,30 @@ public class OrderConfirmation extends AppCompatActivity {
         else{
             Toast.makeText(getApplicationContext(),"Finding service, going back disabled", Toast.LENGTH_SHORT).show();
         }
+    }
+    String sessionID="";
+    BookingAPI bookingAPI=new BookingAPI();
+
+    void getSession(){
+        Bundle args=getIntent().getExtras();
+        sessionID=args.getString("sessionID");
+        bookingAPI.checkIfSessionAccepted(sessionID, new BookingAPI.BookingTask() {
+            @Override
+            public void onSuccess(List<Session> sessions) {
+
+            }
+
+            @Override
+            public void onSuccess() {
+                Success=true;
+                //accepted
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+        });
     }
 
     @Override

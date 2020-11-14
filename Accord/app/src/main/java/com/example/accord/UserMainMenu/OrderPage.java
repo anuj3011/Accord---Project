@@ -47,10 +47,12 @@ public class OrderPage extends FragmentActivity {
     LocationManager locationManager;
     LocationListener locationListener;
     LocationService locationService = new LocationService();
-    CustomLatLng currentLocation=null;
-    String uid="";
-    EmailAuth emailAuth=new EmailAuth();
-    boolean getLocationCounter=false;
+    CustomLatLng currentLocation = null;
+    String uid = "";
+    EmailAuth emailAuth = new EmailAuth();
+    String category = "";
+    boolean getLocationCounter = false;
+
     public void CenterOnMap(Location location, String title) {
         LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.clear();
@@ -60,6 +62,12 @@ public class OrderPage extends FragmentActivity {
 
     }
 
+    void getCategoryFromArgs() {
+        Bundle args = getIntent().getExtras();
+        if (args != null) {
+            this.category = args.getString("category");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,7 @@ public class OrderPage extends FragmentActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
+        getCategoryFromArgs();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.trackOrderMap2);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -99,8 +108,8 @@ public class OrderPage extends FragmentActivity {
     }
 
     void pushUserLocationOnOrder() {
-        uid=emailAuth.checkSignIn().getUid();
-        if(!getLocationCounter){
+        uid = emailAuth.checkSignIn().getUid();
+        if (!getLocationCounter) {
             locationService.pushLocation("user", uid, currentLocation, new LocationService.LocationTask() {
                 @Override
                 public void onGetDistance(String value) {
@@ -114,13 +123,13 @@ public class OrderPage extends FragmentActivity {
 
                 @Override
                 public void onFailure(String msg) {
-                    Toast.makeText(getApplicationContext(),"Push Location Failed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Push Location Failed", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onSuccess(Object location) {
-                    getLocationCounter=true;
-                    Toast.makeText(getApplicationContext(),"Pushing Location",Toast.LENGTH_LONG).show();
+                    getLocationCounter = true;
+                    Toast.makeText(getApplicationContext(), "Pushing Location", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -145,9 +154,9 @@ public class OrderPage extends FragmentActivity {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 Log.d("location", location.toString());
-                currentLocation=new CustomLatLng();
-                currentLocation.latitude=location.getLatitude();
-                currentLocation.longitude=location.getLongitude();
+                currentLocation = new CustomLatLng();
+                currentLocation.latitude = location.getLatitude();
+                currentLocation.longitude = location.getLongitude();
 
                 pushUserLocationOnOrder();
                 CenterOnMap(location, "Test");
@@ -212,24 +221,27 @@ public class OrderPage extends FragmentActivity {
         button.setChecked(false);
 
     }
-    BookingAPI bookingAPI=new BookingAPI();
 
-    public void Confirmation(View view){
-        bookingAPI.bookService(uid, "category", true, new BookingAPI.onBooked() {
+    BookingAPI bookingAPI = new BookingAPI();
+
+    public void Confirmation(View view) {
+        bookingAPI.bookService(uid, category, true, new BookingAPI.onBooked() {
             @Override
             public void onBooked(Session session) {
-                
+                Toast.makeText(getApplicationContext(), "Searching", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), OrderConfirmation.class);
+                intent.putExtra("sessionID",session.sessionID);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                finish();
             }
 
             @Override
             public void onBookingFailed() {
-
+                Toast.makeText(getApplicationContext(), "Cant start a booking, please try again", Toast.LENGTH_LONG).show();
             }
         });
-        Intent intent = new Intent(getApplicationContext(), OrderConfirmation.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        finish();
+
     }
 
 }
