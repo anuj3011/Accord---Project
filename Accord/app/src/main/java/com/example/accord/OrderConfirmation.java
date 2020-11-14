@@ -74,6 +74,7 @@ public class OrderConfirmation extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
+        getSession();
         Random d = new Random();
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
