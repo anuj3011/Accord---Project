@@ -189,17 +189,7 @@ public class IntroActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-
-                        autoLogin();
-
-                    }
-                },
-                2500
-        );
+     autoLogin();
 
 
 

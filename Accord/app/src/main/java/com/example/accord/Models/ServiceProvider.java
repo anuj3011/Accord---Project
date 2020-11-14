@@ -4,7 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class ServiceProvider extends CustomUser {
 
-    //class defined for Service provider registeration purposes.
+
 
     public String first_name;
     public String last_name;
