@@ -22,9 +22,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.accord.Auth.EmailAuth;
+import com.example.accord.Firestore.BookingAPI;
 import com.example.accord.Firestore.LocationService;
 import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
+import com.example.accord.Models.Session;
 import com.example.accord.OrderConfirmation;
 import com.example.accord.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -210,8 +212,20 @@ public class OrderPage extends FragmentActivity {
         button.setChecked(false);
 
     }
+    BookingAPI bookingAPI=new BookingAPI();
 
     public void Confirmation(View view){
+        bookingAPI.bookService(uid, "category", true, new BookingAPI.onBooked() {
+            @Override
+            public void onBooked(Session session) {
+                
+            }
+
+            @Override
+            public void onBookingFailed() {
+
+            }
+        });
         Intent intent = new Intent(getApplicationContext(), OrderConfirmation.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
