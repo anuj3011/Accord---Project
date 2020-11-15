@@ -75,13 +75,13 @@ public class BookingAPI {
     }
 
 
-    public void bookService(String userID, String category,boolean isSkilled ,final onBooked onBookedCallBack) {
+    public void bookService(String userID, String category, boolean isSkilled, final onBooked onBookedCallBack) {
         session.userID = userID;
         session.isActive = true;
         session.isCompleted = false;
         session.isSearchStarted = true;
-        session.serviceCategory=category;
-        session.isServiceSkilled=isSkilled;
+        session.serviceCategory = category;
+        session.isServiceSkilled = isSkilled;
 
         DocumentReference sessionReference = db.collection("sessions").document();
         session.sessionID = sessionReference.getId();
@@ -98,6 +98,25 @@ public class BookingAPI {
         });
     }
 
+    public void cancelSession(final String sessionID, final BookingTask bookingTask) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("isAccepted", false);
+
+        map.put("isActive", false);
+        map.put("isSearchStarted", false);
+        db.collection("sessions").document(sessionID).set(map, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        bookingTask.onSuccess();// accepted
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                bookingTask.onFailed(e.getMessage());
+            }
+        });
+    }
 
     public void acceptServiceSession(String serviceProviderID, final String sessionID, final BookingTask bookingTask) {
         Map<String, Object> map = new HashMap<>();
@@ -118,12 +137,13 @@ public class BookingAPI {
             }
         });
     }
-    public void checkIfSessionAccepted(String sessionID, final BookingTask bookingTask){
+
+    public void checkIfSessionAccepted(String sessionID, final BookingTask bookingTask) {
         db.collection("sessions").document(sessionID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Session session=documentSnapshot.toObject(Session.class);
-                if(session.isAccepted){
+                Session session = documentSnapshot.toObject(Session.class);
+                if (session.isAccepted) {
                     bookingTask.onSuccess();
                 }
             }
@@ -134,6 +154,7 @@ public class BookingAPI {
             }
         });
     }
+
     public void getOpenSessionsForProviders(final ServiceProvider serviceProvider, final BookingTask bookingTask) { // un
 
         db.collection("sessions").whereEqualTo("isActive", true).whereEqualTo("isSearchStarted", true)

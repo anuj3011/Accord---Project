@@ -23,32 +23,53 @@ public class OrderConfirmation extends AppCompatActivity {
 
     boolean Success = false;
     boolean Falied = false;
-
+    void navigateToOrderPage(){
+        Intent intent = new Intent(getApplicationContext(), OrderPage.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_right, R.anim.slide_out_right);
+        finish();
+    }
+    void navigateToMainActivity(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        finish();
+    }
     @Override
-    public void onBackPressed(){
-        if(Falied) {
-            Intent intent = new Intent(getApplicationContext(), OrderPage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_right, R.anim.slide_out_right);
-            finish();
-        }
-        else if(Success){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            finish();
-        }
-
-        else{
-            Toast.makeText(getApplicationContext(),"Finding service, going back disabled", Toast.LENGTH_SHORT).show();
+    public void onBackPressed() {
+        if (Falied) {
+            cancelSession();
+        } else if (Success) {
+          navigateToMainActivity();
+        } else {
+            Toast.makeText(getApplicationContext(), "Finding service, going back disabled", Toast.LENGTH_SHORT).show();
         }
     }
-    String sessionID="";
-    BookingAPI bookingAPI=new BookingAPI();
 
-    void getSession(){
-        Bundle args=getIntent().getExtras();
-        sessionID=args.getString("sessionID");
+    String sessionID = "";
+    BookingAPI bookingAPI = new BookingAPI();
+    void cancelSession(){
+        bookingAPI.cancelSession(sessionID, new BookingAPI.BookingTask() {
+            @Override
+            public void onSuccess(List<Session> sessions) {
+
+            }
+
+            @Override
+            public void onSuccess() {
+                    //canceled
+                navigateToOrderPage();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                //failed
+            }
+        });
+    }
+    void getSession() {
+        Bundle args = getIntent().getExtras();
+        sessionID = args.getString("sessionID");
         bookingAPI.checkIfSessionAccepted(sessionID, new BookingAPI.BookingTask() {
             @Override
             public void onSuccess(List<Session> sessions) {
@@ -57,7 +78,7 @@ public class OrderConfirmation extends AppCompatActivity {
 
             @Override
             public void onSuccess() {
-                Success=true;
+                Success = true;
                 //accepted
             }
 
@@ -68,6 +89,35 @@ public class OrderConfirmation extends AppCompatActivity {
         });
     }
 
+    void searchingAnimation() {
+        LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
+        lottieAnimationView.animate().alpha(0).setDuration(100);
+        TextView textView = (TextView) findViewById(R.id.textView6);
+        textView.animate().alpha(0).setDuration(100);
+        lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView5);
+        lottieAnimationView.animate().alpha(0).setDuration(100);
+        //Toast.makeText(getApplicationContext(),"Press Back to track your order", Toast.LENGTH_LONG).show();
+        LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView2);
+        lottieAnimationView2.animate().alpha(1).setDuration(750);
+        textView = (TextView) findViewById(R.id.textView5);
+        textView.animate().alpha(1).setDuration(750);
+    }
+
+    void failedAnimation() {
+        Falied = true;
+        LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
+        TextView textView = (TextView) findViewById(R.id.textView6);
+        lottieAnimationView.animate().alpha(0).setDuration(100);
+        textView.animate().alpha(0).setDuration(100);
+        lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView5);
+        lottieAnimationView.animate().alpha(0).setDuration(100);
+        LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView4);
+        lottieAnimationView2.animate().alpha(1).setDuration(750);
+        textView = (TextView) findViewById(R.id.textView10);
+        textView.animate().alpha(1).setDuration(750);
+        //Toast.makeText(getApplicationContext(),"Press Back to return to Order_Page", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,40 +125,19 @@ public class OrderConfirmation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
         getSession();
-        Random d = new Random();
+
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
 
 
-                        if(Success){
-                            LottieAnimationView lottieAnimationView = (LottieAnimationView)findViewById(R.id.lottieAnimationView);
-                            lottieAnimationView.animate().alpha(0).setDuration(100);
-                            TextView textView = (TextView)findViewById(R.id.textView6);
-                            textView.animate().alpha(0).setDuration(100);
-                            lottieAnimationView = (LottieAnimationView)findViewById(R.id.lottieAnimationView5);
-                            lottieAnimationView.animate().alpha(0).setDuration(100);
-                            //Toast.makeText(getApplicationContext(),"Press Back to track your order", Toast.LENGTH_LONG).show();
-                            LottieAnimationView lottieAnimationView2 = (LottieAnimationView)findViewById(R.id.lottieAnimationView2);
-                            lottieAnimationView2.animate().alpha(1).setDuration(750);
-                            textView = (TextView)findViewById(R.id.textView5);
-                            textView.animate().alpha(1).setDuration(750);
+                        if (Success) {
+
                             //Success = true;
-                        }
-                        else{
-                            Falied = true;
-                            LottieAnimationView lottieAnimationView = (LottieAnimationView)findViewById(R.id.lottieAnimationView);
-                            TextView textView = (TextView)findViewById(R.id.textView6);
-                            lottieAnimationView.animate().alpha(0).setDuration(100);
-                            textView.animate().alpha(0).setDuration(100);
-                            lottieAnimationView = (LottieAnimationView)findViewById(R.id.lottieAnimationView5);
-                            lottieAnimationView.animate().alpha(0).setDuration(100);
-                            LottieAnimationView lottieAnimationView2 = (LottieAnimationView)findViewById(R.id.lottieAnimationView4);
-                            lottieAnimationView2.animate().alpha(1).setDuration(750);
-                            textView = (TextView)findViewById(R.id.textView10);
-                            textView.animate().alpha(1).setDuration(750);
-                            //Toast.makeText(getApplicationContext(),"Press Back to return to Order_Page", Toast.LENGTH_LONG).show();
+                            searchingAnimation();
+                        } else {
+                            failedAnimation();
 
                         }
 
