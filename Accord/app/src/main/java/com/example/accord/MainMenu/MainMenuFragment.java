@@ -84,42 +84,7 @@ public class MainMenuFragment extends Fragment {
         return root;
     }
 
-    void getUserProfile() {
-        uid = emailAuth.checkSignIn().getUid();
-        if (uid == null || uid.length() < 1) {
 
-            emailAuth.logout();
-            Toast.makeText(getContext(), "Logging out", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getContext(), IntroActivity.class));
-
-        }
-        firestoreAPI.getUser(type, uid, new UserAPI.UserTask() {
-            @Override
-            public void onSuccess(Object object) {
-                if (type.equals("user")) {
-                    user = (com.example.accord.Models.User) object;
-                    serviceProvider = null;
-
-                } else if (type.equals("sp")) {
-                    serviceProvider = (ServiceProvider) object;
-
-                    user = null;
-
-
-                } else {
-                    ngo = (NGO) object;
-
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     void dummyOpenSessionMarkers() {
         try {
@@ -267,7 +232,7 @@ public class MainMenuFragment extends Fragment {
     View setupServiceMainMenu(@NonNull LayoutInflater inflater,
                               ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_aboutapp_service, container, false);
-
+        
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.trackOrderMap2);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -293,7 +258,42 @@ public class MainMenuFragment extends Fragment {
     }
 
     View root;
+    void getUserProfile() {
+        uid = emailAuth.checkSignIn().getUid();
+        if (uid == null || uid.length() < 1) {
 
+            emailAuth.logout();
+            Toast.makeText(getContext(), "Logging out", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getContext(), IntroActivity.class));
+
+        }
+        firestoreAPI.getUser(type, uid, new UserAPI.UserTask() {
+            @Override
+            public void onSuccess(Object object) {
+                if (type.equals("user")) {
+                    user = (com.example.accord.Models.User) object;
+                    serviceProvider = null;
+
+                } else if (type.equals("sp")) {
+                    serviceProvider = (ServiceProvider) object;
+
+                    user = null;
+
+
+                } else {
+                    ngo = (NGO) object;
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
