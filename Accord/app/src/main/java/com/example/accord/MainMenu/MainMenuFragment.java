@@ -17,12 +17,18 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.LocationService;
 import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
+import com.example.accord.Models.User;
 import com.example.accord.R;
+import com.example.accord.SampleUser;
+import com.example.accord.UserAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,6 +36,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,6 +45,9 @@ public class MainMenuFragment extends Fragment implements OnMapReadyCallback{
 
 
     private MainMenuModel mainMenuModel;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     boolean User = false;
     boolean Service = false;
     String type;
@@ -92,6 +102,18 @@ public class MainMenuFragment extends Fragment implements OnMapReadyCallback{
                     .findFragmentById(R.id.trackOrderMap2);
             mapFragment.getMapAsync(this);
 
+            ArrayList<SampleUser> sampleUsers = new ArrayList<>();
+            sampleUsers.add(new SampleUser(R.drawable.person_male_black1,"Name1"));
+            sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name2"));
+            sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name3"));
+
+            mRecyclerView = root.findViewById(R.id.UserView);
+            //mRecyclerView.setHasFixedSize(true);
+            mAdapter = new UserAdapter(sampleUsers);
+            //mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             return root;
         }
 

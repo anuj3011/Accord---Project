@@ -30,7 +30,7 @@
         tools:context=".History.HistoryFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/OrdersView"
+            android:id="@+id/UserView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical">
