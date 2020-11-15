@@ -150,6 +150,25 @@ public class MainMenuFragment extends Fragment {
         }
     }
 
+    void getUsersForSessions() {
+        final ArrayList<User> users = new ArrayList<>();
+
+        for (int i = 0; i < sessions.size(); i++) {
+            firestoreAPI.getUser("user", sessions.get(i).userID, new UserAPI.UserTask() {
+                @Override
+                public void onSuccess(Object object) {
+                    users.add((User) object);
+                    updateUserList(users);
+                }
+
+                @Override
+                public void onFailure(String msg) {
+
+                }
+            });
+        }
+    }
+
     void getOpenSessions() {
 
         bookingAPI.getOpenSessionsForProviders(serviceProvider, new BookingAPI.BookingTask() {
@@ -160,6 +179,7 @@ public class MainMenuFragment extends Fragment {
                 if (sessions != null) {
                     //addOpenSessionsMarkers();
                     dummyOpenSessionMarkers();
+                    getUsersForSessions();
                 }
             }
 
@@ -242,6 +262,24 @@ public class MainMenuFragment extends Fragment {
 
     }
 
+    void updateUserList(ArrayList<User> userList) {
+        ArrayList<SampleUser> sampleUsers = new ArrayList<>();
+
+        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name1"));
+        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name2"));
+        // sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name3"));
+        for (int i = 0; i < userList.size(); i++) {
+            sampleUsers.add(new SampleUser(R.drawable.person_male_black1, userList.get(i).getName()));
+        }
+
+        mRecyclerView = root.findViewById(R.id.UserView);
+        //mRecyclerView.setHasFixedSize(true);
+        mAdapter = new UserAdapter(sampleUsers);
+        //mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
 
     View setupServiceMainMenu(@NonNull LayoutInflater inflater,
                               ViewGroup container, Bundle savedInstanceState) {
@@ -258,18 +296,7 @@ public class MainMenuFragment extends Fragment {
 
             }
         });
-        ArrayList<SampleUser> sampleUsers = new ArrayList<>();
-        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name1"));
-        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name2"));
-        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name3"));
 
-        mRecyclerView = root.findViewById(R.id.UserView);
-        //mRecyclerView.setHasFixedSize(true);
-        mAdapter = new UserAdapter(sampleUsers);
-        //mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         return root;
     }
 
