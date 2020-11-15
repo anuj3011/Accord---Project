@@ -2,10 +2,15 @@ package com.example.accord.MainMenu;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+
+import com.example.accord.SampleUser;
+import com.example.accord.UserAdapter;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,12 +24,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accord.Auth.EmailAuth;
+import com.example.accord.Firestore.BookingAPI;
 import com.example.accord.Firestore.LocationService;
+import com.example.accord.Firestore.UserAPI;
+import com.example.accord.IntroActivity;
 import com.example.accord.Models.CustomLatLng;
+import com.example.accord.Models.NGO;
 import com.example.accord.Models.ServiceProvider;
+import com.example.accord.Models.Session;
 import com.example.accord.Models.User;
 import com.example.accord.R;
 import com.example.accord.SampleUser;
@@ -38,33 +47,44 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-
-public class MainMenuFragment extends Fragment implements OnMapReadyCallback{
+public class MainMenuFragment extends Fragment {
 
 
     private MainMenuModel mainMenuModel;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     boolean User = false;
     boolean Service = false;
     String type;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     private GoogleMap mMap;
     LocationManager locationManager;
     LocationListener locationListener;
     LocationService locationService = new LocationService();
-    CustomLatLng currentLocation=null;
-    String uid="";
-    EmailAuth emailAuth=new EmailAuth();
-    boolean getLocationCounter=false;
-    public void CenterOnMap(Location location, String title) {
-        LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.clear();
+    BookingAPI bookingAPI = new BookingAPI();
+    CustomLatLng currentLocation = null;
+    String uid = "";
+    EmailAuth emailAuth = new EmailAuth();
+    UserAPI firestoreAPI = new UserAPI();
+    User user = new User();
+    ServiceProvider serviceProvider = new ServiceProvider();
+    NGO ngo = new NGO();
+    boolean getLocationCounter = false;
+    List<Session> sessions;
 
-        //mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SelectedLocation, 15));
+    public void CenterOnMap(CustomLatLng location, String title) {
+        LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+
+        mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 15));
 
     }
 
@@ -73,73 +93,91 @@ public class MainMenuFragment extends Fragment implements OnMapReadyCallback{
         return fragment;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    View setupUserMainMenu(@NonNull LayoutInflater inflater,
+                           ViewGroup container, Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_aboutapp, container, false);
+        return root;
+    }
 
-        mainMenuModel =
-                ViewModelProviders.of(this).get(MainMenuModel.class);
-        View root;
-        Bundle args=getArguments();
-        if(args!=null){
-            type=args.getString("type");
-            uid=args.getString("id");
-            if(type.equals("user")){
-                User=true;
-                Service=false;
+
+    void dummyOpenSessionMarkers() {
+        try {
+            if (!getLocationCounter) {
+                for (int i = 0; i < 5; i++) {
+                    CustomLatLng customLatLng = new CustomLatLng();
+                    Random random = new Random();
+                    int rand = random.nextInt(6);
+                    boolean rbool = random.nextBoolean();
+
+                    double offset1 = rand / 1000.0;
+                    rand = random.nextInt(5);
+
+                    double offset2 = rand / 1000.0;
+                    if (rbool) {
+                        offset1 = offset1 * -1;
+                        offset2 = offset2 * -1;
+                    }
+                    customLatLng.latitude = currentLocation.latitude + offset1;
+                    customLatLng.longitude = currentLocation.longitude + offset2;
+                    CenterOnMap(customLatLng, String.valueOf(i));
+                }
+                getLocationCounter = true;
             }
-            else if(type.equals("sp")){
-                User=false;
-                Service=true;
-            }
-        }
-        if(User) {
-             root = inflater.inflate(R.layout.fragment_aboutapp, container, false);
-            return root;
 
-        }else{
-             root = inflater.inflate(R.layout.fragment_aboutapp_service, container, false);
-            SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
-                    .findFragmentById(R.id.trackOrderMap2);
-            mapFragment.getMapAsync(this);
+        } catch (Exception e) {
 
-            ArrayList<SampleUser> sampleUsers = new ArrayList<>();
-            sampleUsers.add(new SampleUser(R.drawable.person_male_black1,"Name1"));
-            sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name2"));
-            sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name3"));
-
-            mRecyclerView = root.findViewById(R.id.UserView);
-            //mRecyclerView.setHasFixedSize(true);
-            mAdapter = new UserAdapter(sampleUsers);
-            //mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.setAdapter(mAdapter);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            return root;
         }
 
     }
 
+    void addOpenSessionsMarkers() {
+        for (int i = 0; i < sessions.size(); i++) {
+            Session session = sessions.get(i);
+            User openUser = new User();
+            firestoreAPI.getUser("user", session.userID, new UserAPI.UserTask() {
+                @Override
+                public void onSuccess(Object object) {
+                    user = (User) object;
 
+                    CenterOnMap(user.currentLocation, user.getName());
+                }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+                @Override
+                public void onFailure(String msg) {
 
-        if (grantResults.length > 0 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // Permission is granted
-            Log.d("location", "permission granted");
-            requestLocationUpdates();
-
-        } else {
-            // toast need permission for location
+                }
+            });
         }
+    }
 
+    void getOpenSessions() {
 
+        bookingAPI.getOpenSessionsForProviders(serviceProvider, new BookingAPI.BookingTask() {
+            @Override
+            public void onSuccess(List<Session> openSessions) {
+                //place open session markers
+                sessions = openSessions;
+                if (sessions != null) {
+                    //addOpenSessionsMarkers();
+                    dummyOpenSessionMarkers();
+                }
+            }
+
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+        });
     }
 
     void pushUserLocationOnOrder() {
-        uid=emailAuth.checkSignIn().getUid();
-        if(!getLocationCounter){
+        uid = emailAuth.checkSignIn().getUid();
+        if (!getLocationCounter) {
             locationService.pushLocation(type, uid, currentLocation, new LocationService.LocationTask() {
                 @Override
                 public void onGetDistance(String value) {
@@ -153,71 +191,174 @@ public class MainMenuFragment extends Fragment implements OnMapReadyCallback{
 
                 @Override
                 public void onFailure(String msg) {
-                    Toast.makeText(getActivity(),"Push Location Failed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Push Location Failed", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onSuccess(Object location) {
-                    getLocationCounter=true;
-                    Toast.makeText(getActivity(),"Pushing Location",Toast.LENGTH_LONG).show();
+                    getLocationCounter = true;
+                    Toast.makeText(getActivity(), "Pushing Location", Toast.LENGTH_LONG).show();
                 }
             });
         }
 
     }
 
-    void requestLocationUpdates() {
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+    void getLocation() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
+
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .detach(MainMenuFragment.this)
+                    .attach(MainMenuFragment.this)
+                    .commit();
+        } else {
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+
+            mMap.setMyLocationEnabled(true);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    Log.d("location", location.toString());
+                    currentLocation = new CustomLatLng();
+                    currentLocation.latitude = location.getLatitude();
+                    currentLocation.longitude = location.getLongitude();
+                    if (Service) {
+                        getOpenSessions();
+                    }
+                    pushUserLocationOnOrder();
+
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                    Log.d("location", provider + status);
+                }
+            });
+        }
+
+    }
+
+
+    View setupServiceMainMenu(@NonNull LayoutInflater inflater,
+                              ViewGroup container, Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_aboutapp_service, container, false);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.trackOrderMap2);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+                getLocation();
+
+
+            }
+        });
+        ArrayList<SampleUser> sampleUsers = new ArrayList<>();
+        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name1"));
+        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name2"));
+        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name3"));
+
+        mRecyclerView = root.findViewById(R.id.UserView);
+        //mRecyclerView.setHasFixedSize(true);
+        mAdapter = new UserAdapter(sampleUsers);
+        //mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        return root;
+    }
+
+    View root;
+
+    void getUserProfile() {
+        uid = emailAuth.checkSignIn().getUid();
+        if (uid == null || uid.length() < 1) {
+
+            emailAuth.logout();
+            Toast.makeText(getContext(), "Logging out", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getContext(), IntroActivity.class));
 
         }
-        Log.d("location", "getting location");
-        mMap.setMyLocationEnabled(true);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
+        firestoreAPI.getUser(type, uid, new UserAPI.UserTask() {
             @Override
-            public void onLocationChanged(@NonNull Location location) {
-                Log.d("location", location.toString());
-                currentLocation=new CustomLatLng();
-                currentLocation.latitude=location.getLatitude();
-                currentLocation.longitude=location.getLongitude();
+            public void onSuccess(Object object) {
+                if (type.equals("user")) {
+                    user = (com.example.accord.Models.User) object;
+                    serviceProvider = null;
 
-                pushUserLocationOnOrder();
-                CenterOnMap(location, "Test");
+                } else if (type.equals("sp")) {
+                    serviceProvider = (ServiceProvider) object;
+
+                    user = null;
+
+
+                } else {
+                    ngo = (NGO) object;
+
+                }
+
+
             }
 
             @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.d("location", provider + status);
+            public void onFailure(String msg) {
+                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    void checkPermissionsForLocation() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
+        mainMenuModel =
+                ViewModelProviders.of(this).get(MainMenuModel.class);
 
-            ActivityCompat.requestPermissions( getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+        Bundle args = getArguments();
+        if (args != null) {
+            type = args.getString("type");
+            uid = args.getString("id");
+            if (type.equals("user")) {
+                User = true;
+                Service = false;
+            } else if (type.equals("sp")) {
+                User = false;
+                Service = true;
+            }
+        }
+
+        getUserProfile();
+        if (User) {
+            return setupUserMainMenu(inflater, container, savedInstanceState);
+
         } else {
-            requestLocationUpdates();
+            return setupServiceMainMenu(inflater, container, savedInstanceState);
         }
 
     }
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        if (grantResults.length > 0 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Permission is granted
+            Log.d("location", "permission granted");
+            getLocation();
+
+
+        } else {
+            Toast.makeText(getContext(), "Please grant permissions for location", Toast.LENGTH_LONG).show();
+
+        }
+
+
     }
+
+
 }

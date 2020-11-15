@@ -108,15 +108,7 @@ public class SignIn extends AppCompatActivity {
     UserAPI firestoreAPI=new UserAPI();
     void getUserProfile() {
         userId = emailAuth.checkSignIn().getUid();
-        if(flag==0){
-            type="user";
-        }
-        else if(flag==1){
-            type="sp";
-        }
-        else{
-            type="ngo";
-        }
+
         if(userId==null || userId.length()<1){
 
             emailAuth.logout();
@@ -124,20 +116,51 @@ public class SignIn extends AppCompatActivity {
             startActivity(new Intent(this, IntroActivity.class));
 
         }
-        firestoreAPI.getUser(type, userId, new UserAPI.UserTask() {
+        firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
             @Override
             public void onSuccess(Object object) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("id", userId);
-                intent.putExtra("type","user");
-                startActivity(intent);
+                type="user";
+                navigateToMainActivity();
             }
 
             @Override
             public void onFailure(String msg) {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                firestoreAPI.getUser("sp", userId, new UserAPI.UserTask() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        type="sp";
+                        navigateToMainActivity();
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        firestoreAPI.getUser("ngo", userId, new UserAPI.UserTask() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                type="ngo";
+                                navigateToMainActivity();
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+                                navigateToMainActivity();// no type found;
+                            }
+                        });
+                    }
+                });
             }
         });
+    }
+
+    void navigateToMainActivity() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+        intent.putExtra("id", userId);
+        intent.putExtra("type", type);
+        startActivity(intent);
+
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        finish();
     }
     public void signIn() {
         textInput = findViewById(R.id.Email);
