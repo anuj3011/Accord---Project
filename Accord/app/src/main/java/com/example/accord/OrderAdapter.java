@@ -36,8 +36,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         Button trackOrderButton;
         public ViewHolder(View itemView){
             super(itemView);
-            img = (ImageView)itemView.findViewById(R.id.img1);
-            textorder = (TextView)itemView.findViewById(R.id.user);
+            img = (ImageView)itemView.findViewById(R.id.img);
+            textorder = (TextView)itemView.findViewById(R.id.order);
             cv = (CardView)itemView.findViewById(R.id.cv);
             trackOrderButton=itemView.findViewById(R.id.trackOrderButton);
         }
