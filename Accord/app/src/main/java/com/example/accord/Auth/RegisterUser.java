@@ -142,6 +142,7 @@ public class RegisterUser extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getBaseContext(), "Completing Registration Process", Toast.LENGTH_LONG).show();
                                 user=new User(name,Phone,email,add1,area,city);
+                                user.uid=firebaseUser.getUid();
                                 new UserAPI().pushUser("user", firebaseUser.getUid(), user, new UserAPI.UserTask() {
                                     @Override
                                     public void onSuccess(Object object) {

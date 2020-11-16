@@ -156,7 +156,7 @@ public class RegisterService extends AppCompatActivity {
                     if (firebaseUser.isEmailVerified()) {
                         Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
                         Toast.makeText(getBaseContext(), "Completing Registration Process", Toast.LENGTH_LONG).show();
-
+                        serviceProvider.uid=firebaseUser.getUid();
                         new UserAPI().pushUser("sp", firebaseUser.getUid(), serviceProvider, new UserAPI.UserTask() {
                             @Override
                             public void onSuccess(Object object) {

@@ -155,7 +155,7 @@ public class BookingAPI {
         });
     }
 
-    public void getOpenSessionsForProviders(final ServiceProvider serviceProvider, final BookingTask bookingTask) { // un
+    public void  getOpenSessionsForProviders(final ServiceProvider serviceProvider, final BookingTask bookingTask) { // un
 
         db.collection("sessions").whereEqualTo("isActive", true).whereEqualTo("isSearchStarted", true)
                 .whereEqualTo("isAccepted", false)

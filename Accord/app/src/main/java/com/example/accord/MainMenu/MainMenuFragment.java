@@ -141,7 +141,7 @@ public class MainMenuFragment extends Fragment {
                 public void onSuccess(Object object) {
                     user = (User) object;
                     users.add((User) object);
-                    updateUserList(users);
+                    updateUserList();
                     CenterOnMap(user.currentLocation, user.getName());
                 }
 
@@ -261,19 +261,12 @@ public class MainMenuFragment extends Fragment {
 
     }
 
-    void updateUserList(ArrayList<User> userList) {
-        ArrayList<SampleUser> sampleUsers = new ArrayList<>();
+    void updateUserList() {
 
-        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name1"));
-        sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name2"));
-        // sampleUsers.add(new SampleUser(R.drawable.person_male_black1, "Name3"));
-        for (int i = 0; i < userList.size(); i++) {
-            sampleUsers.add(new SampleUser(R.drawable.person_male_black1, userList.get(i).getName()));
-        }
 
         mRecyclerView = root.findViewById(R.id.UserView);
         //mRecyclerView.setHasFixedSize(true);
-        mAdapter = new UserAdapter(sampleUsers);
+        mAdapter = new UserAdapter(sessions,serviceProvider);
         //mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
