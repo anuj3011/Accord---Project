@@ -63,7 +63,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent launchTrack=new Intent(context,TrackOrder.class);
+
                 launchTrack.putExtra("serviceProvider", order_type.serviceProviderID);
+                launchTrack.putExtra("session",order_type.sessionID);
                 context.startActivity(launchTrack);
             }
         });

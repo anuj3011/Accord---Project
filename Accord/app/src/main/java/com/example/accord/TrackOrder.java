@@ -177,6 +177,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -190,9 +192,11 @@ import com.directions.route.Route;
 import com.directions.route.RouteException;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
+import com.example.accord.Firestore.BookingAPI;
 import com.example.accord.Firestore.UserAPI;
 import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
+import com.example.accord.Models.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -230,11 +234,41 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
     String serviceProviderID = "";
     UserAPI userAPI = new UserAPI();
     ServiceProvider serviceProvider = new ServiceProvider();
+    String sessionID="";
+    BookingAPI bookingAPI=new BookingAPI();
+    void updateServiceProviderDetails(){
+        TextView textView=findViewById(R.id.trackOrderServiceName);
+        textView.setText(serviceProvider.getFirst_name());
+        textView=findViewById(R.id.trackOrderServicePhone);
+        textView.setText(serviceProvider.phone);
+        Button button=findViewById(R.id.cancelOrderButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookingAPI.cancelSession(sessionID, new BookingAPI.BookingTask() {
+                    @Override
+                    public void onSuccess(List<Session> sessions) {
 
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(),"Cancelled",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailed(String msg) {
+                        Toast.makeText(getApplicationContext(),"Cant cancel please try again",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
     void getServiceProviderLocation() {
         Bundle args = getIntent().getExtras();
         if (args != null) {
             serviceProviderID = args.getString("serviceProvider");
+            sessionID=args.getString("session");
             userAPI.getUser("sp", serviceProviderID, new UserAPI.UserTask() {
                 @Override
                 public void onSuccess(Object object) {
@@ -242,6 +276,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
                     if (serviceProvider != null && serviceProvider.currentLocation != null) {
                         CustomLatLng customLatLng = serviceProvider.currentLocation;
                         end = new LatLng(customLatLng.getLatitude(), customLatLng.getLongitude());
+                        updateServiceProviderDetails();
                         Findroutes(start,end);
                     }
                 }

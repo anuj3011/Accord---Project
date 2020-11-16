@@ -1,7 +1,7 @@
 package com.example.accord.Models;
 
 public class Order {
-    public String sessionId;
+    public String sessionID;
     public String userId;
     public  String serviceProviderID;
     public  String completedOnDate;
@@ -24,8 +24,8 @@ public class Order {
         return serviceProviderID;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getSessionID() {
+        return sessionID;
     }
 
     public String getUserId() {
