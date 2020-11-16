@@ -69,19 +69,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error==null){
                     final Session session=value.toObject(Session.class);
+                    if(session!=null){
+                        holder.textorder.setText(session.serviceCategory);
+                        holder.img.setImageResource(R.drawable.down2);
+                        holder.trackOrderButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent launchTrack=new Intent(context,TrackOrder.class);
 
-                    holder.textorder.setText(session.serviceCategory);
-                    holder.img.setImageResource(R.drawable.down2);
-                    holder.trackOrderButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent launchTrack=new Intent(context,TrackOrder.class);
+                                launchTrack.putExtra("serviceProvider", session.serviceProviderID);
+                                launchTrack.putExtra("session",session.sessionID);
+                                context.startActivity(launchTrack);
+                            }
+                        });
+                    }
 
-                            launchTrack.putExtra("serviceProvider", session.serviceProviderID);
-                            launchTrack.putExtra("session",session.sessionID);
-                            context.startActivity(launchTrack);
-                        }
-                    });
                 }
             }
         });

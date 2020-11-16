@@ -42,7 +42,10 @@ public class HistoryFragment extends Fragment {
                user=(User) object;
                if(user!=null){
                    orderList=user.getOrders();
-                   updateRecyclerView(root);
+                   if(orderList.size()>0){
+                       updateRecyclerView(root);
+                   }
+
                }
            }
 
