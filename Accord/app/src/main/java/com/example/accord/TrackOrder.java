@@ -177,17 +177,22 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.airbnb.lottie.L;
 import com.directions.route.AbstractRouting;
 import com.directions.route.Route;
 import com.directions.route.RouteException;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
+import com.example.accord.Firestore.UserAPI;
+import com.example.accord.Models.CustomLatLng;
+import com.example.accord.Models.ServiceProvider;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -222,6 +227,33 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
     //polyline object
     private List<Polyline> polylines = null;
+    String serviceProviderID = "";
+    UserAPI userAPI = new UserAPI();
+    ServiceProvider serviceProvider = new ServiceProvider();
+
+    void getServiceProviderLocation() {
+        Bundle args = getIntent().getExtras();
+        if (args != null) {
+            serviceProviderID = args.getString("serviceProvider");
+            userAPI.getUser("sp", serviceProviderID, new UserAPI.UserTask() {
+                @Override
+                public void onSuccess(Object object) {
+                    serviceProvider = (ServiceProvider) object;
+                    if (serviceProvider != null && serviceProvider.currentLocation != null) {
+                        CustomLatLng customLatLng = serviceProvider.currentLocation;
+                        end = new LatLng(customLatLng.getLatitude(), customLatLng.getLongitude());
+                        Findroutes(start,end);
+                    }
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -285,11 +317,17 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onMyLocationChange(Location location) {
 
-                myLocation=location;
-                LatLng ltlng=new LatLng(location.getLatitude(),location.getLongitude());
+                myLocation = location;
+                LatLng ltlng = new LatLng(location.getLatitude(), location.getLongitude());
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
                         ltlng, 16f);
                 mMap.animateCamera(cameraUpdate);
+
+
+                start = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                getServiceProviderLocation();
+                //start route finding
+
             }
         });
 
@@ -298,13 +336,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onMapClick(LatLng latLng) {
 
-                end=latLng;
 
-                mMap.clear();
-
-                start=new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
-                //start route finding
-                Findroutes(start,end);
             }
         });
 
@@ -321,13 +353,10 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
 
     // function to find Routes.
-    public void Findroutes(LatLng Start, LatLng End)
-    {
-        if(Start==null || End==null) {
+    public void Findroutes(LatLng Start, LatLng End) {
+        if (Start == null || End == null) {
             //Toast.makeText(MainActivity.this,"Unable to get location",Toast.LENGTH_LONG).show();
-        }
-        else
-        {
+        } else {
 
             Routing routing = new Routing.Builder()
                     .travelMode(AbstractRouting.TravelMode.DRIVING)
@@ -344,7 +373,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onRoutingFailure(RouteException e) {
         View parentLayout = findViewById(android.R.id.content);
-        Snackbar snackbar= Snackbar.make(parentLayout, e.toString(), Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(parentLayout, e.toString(), Snackbar.LENGTH_LONG);
         snackbar.show();
 //        Findroutes(start,end);
     }
@@ -360,31 +389,29 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
         CameraUpdate center = CameraUpdateFactory.newLatLng(start);
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
-        if(polylines!=null) {
+        if (polylines != null) {
             polylines.clear();
         }
         PolylineOptions polyOptions = new PolylineOptions();
-        LatLng polylineStartLatLng=null;
-        LatLng polylineEndLatLng=null;
+        LatLng polylineStartLatLng = null;
+        LatLng polylineEndLatLng = null;
 
 
         polylines = new ArrayList<>();
         //add route(s) to the map using polyline
-        for (int i = 0; i <route.size(); i++) {
+        for (int i = 0; i < route.size(); i++) {
 
-            if(i==shortestRouteIndex)
-            {
+            if (i == shortestRouteIndex) {
                 polyOptions.color(getResources().getColor(R.color.colorPrimary));
                 polyOptions.width(7);
                 polyOptions.addAll(route.get(shortestRouteIndex).getPoints());
                 Polyline polyline = mMap.addPolyline(polyOptions);
-                polylineStartLatLng=polyline.getPoints().get(0);
-                int k=polyline.getPoints().size();
-                polylineEndLatLng=polyline.getPoints().get(k-1);
+                polylineStartLatLng = polyline.getPoints().get(0);
+                int k = polyline.getPoints().size();
+                polylineEndLatLng = polyline.getPoints().get(k - 1);
                 polylines.add(polyline);
 
-            }
-            else {
+            } else {
 
             }
 
@@ -405,12 +432,12 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onRoutingCancelled() {
-        Findroutes(start,end);
+        Findroutes(start, end);
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Findroutes(start,end);
+        Findroutes(start, end);
 
     }
 }

@@ -3,7 +3,7 @@ package com.example.accord.Models;
 public class Order {
     public String sessionId;
     public String userId;
-    public  String serviceProviderId;
+    public  String serviceProviderID;
     public  String completedOnDate;
     public  boolean isActive;
     String serviceName;
@@ -20,8 +20,8 @@ public class Order {
         return completedOnDate;
     }
 
-    public String getServiceProviderId() {
-        return serviceProviderId;
+    public String getServiceProviderID() {
+        return serviceProviderID;
     }
 
     public String getSessionId() {
