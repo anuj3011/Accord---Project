@@ -252,6 +252,11 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
                     }
 
                     @Override
+                    public void onSuccess(Session session) {
+                        
+                    }
+
+                    @Override
                     public void onSuccess() {
                         Toast.makeText(getApplicationContext(),"Cancelled",Toast.LENGTH_LONG).show();
                     }

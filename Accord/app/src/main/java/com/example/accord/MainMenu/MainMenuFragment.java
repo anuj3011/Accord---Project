@@ -170,6 +170,11 @@ public class MainMenuFragment extends Fragment {
                 }
 
                 @Override
+                public void onSuccess(Session session) {
+
+                }
+
+                @Override
                 public void onSuccess() {
 
                 }
