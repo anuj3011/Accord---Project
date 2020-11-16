@@ -77,9 +77,11 @@
         <activity
             android:name=".Auth.RegisterUser"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Auth.RegisterService" />
+        <activity android:name=".Auth.RegisterService"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Auth.InputDocuments" />
-        <activity android:name=".Auth.RegisterNgo" />
+        <activity android:name=".Auth.RegisterNgo"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Auth.UserType"
             android:theme="@style/AppTheme.NoActionBar" />
