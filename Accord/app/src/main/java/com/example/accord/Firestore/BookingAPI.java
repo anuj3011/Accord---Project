@@ -43,7 +43,7 @@ public class BookingAPI {
 
     public interface BookingTask {
         void onSuccess(List<Session> sessions);
-
+        void onSuccess(Session session);
         void onSuccess();
 
         void onFailed(String msg);
@@ -144,7 +144,7 @@ public class BookingAPI {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Session session = documentSnapshot.toObject(Session.class);
                 if (session.isAccepted) {
-                    bookingTask.onSuccess();
+                    bookingTask.onSuccess(session);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

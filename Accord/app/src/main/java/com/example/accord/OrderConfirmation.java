@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.accord.Firestore.BookingAPI;
+import com.example.accord.Firestore.FirebaseTaskInterface;
+import com.example.accord.Firestore.OrderHistoryAPI;
 import com.example.accord.History.HistoryFragment;
+import com.example.accord.Models.Order;
 import com.example.accord.Models.Session;
 import com.example.accord.UserMainMenu.OrderPage;
 import com.example.accord.YourAccount.YourAccountFragment;
@@ -56,6 +59,11 @@ public class OrderConfirmation extends AppCompatActivity {
             }
 
             @Override
+            public void onSuccess(Session session) {
+
+            }
+
+            @Override
             public void onSuccess() {
                     //canceled
                 navigateToOrderPage();
@@ -67,6 +75,8 @@ public class OrderConfirmation extends AppCompatActivity {
             }
         });
     }
+    OrderHistoryAPI orderHistoryAPI=new OrderHistoryAPI();
+    Session session=new Session();
     void getSession() {
         Bundle args = getIntent().getExtras();
         sessionID = args.getString("sessionID");
@@ -77,8 +87,35 @@ public class OrderConfirmation extends AppCompatActivity {
             }
 
             @Override
+            public void onSuccess(Session acceptedSession) {
+                session=acceptedSession;
+                Order order=new Order();
+                order.serviceProviderID=session.serviceProviderID;
+                order.sessionID=session.sessionID;
+                order.userId=session.userID;
+                order.isActive=true;
+                orderHistoryAPI.pushOrder(order.userId, order, new FirebaseTaskInterface() {
+                    @Override
+                    public void onSuccess() {
+                        // added to history
+                    }
+
+                    @Override
+                    public void onSuccess(Object object) {
+
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
+            }
+
+            @Override
             public void onSuccess() {
                 Success = true;
+
                 //accepted
             }
 
