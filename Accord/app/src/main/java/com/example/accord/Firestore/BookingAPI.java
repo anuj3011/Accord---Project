@@ -82,7 +82,7 @@ public class BookingAPI {
         session.isSearchStarted = true;
         session.serviceCategory = category;
         session.isServiceSkilled = isSkilled;
-
+        session.serviceCategory=category;
         DocumentReference sessionReference = db.collection("sessions").document();
         session.sessionID = sessionReference.getId();
         sessionReference.set(session).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -139,18 +139,18 @@ public class BookingAPI {
     }
 
     public void checkIfSessionAccepted(String sessionID, final BookingTask bookingTask) {
-        db.collection("sessions").document(sessionID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("sessions").document(sessionID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Session session = documentSnapshot.toObject(Session.class);
-                if (session.isAccepted) {
-                    bookingTask.onSuccess(session);
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error==null){
+                    Session session = value.toObject(Session.class);
+                    if (session.isAccepted) {
+                        bookingTask.onSuccess(session);
+                    }
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                bookingTask.onFailed(e.getMessage());
+                else{
+                    bookingTask.onFailed(error.getMessage());
+                }
             }
         });
     }

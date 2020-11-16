@@ -6,8 +6,8 @@ public class Order {
     public  String serviceProviderID;
     public  String completedOnDate;
     public  boolean isActive;
-    String serviceName;
-    String serviceProviderName;
+   public  String serviceName;
+   public String serviceProviderName;
     public Order(){
 
     }

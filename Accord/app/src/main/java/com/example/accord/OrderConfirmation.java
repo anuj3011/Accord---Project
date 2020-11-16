@@ -94,10 +94,12 @@ public class OrderConfirmation extends AppCompatActivity {
                 order.sessionID=session.sessionID;
                 order.userId=session.userID;
                 order.isActive=true;
+                order.serviceName=session.serviceCategory;
                 orderHistoryAPI.pushOrder(order.userId, order, new FirebaseTaskInterface() {
                     @Override
                     public void onSuccess() {
                         // added to history
+                        navigateToMainActivity();
                     }
 
                     @Override
@@ -107,7 +109,7 @@ public class OrderConfirmation extends AppCompatActivity {
 
                     @Override
                     public void onFailure(String msg) {
-
+                                navigateToOrderPage();
                     }
                 });
             }
