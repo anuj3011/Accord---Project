@@ -225,6 +225,7 @@ public class OrderPage extends FragmentActivity {
     BookingAPI bookingAPI = new BookingAPI();
 
     public void Confirmation(View view) {
+        String uid=new EmailAuth().checkSignIn().getUid();
         bookingAPI.bookService(uid, category, true, new BookingAPI.onBooked() {
             @Override
             public void onBooked(Session session) {

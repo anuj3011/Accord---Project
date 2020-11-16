@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.UserAPI;
-import com.example.accord.Models.Order;
+import com.example.accord.Models.Session;
 import com.example.accord.Models.User;
 import com.example.accord.OrderAdapter;
 import com.example.accord.R;
@@ -28,7 +28,7 @@ public class HistoryFragment extends Fragment {
     //private static final String TAG = "DemoActivity";
     RecyclerView recyclerView;
     OrderAdapter orderAdapter;
-    ArrayList<Order> orderList = new ArrayList<>();
+    ArrayList<Session> orderList = new ArrayList<>();
     UserAPI userAPI=new UserAPI();
     String uid="";
     User user=new User();

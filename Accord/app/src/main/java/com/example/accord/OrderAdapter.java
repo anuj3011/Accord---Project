@@ -10,10 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.accord.Models.Order;
+import com.example.accord.Firestore.BookingAPI;
+import com.example.accord.Models.Session;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
 
@@ -22,11 +28,11 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-    List<Order> OrderList;
+    List<Session> sessionList;
     Context context;
 
-    public OrderAdapter(List<Order>OrderList){
-        this.OrderList = OrderList;
+    public OrderAdapter(List<Session> sessionList){
+        this.sessionList = sessionList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -52,30 +58,41 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         context = parent.getContext();
         return viewHolder;
     }
-
+    BookingAPI bookingAPI=new BookingAPI();
+    FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final Order order_type = OrderList.get(position);
 
-        holder.textorder.setText(order_type.getServiceName());
-        holder.img.setImageResource(R.drawable.down2);
-        holder.trackOrderButton.setOnClickListener(new View.OnClickListener() {
+        final Session activeSession = sessionList.get(position);
+        firebaseFirestore.collection("sessions").document(activeSession.sessionID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                Intent launchTrack=new Intent(context,TrackOrder.class);
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error==null){
+                    final Session session=value.toObject(Session.class);
 
-                launchTrack.putExtra("serviceProvider", order_type.serviceProviderID);
-                launchTrack.putExtra("session",order_type.sessionID);
-                context.startActivity(launchTrack);
+                    holder.textorder.setText(session.serviceCategory);
+                    holder.img.setImageResource(R.drawable.down2);
+                    holder.trackOrderButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent launchTrack=new Intent(context,TrackOrder.class);
+
+                            launchTrack.putExtra("serviceProvider", session.serviceProviderID);
+                            launchTrack.putExtra("session",session.sessionID);
+                            context.startActivity(launchTrack);
+                        }
+                    });
+                }
             }
         });
+
 
 
     }
 
     @Override
     public int getItemCount(){
-        return OrderList.size();
+        return sessionList.size();
     }
 
 

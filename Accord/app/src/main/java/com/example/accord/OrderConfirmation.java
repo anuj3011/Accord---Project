@@ -11,16 +11,11 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.accord.Firestore.BookingAPI;
-import com.example.accord.Firestore.FirebaseTaskInterface;
 import com.example.accord.Firestore.OrderHistoryAPI;
-import com.example.accord.History.HistoryFragment;
-import com.example.accord.Models.Order;
 import com.example.accord.Models.Session;
 import com.example.accord.UserMainMenu.OrderPage;
-import com.example.accord.YourAccount.YourAccountFragment;
 
 import java.util.List;
-import java.util.Random;
 
 public class OrderConfirmation extends AppCompatActivity {
 

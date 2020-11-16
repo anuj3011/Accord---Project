@@ -136,7 +136,7 @@ public class MainMenuFragment extends Fragment {
         for (int i = 0; i < sessions.size(); i++) {
             Session session = sessions.get(i);
             User openUser = new User();
-            try{
+            try {
                 firestoreAPI.getUser("user", session.userID, new UserAPI.UserTask() {
                     @Override
                     public void onSuccess(Object object) {
@@ -151,18 +151,16 @@ public class MainMenuFragment extends Fragment {
 
                     }
                 });
-            }
-            catch (Exception e){
-                Log.d("exception",e.getMessage());
+            } catch (Exception e) {
+                Log.d("exception", e.getMessage());
             }
 
         }
     }
 
 
-
     void getOpenSessions() {
-        if(!getLocationCounter){
+        if (!getLocationCounter) {
             bookingAPI.getOpenSessionsForProviders(serviceProvider, new BookingAPI.BookingTask() {
                 @Override
                 public void onSuccess(List<Session> openSessions) {
@@ -171,7 +169,7 @@ public class MainMenuFragment extends Fragment {
                     if (sessions != null) {
                         addOpenSessionsMarkers();
                         dummyOpenSessionMarkers();
-                        getLocationCounter=true;
+                        getLocationCounter = true;
                     }
                 }
 
@@ -195,7 +193,7 @@ public class MainMenuFragment extends Fragment {
     }
 
     void pushUserLocationOnOrder() {
-        try{
+        try {
             uid = emailAuth.checkSignIn().getUid();
 
             locationService.pushLocation(type, uid, currentLocation, new LocationService.LocationTask() {
@@ -220,11 +218,9 @@ public class MainMenuFragment extends Fragment {
                     // Toast.makeText(getActivity(), "Pushing Location", Toast.LENGTH_LONG).show();
                 }
             });
+        } catch (Exception e) {
+            Log.d("exception", e.getMessage());
         }
-        catch (Exception e){
-            Log.d("exception",e.getMessage());
-        }
-
 
 
     }
@@ -272,7 +268,7 @@ public class MainMenuFragment extends Fragment {
 
         mRecyclerView = root.findViewById(R.id.UserView);
         //mRecyclerView.setHasFixedSize(true);
-        mAdapter = new UserAdapter(sessions,serviceProvider);
+        mAdapter = new UserAdapter(sessions, serviceProvider);
         //mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -360,8 +356,11 @@ public class MainMenuFragment extends Fragment {
         if (User) {
             return setupUserMainMenu(inflater, container, savedInstanceState);
 
-        } else {
+        } else if (Service) {
             return setupServiceMainMenu(inflater, container, savedInstanceState);
+        } else {
+
+            return setupUserMainMenu(inflater, container, savedInstanceState);
         }
 
     }

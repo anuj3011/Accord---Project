@@ -30,7 +30,6 @@ package com.example.accord;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,34 +39,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.accord.Auth.EmailAuth;
-import com.example.accord.Firestore.FirebaseTaskInterface;
-import com.example.accord.Firestore.OrderHistoryAPI;
 import com.example.accord.Firestore.UserAPI;
-import com.example.accord.Models.CustomUser;
 import com.example.accord.Models.NGO;
-import com.example.accord.Models.Order;
 import com.example.accord.Models.User;
 import com.example.accord.NGOMainMenu.ngo;
 import com.example.accord.ServiceMainMenu.ServicesOption;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.accord.Firestore.LocationService;
 import com.example.accord.Models.ServiceProvider;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

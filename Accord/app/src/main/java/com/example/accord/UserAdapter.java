@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,10 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.accord.Firestore.BookingAPI;
 import com.example.accord.Firestore.FirebaseTaskInterface;
 import com.example.accord.Firestore.OrderHistoryAPI;
-import com.example.accord.Models.Order;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.Session;
-import com.example.accord.Models.User;
 
 import java.util.List;
 
@@ -86,13 +83,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
                     @Override
                     public void onSuccess() {
-                        Order order=new Order();
-                        order.serviceProviderID=session.serviceProviderID;
-                        order.sessionID=session.sessionID;
-                        order.userId=session.userID;
-                        order.isActive=true;
-                        order.serviceName=session.serviceCategory;
-                        orderHistoryAPI.pushOrder(order.userId, order, new FirebaseTaskInterface() {
+
+                        orderHistoryAPI.pushOrder(session.userID, session, new FirebaseTaskInterface() {
                             @Override
                             public void onSuccess() {
                                 // added to history
