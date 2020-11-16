@@ -136,20 +136,26 @@ public class MainMenuFragment extends Fragment {
         for (int i = 0; i < sessions.size(); i++) {
             Session session = sessions.get(i);
             User openUser = new User();
-            firestoreAPI.getUser("user", session.userID, new UserAPI.UserTask() {
-                @Override
-                public void onSuccess(Object object) {
-                    user = (User) object;
-                    users.add((User) object);
-                    updateUserList();
-                    CenterOnMap(user.currentLocation, user.getName());
-                }
+            try{
+                firestoreAPI.getUser("user", session.userID, new UserAPI.UserTask() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        user = (User) object;
+                        users.add((User) object);
+                        updateUserList();
+                        CenterOnMap(user.currentLocation, user.getName());
+                    }
 
-                @Override
-                public void onFailure(String msg) {
+                    @Override
+                    public void onFailure(String msg) {
 
-                }
-            });
+                    }
+                });
+            }
+            catch (Exception e){
+                Log.d("exception",e.getMessage());
+            }
+
         }
     }
 

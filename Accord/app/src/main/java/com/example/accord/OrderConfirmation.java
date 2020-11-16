@@ -90,30 +90,7 @@ public class OrderConfirmation extends AppCompatActivity {
             public void onSuccess(Session acceptedSession) {
                 acceptedAnimation();
                 session=acceptedSession;
-                Order order=new Order();
-                order.serviceProviderID=session.serviceProviderID;
-                order.sessionID=session.sessionID;
-                order.userId=session.userID;
-                order.isActive=true;
-                order.serviceName=session.serviceCategory;
-                orderHistoryAPI.pushOrder(order.userId, order, new FirebaseTaskInterface() {
-                    @Override
-                    public void onSuccess() {
-                        // added to history
 
-                        navigateToMainActivity();
-                    }
-
-                    @Override
-                    public void onSuccess(Object object) {
-
-                    }
-
-                    @Override
-                    public void onFailure(String msg) {
-                                navigateToOrderPage();
-                    }
-                });
             }
 
             @Override
@@ -121,6 +98,7 @@ public class OrderConfirmation extends AppCompatActivity {
                 Success = true;
 
                 //accepted
+                acceptedAnimation();
             }
 
             @Override

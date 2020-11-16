@@ -15,6 +15,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accord.Firestore.BookingAPI;
+import com.example.accord.Firestore.FirebaseTaskInterface;
+import com.example.accord.Firestore.OrderHistoryAPI;
+import com.example.accord.Models.Order;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.Session;
 import com.example.accord.Models.User;
@@ -58,6 +61,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         return viewHolder;
     }
     BookingAPI bookingAPI=new BookingAPI();
+
+    OrderHistoryAPI orderHistoryAPI=new OrderHistoryAPI();
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Session session = sessionList.get(position);
@@ -81,7 +86,31 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(v.getContext(),"Accepted, navigate to user Location",Toast.LENGTH_LONG).show();
+                        Order order=new Order();
+                        order.serviceProviderID=session.serviceProviderID;
+                        order.sessionID=session.sessionID;
+                        order.userId=session.userID;
+                        order.isActive=true;
+                        order.serviceName=session.serviceCategory;
+                        orderHistoryAPI.pushOrder(order.userId, order, new FirebaseTaskInterface() {
+                            @Override
+                            public void onSuccess() {
+                                // added to history
+                                Toast.makeText(v.getContext(),"Accepted, navigate to user Location",Toast.LENGTH_LONG).show();
+
+                            }
+
+                            @Override
+                            public void onSuccess(Object object) {
+
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+
+                            }
+                        });
+
 
                     }
 
