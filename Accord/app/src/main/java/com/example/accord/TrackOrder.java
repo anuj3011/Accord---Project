@@ -173,8 +173,10 @@ package com.example.accord;
 //Commented previous code for the time being
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -241,6 +243,15 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
         textView.setText(serviceProvider.getFirst_name());
         textView=findViewById(R.id.trackOrderServicePhone);
         textView.setText(serviceProvider.phone);
+        final TextView finalTextView = textView;
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+ finalTextView.getText()));
+                startActivity(intent);
+            }
+        });
         Button button=findViewById(R.id.cancelOrderButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
