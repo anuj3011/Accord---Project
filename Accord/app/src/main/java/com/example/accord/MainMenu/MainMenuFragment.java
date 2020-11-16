@@ -44,6 +44,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.FirebaseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +132,7 @@ public class MainMenuFragment extends Fragment {
     }
 
     void addOpenSessionsMarkers() {
+        final ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < sessions.size(); i++) {
             Session session = sessions.get(i);
             User openUser = new User();
@@ -138,7 +140,8 @@ public class MainMenuFragment extends Fragment {
                 @Override
                 public void onSuccess(Object object) {
                     user = (User) object;
-
+                    users.add((User) object);
+                    updateUserList(users);
                     CenterOnMap(user.currentLocation, user.getName());
                 }
 
@@ -150,54 +153,40 @@ public class MainMenuFragment extends Fragment {
         }
     }
 
-    void getUsersForSessions() {
-        final ArrayList<User> users = new ArrayList<>();
 
-        for (int i = 0; i < sessions.size(); i++) {
-            firestoreAPI.getUser("user", sessions.get(i).userID, new UserAPI.UserTask() {
+
+    void getOpenSessions() {
+        if(!getLocationCounter){
+            bookingAPI.getOpenSessionsForProviders(serviceProvider, new BookingAPI.BookingTask() {
                 @Override
-                public void onSuccess(Object object) {
-                    users.add((User) object);
-                    updateUserList(users);
+                public void onSuccess(List<Session> openSessions) {
+                    //place open session markers
+                    sessions = openSessions;
+                    if (sessions != null) {
+                        addOpenSessionsMarkers();
+                        dummyOpenSessionMarkers();
+                        getLocationCounter=true;
+                    }
                 }
 
                 @Override
-                public void onFailure(String msg) {
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailed(String msg) {
 
                 }
             });
         }
-    }
 
-    void getOpenSessions() {
-
-        bookingAPI.getOpenSessionsForProviders(serviceProvider, new BookingAPI.BookingTask() {
-            @Override
-            public void onSuccess(List<Session> openSessions) {
-                //place open session markers
-                sessions = openSessions;
-                if (sessions != null) {
-                    //addOpenSessionsMarkers();
-                    dummyOpenSessionMarkers();
-                    getUsersForSessions();
-                }
-            }
-
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onFailed(String msg) {
-
-            }
-        });
     }
 
     void pushUserLocationOnOrder() {
-        uid = emailAuth.checkSignIn().getUid();
-        if (!getLocationCounter) {
+        try{
+            uid = emailAuth.checkSignIn().getUid();
+
             locationService.pushLocation(type, uid, currentLocation, new LocationService.LocationTask() {
                 @Override
                 public void onGetDistance(String value) {
@@ -216,11 +205,16 @@ public class MainMenuFragment extends Fragment {
 
                 @Override
                 public void onSuccess(Object location) {
-                    getLocationCounter = true;
-                    Toast.makeText(getActivity(), "Pushing Location", Toast.LENGTH_LONG).show();
+
+                    // Toast.makeText(getActivity(), "Pushing Location", Toast.LENGTH_LONG).show();
                 }
             });
         }
+        catch (Exception e){
+            Log.d("exception",e.getMessage());
+        }
+
+
 
     }
 
