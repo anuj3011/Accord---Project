@@ -88,6 +88,7 @@ public class OrderConfirmation extends AppCompatActivity {
 
             @Override
             public void onSuccess(Session acceptedSession) {
+                acceptedAnimation();
                 session=acceptedSession;
                 Order order=new Order();
                 order.serviceProviderID=session.serviceProviderID;
@@ -99,6 +100,7 @@ public class OrderConfirmation extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         // added to history
+
                         navigateToMainActivity();
                     }
 
@@ -128,7 +130,7 @@ public class OrderConfirmation extends AppCompatActivity {
         });
     }
 
-    void searchingAnimation() {
+    void acceptedAnimation() {
         LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
         lottieAnimationView.animate().alpha(0).setDuration(100);
         TextView textView = (TextView) findViewById(R.id.textView6);
@@ -142,8 +144,8 @@ public class OrderConfirmation extends AppCompatActivity {
         textView.animate().alpha(1).setDuration(750);
     }
 
-    void failedAnimation() {
-        Falied = true;
+    void searchingAnimation() {
+
         LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
         TextView textView = (TextView) findViewById(R.id.textView6);
         lottieAnimationView.animate().alpha(0).setDuration(100);
@@ -164,25 +166,6 @@ public class OrderConfirmation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
         getSession();
-
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-
-
-                        if (Success) {
-
-                            //Success = true;
-                            searchingAnimation();
-                        } else {
-                            failedAnimation();
-
-                        }
-
-                    }
-                },
-                4500
-        );
+        searchingAnimation();
     }
 }

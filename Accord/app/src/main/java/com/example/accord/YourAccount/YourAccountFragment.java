@@ -87,6 +87,7 @@ public class YourAccountFragment extends Fragment {
         setText(R.id.OrderNumber, String.valueOf(user.getOrderCount()));
         setText(R.id.DonateNumber,String.valueOf(user.getDonationCount()));
         setText(R.id.Address,"Address: "+user.getadd1());
+        setText(R.id.OrderNumber, String.valueOf(user.getOrders().size()));
         TextView textView = root.findViewById(R.id.Name);
         textView.animate().alpha(1).setDuration(100);
         textView = root.findViewById(R.id.OrderNumber);
