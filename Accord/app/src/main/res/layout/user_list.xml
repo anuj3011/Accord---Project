@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:text="Place_holder"
                 android:textSize="17sp" />
 
             <ImageButton

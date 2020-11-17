@@ -107,22 +107,24 @@ public class OrderConfirmation extends AppCompatActivity {
     void acceptedAnimation() {
         LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
         lottieAnimationView.animate().alpha(0).setDuration(100);
-        TextView textView = (TextView) findViewById(R.id.textView6);
+        TextView textView = (TextView) findViewById(R.id.searchingTextView);
         textView.animate().alpha(0).setDuration(100);
         lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView5);
         lottieAnimationView.animate().alpha(0).setDuration(100);
 
         LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView2);
         lottieAnimationView2.animate().alpha(1).setDuration(750);
-        textView = (TextView) findViewById(R.id.textView5);
+        textView = (TextView) findViewById(R.id.successTextView);
         textView.animate().alpha(1).setDuration(750);
+        Toast.makeText(getApplicationContext(),"Open Track Order to view current Order",Toast.LENGTH_LONG).show();
     }
 
     void searchingAnimation() {
 
         LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
         lottieAnimationView.animate().alpha(1).setDuration(750);
-      
+        TextView pressBackTextView=findViewById(R.id.pressBackTextView);
+        pressBackTextView.animate().alpha(1).setDuration(10);
     }
 
     @Override

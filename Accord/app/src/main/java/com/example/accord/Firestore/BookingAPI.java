@@ -99,12 +99,8 @@ public class BookingAPI {
     }
 
     public void cancelSession(final String sessionID, final BookingTask bookingTask) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("isAccepted", false);
 
-        map.put("isActive", false);
-        map.put("isSearchStarted", false);
-        db.collection("sessions").document(sessionID).set(map, SetOptions.merge())
+        db.collection("sessions").document(sessionID).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -144,9 +140,12 @@ public class BookingAPI {
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error==null){
                     Session session = value.toObject(Session.class);
-                    if (session.isAccepted) {
-                        bookingTask.onSuccess(session);
+                    if(session!=null){
+                        if (session.isAccepted) {
+                            bookingTask.onSuccess(session);
+                        }
                     }
+
                 }
                 else{
                     bookingTask.onFailed(error.getMessage());

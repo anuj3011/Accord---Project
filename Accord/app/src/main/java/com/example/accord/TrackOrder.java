@@ -230,7 +230,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
     //to get location permissions.
     private final static int LOCATION_REQUEST_CODE = 23;
     boolean locationPermission = false;
-
+    boolean initialLocation=false;
     //polyline object
     private List<Polyline> polylines = null;
     String serviceProviderID = "";
@@ -292,8 +292,9 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
                     if (serviceProvider != null && serviceProvider.currentLocation != null) {
                         CustomLatLng customLatLng = serviceProvider.currentLocation;
                         end = new LatLng(customLatLng.getLatitude(), customLatLng.getLongitude());
-                        updateServiceProviderDetails();
                         Findroutes(start,end);
+                        updateServiceProviderDetails();
+
                     }
                 }
 
@@ -370,13 +371,19 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
                 myLocation = location;
                 LatLng ltlng = new LatLng(location.getLatitude(), location.getLongitude());
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-                        ltlng, 16f);
-                mMap.animateCamera(cameraUpdate);
-
-
                 start = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-                getServiceProviderLocation();
+                if(!initialLocation){
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+                            ltlng, 16f);
+                    mMap.animateCamera(cameraUpdate);
+                    initialLocation=true;
+
+                    getServiceProviderLocation();
+                }
+
+
+
+
                 //start route finding
 
             }
@@ -405,6 +412,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
     // function to find Routes.
     public void Findroutes(LatLng Start, LatLng End) {
+
         if (Start == null || End == null) {
             //Toast.makeText(MainActivity.this,"Unable to get location",Toast.LENGTH_LONG).show();
         } else {
@@ -438,7 +446,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
 
-        CameraUpdate center = CameraUpdateFactory.newLatLng(start);
+       CameraUpdate center = CameraUpdateFactory.newLatLng(start);
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
         if (polylines != null) {
             polylines.clear();
@@ -468,16 +476,13 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
         }
 
-        //Add Marker on route starting position
-        MarkerOptions startMarker = new MarkerOptions();
-        startMarker.position(polylineStartLatLng);
-        startMarker.title("My Location");
-        mMap.addMarker(startMarker);
+
+
 
         //Add Marker on route ending position
         MarkerOptions endMarker = new MarkerOptions();
         endMarker.position(polylineEndLatLng);
-        endMarker.title("Destination");
+        endMarker.title(serviceProvider.first_name);
         mMap.addMarker(endMarker);
     }
 
