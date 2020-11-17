@@ -305,32 +305,35 @@ public class MainMenuFragment extends Fragment {
             startActivity(new Intent(getContext(), IntroActivity.class));
 
         }
-        firestoreAPI.getUser(type, uid, new UserAPI.UserTask() {
-            @Override
-            public void onSuccess(Object object) {
-                if (type.equals("user")) {
-                    user = (com.example.accord.Models.User) object;
-                    serviceProvider = null;
+        else{
+            firestoreAPI.getUser(type, uid, new UserAPI.UserTask() {
+                @Override
+                public void onSuccess(Object object) {
+                    if (type.equals("user")) {
+                        user = (com.example.accord.Models.User) object;
+                        serviceProvider = null;
 
-                } else if (type.equals("sp")) {
-                    serviceProvider = (ServiceProvider) object;
+                    } else if (type.equals("sp")) {
+                        serviceProvider = (ServiceProvider) object;
 
-                    user = null;
+                        user = null;
 
 
-                } else {
-                    ngo = (NGO) object;
+                    } else {
+                        ngo = (NGO) object;
+
+                    }
+
 
                 }
 
+                @Override
+                public void onFailure(String msg) {
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
 
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,

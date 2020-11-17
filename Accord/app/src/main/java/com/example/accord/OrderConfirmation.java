@@ -19,8 +19,8 @@ import java.util.List;
 
 public class OrderConfirmation extends AppCompatActivity {
 
-    boolean Success = false;
-    boolean Falied = false;
+    boolean isSearching=true;
+    boolean found=false;
     void navigateToOrderPage(){
         Intent intent = new Intent(getApplicationContext(), OrderPage.class);
         startActivity(intent);
@@ -29,19 +29,19 @@ public class OrderConfirmation extends AppCompatActivity {
     }
     void navigateToMainActivity(){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("type","user");
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         finish();
     }
     @Override
     public void onBackPressed() {
-        if (Falied) {
-            cancelSession();
-        } else if (Success) {
-          navigateToMainActivity();
-        } else {
-            Toast.makeText(getApplicationContext(), "Finding service, going back disabled", Toast.LENGTH_SHORT).show();
-        }
+       if(!found){
+           cancelSession();
+       }
+       else {
+           navigateToMainActivity();
+       }
     }
 
     String sessionID = "";
@@ -83,17 +83,18 @@ public class OrderConfirmation extends AppCompatActivity {
 
             @Override
             public void onSuccess(Session acceptedSession) {
-                acceptedAnimation();
+                found=true;
+
                 session=acceptedSession;
+                acceptedAnimation();
+                navigateToMainActivity();
+
 
             }
 
             @Override
             public void onSuccess() {
-                Success = true;
 
-                //accepted
-                acceptedAnimation();
             }
 
             @Override
@@ -110,7 +111,7 @@ public class OrderConfirmation extends AppCompatActivity {
         textView.animate().alpha(0).setDuration(100);
         lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView5);
         lottieAnimationView.animate().alpha(0).setDuration(100);
-        //Toast.makeText(getApplicationContext(),"Press Back to track your order", Toast.LENGTH_LONG).show();
+
         LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView2);
         lottieAnimationView2.animate().alpha(1).setDuration(750);
         textView = (TextView) findViewById(R.id.textView5);
@@ -120,16 +121,8 @@ public class OrderConfirmation extends AppCompatActivity {
     void searchingAnimation() {
 
         LottieAnimationView lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView);
-        TextView textView = (TextView) findViewById(R.id.textView6);
-        lottieAnimationView.animate().alpha(0).setDuration(100);
-        textView.animate().alpha(0).setDuration(100);
-        lottieAnimationView = (LottieAnimationView) findViewById(R.id.lottieAnimationView5);
-        lottieAnimationView.animate().alpha(0).setDuration(100);
-        LottieAnimationView lottieAnimationView2 = (LottieAnimationView) findViewById(R.id.lottieAnimationView4);
-        lottieAnimationView2.animate().alpha(1).setDuration(750);
-        textView = (TextView) findViewById(R.id.textView10);
-        textView.animate().alpha(1).setDuration(750);
-        //Toast.makeText(getApplicationContext(),"Press Back to return to Order_Page", Toast.LENGTH_LONG).show();
+        lottieAnimationView.animate().alpha(1).setDuration(750);
+      
     }
 
     @Override
@@ -139,6 +132,7 @@ public class OrderConfirmation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
         getSession();
+
         searchingAnimation();
     }
 }
