@@ -48,7 +48,7 @@ public class IntroActivity extends AppCompatActivity {
 
 
     int flag = 1;
-
+    boolean navigate=false;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -174,14 +174,18 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     void navigateToMainActivity() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if(!navigate){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-        intent.putExtra("id", uid);
-        intent.putExtra("type", type);
-        startActivity(intent);
+            intent.putExtra("id", uid);
+            intent.putExtra("type", type);
+            navigate=true;
+            startActivity(intent);
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        finish();
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            finish();
+        }
+
     }
 
     @Override

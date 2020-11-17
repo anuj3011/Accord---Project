@@ -103,6 +103,7 @@ public class ServicesOption extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), OrderPage.class);
                 intent.putExtra("category",category);
                 startActivity(intent);
+                finish();
                 return false;
             }
         });

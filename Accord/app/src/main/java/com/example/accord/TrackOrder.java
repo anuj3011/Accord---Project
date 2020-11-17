@@ -256,7 +256,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bookingAPI.cancelSession(sessionID, new BookingAPI.BookingTask() {
+                bookingAPI.cancelSession(sessionID, serviceProviderID,new BookingAPI.BookingTask() {
                     @Override
                     public void onSuccess(List<Session> sessions) {
 

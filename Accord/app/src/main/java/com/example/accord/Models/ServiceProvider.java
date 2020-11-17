@@ -5,30 +5,38 @@ import com.google.android.gms.maps.model.LatLng;
 public class ServiceProvider extends CustomUser {
 
 
-
     public String first_name;
     public String last_name;
     public boolean isSkilled;
-
-    public  String category;
+    public boolean isActive = false;
+    public String currentSession = "";
+    public String category;
 
     public String address;
     public String email;
     public String profession;
     public String password;
     public String phone;
-    public String type="sp";
+    public String type = "sp";
 
-    public ServiceProvider ()
+    public ServiceProvider()
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     {
+    }
+
+    public String getCurrentSession() {
+        return currentSession;
+    }
+
+    public boolean checkIfActive() {
+        return isActive;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
@@ -40,7 +48,7 @@ public class ServiceProvider extends CustomUser {
         return last_name;
     }
 
-    public boolean getIsSkilled(){
+    public boolean getIsSkilled() {
         return isSkilled;
     }
 

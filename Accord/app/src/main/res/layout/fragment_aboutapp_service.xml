@@ -16,7 +16,9 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        tools:context=".UserMainMenu.OrderPage" />
+        tools:context=".UserMainMenu.OrderPage">
+
+    </androidx.fragment.app.FragmentContainerView>
 
     <LinearLayout
         android:layout_width="match_parent"

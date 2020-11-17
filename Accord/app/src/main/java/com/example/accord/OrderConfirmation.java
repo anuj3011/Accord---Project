@@ -47,7 +47,7 @@ public class OrderConfirmation extends AppCompatActivity {
     String sessionID = "";
     BookingAPI bookingAPI = new BookingAPI();
     void cancelSession(){
-        bookingAPI.cancelSession(sessionID, new BookingAPI.BookingTask() {
+        bookingAPI.cancelSession(sessionID,session.userID, new BookingAPI.BookingTask() {
             @Override
             public void onSuccess(List<Session> sessions) {
 
