@@ -151,16 +151,20 @@ public class SignIn extends AppCompatActivity {
             }
         });
     }
-
+    boolean navigate=true;
     void navigateToMainActivity() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if(navigate){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-        intent.putExtra("id", userId);
-        intent.putExtra("type", type);
-        startActivity(intent);
+            intent.putExtra("id", userId);
+            intent.putExtra("type", type);
+            navigate=false;
+            startActivity(intent);
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        finish();
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            finish();
+        }
+
     }
     public void signIn() {
         textInput = findViewById(R.id.Email);

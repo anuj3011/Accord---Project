@@ -21,9 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
-        <activity android:name=".TrackOrder" android:exported="true">
-
-        </activity>
+        <activity android:name=".MainMenu.CurrentServiceSession"></activity>
+        <activity
+            android:name=".TrackOrder"
+            android:exported="true"></activity>
         <activity
             android:name=".OrderConfirmation"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -41,8 +42,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBRtTnTKvnKjJ3cqNYnMqSIp5VA9vXmVwU" />
-
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".UserMainMenu.OrderPage" />
@@ -65,7 +66,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
@@ -77,19 +77,19 @@
         <activity
             android:name=".Auth.RegisterUser"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Auth.RegisterService"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Auth.RegisterService"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Auth.InputDocuments" />
-        <activity android:name=".Auth.RegisterNgo"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Auth.RegisterNgo"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Auth.UserType"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddingRecord"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -295,7 +295,7 @@ public class MainMenuFragment extends Fragment {
     }
 
     View root;
-
+    boolean navigate=true;
     void getUserProfile() {
         uid = emailAuth.checkSignIn().getUid();
         if (uid == null || uid.length() < 1) {
@@ -315,7 +315,15 @@ public class MainMenuFragment extends Fragment {
 
                     } else if (type.equals("sp")) {
                         serviceProvider = (ServiceProvider) object;
+                        if(serviceProvider!=null && serviceProvider.isActive){
+                            if(navigate){
+                                Intent intent=new Intent(getContext(),CurrentServiceSession.class);
+                                    intent.putExtra("sessionID",serviceProvider.currentSession);
+                                    navigate=false;
+                                    startActivity(intent);
+                            }
 
+                        }
                         user = null;
 
 
@@ -341,7 +349,7 @@ public class MainMenuFragment extends Fragment {
 
         mainMenuModel =
                 ViewModelProviders.of(this).get(MainMenuModel.class);
-
+        navigate=true;
         Bundle args = getArguments();
         if (args != null) {
             type = args.getString("type");
