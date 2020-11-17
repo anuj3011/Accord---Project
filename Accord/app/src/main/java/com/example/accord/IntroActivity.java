@@ -167,21 +167,30 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     void navigateToOnBoarding() {
-        Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        finish();
+        if(navigate){
+            Intent intent = new Intent(getApplicationContext(), OnBoardingIntro.class);
+            navigate=false;
+            startActivity(intent);
+
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            finish();
+        }
+
+
     }
-
+    boolean navigate=true;
     void navigateToMainActivity() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if(navigate){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            navigate=false;
+            intent.putExtra("id", uid);
+            intent.putExtra("type", type);
+            startActivity(intent);
 
-        intent.putExtra("id", uid);
-        intent.putExtra("type", type);
-        startActivity(intent);
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            finish();
+        }
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        finish();
     }
 
     @Override
