@@ -181,7 +181,7 @@ public class MainMenuFragment extends Fragment {
                     if (sessions != null) {
                         setCountOpenSessionsText();
                         addOpenSessionsMarkers();
-                        dummyOpenSessionMarkers();
+                       // dummyOpenSessionMarkers();
                         getLocationCounter = true;
                     }
                 }
