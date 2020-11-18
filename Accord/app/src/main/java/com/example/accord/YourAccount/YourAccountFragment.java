@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.UserAPI;
+import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.User;
 import com.example.accord.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,6 +39,7 @@ public class YourAccountFragment extends Fragment {
     EmailAuth emailAuth = new EmailAuth();
     User user=new User();
     String userId;
+    ServiceProvider serviceProvider=new ServiceProvider();
     void getUserProfile() {
         userId=new EmailAuth().checkSignIn().getUid();
         firestoreAPI.getUser("user", userId, new UserAPI.UserTask() {
@@ -49,7 +51,18 @@ public class YourAccountFragment extends Fragment {
 
             @Override
             public void onFailure(String msg) {
-                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+                firestoreAPI.getUser("sp", userId, new UserAPI.UserTask() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        serviceProvider = (ServiceProvider) object;
+                        updateUserProfile(serviceProvider);
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
             }
         });
     }
@@ -78,7 +91,28 @@ public class YourAccountFragment extends Fragment {
         textView.setText(text);
     }
 
+    void updateUserProfile(ServiceProvider user) {
+        setText(R.id.Name, "Name: "+user.getFirst_name());
+        setText(R.id.Email, "Email: "+user.getEmail());
 
+        setText(R.id.Phone, "Phone: "+user.getPhone());
+        setText(R.id.OrderNumber, String.valueOf("Profession:"));
+        setText(R.id.DonateNumber,String.valueOf(user.getProfession()));
+        setText(R.id.Address,"Address: "+user.getAddress());
+        //setText(R.id.OrderNumber, String.valueOf(user.getOrders().size()));
+        TextView textView = root.findViewById(R.id.Name);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.OrderNumber);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.DonateNumber);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.Email);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.Phone);
+        textView.animate().alpha(1).setDuration(100);
+        textView = root.findViewById(R.id.Address);
+        textView.animate().alpha(1).setDuration(100);
+    }
     void updateUserProfile(User user) {
         setText(R.id.Name, "Name: "+user.getName());
         setText(R.id.Email, "Email: "+user.getemail());

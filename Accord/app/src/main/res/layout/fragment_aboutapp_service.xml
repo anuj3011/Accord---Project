@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:elevation="5dp">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/trackOrderMap2"
@@ -11,14 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         tools:context=".UserMainMenu.OrderPage">
 
     </androidx.fragment.app.FragmentContainerView>
+
+    <TextView
+        android:id="@+id/openSessionsCount"
+        android:layout_width="282dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trackOrderMap2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="531dp"
+        android:elevation="5dp"
+        android:text="Active Orders"
+        android:textAlignment="center"
+        android:textColor="#F3EFEF" />
 
     <LinearLayout
         android:layout_width="match_parent"
