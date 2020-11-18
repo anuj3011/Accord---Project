@@ -206,6 +206,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -481,6 +482,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
         //Add Marker on route ending position
         MarkerOptions endMarker = new MarkerOptions();
+        endMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.tech));
         endMarker.position(polylineEndLatLng);
         endMarker.title(serviceProvider.first_name);
         mMap.addMarker(endMarker);

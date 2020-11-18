@@ -43,6 +43,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.FirebaseException;
@@ -85,7 +86,7 @@ public class MainMenuFragment extends Fragment {
         LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
 
-        mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title));
+        mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.home)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 15));
 
     }
