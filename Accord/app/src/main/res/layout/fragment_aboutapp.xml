@@ -105,14 +105,11 @@
                 app:srcCompat="@drawable/pestcontrol" />
 
             <ImageView
-                android:id="@+id/Service6"
-                android:layout_width="150dp"
+                android:id="@+id/imageView"
+                android:layout_width="232dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/babber" />
+                android:src="@drawable/cleaner" />
 
             <ImageView
                 android:id="@+id/Service7"
@@ -121,6 +118,16 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside" />
+
+            <ImageView
+                android:id="@+id/Service6"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/babber" />
 
             <ImageView
                 android:id="@+id/Service8"
