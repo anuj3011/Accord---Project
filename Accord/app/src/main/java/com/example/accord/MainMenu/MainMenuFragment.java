@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -135,15 +136,18 @@ public class MainMenuFragment extends Fragment {
         final ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < sessions.size(); i++) {
             Session session = sessions.get(i);
-            User openUser = new User();
+
             try {
                 firestoreAPI.getUser("user", session.userID, new UserAPI.UserTask() {
                     @Override
                     public void onSuccess(Object object) {
                         user = (User) object;
-                        users.add((User) object);
-                        updateUserList();
-                        CenterOnMap(user.currentLocation, user.getName());
+                        if(user!=null){
+                            users.add((User) object);
+                            updateUserList();
+                            CenterOnMap(user.currentLocation, user.getName());
+                        }
+
                     }
 
                     @Override
@@ -158,7 +162,15 @@ public class MainMenuFragment extends Fragment {
         }
     }
 
-
+    void setCountOpenSessionsText(){
+        TextView textView=root.findViewById(R.id.openSessionsCount);
+        if(sessions.size()>0){
+            textView.setText(sessions.size()+" "+" Active Orders");
+        }
+        else{
+            textView.setText("There are currently no active orders");
+        }
+    }
     void getOpenSessions() {
         if (!getLocationCounter) {
             bookingAPI.getOpenSessionsForProviders(serviceProvider, new BookingAPI.BookingTask() {
@@ -167,6 +179,7 @@ public class MainMenuFragment extends Fragment {
                     //place open session markers
                     sessions = openSessions;
                     if (sessions != null) {
+                        setCountOpenSessionsText();
                         addOpenSessionsMarkers();
                         dummyOpenSessionMarkers();
                         getLocationCounter = true;
