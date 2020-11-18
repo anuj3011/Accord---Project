@@ -96,7 +96,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/Service5"
+                android:id="@+id/servicePest"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

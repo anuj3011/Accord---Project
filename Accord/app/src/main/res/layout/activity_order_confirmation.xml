@@ -107,7 +107,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:alpha="0"
-        android:text="Press back to return to Order Page"
         android:textColor="@color/black1"
         android:textSize="24sp"
         android:textStyle="normal|bold"

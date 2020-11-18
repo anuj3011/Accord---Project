@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ import com.example.accord.Models.User;
 import com.example.accord.R;
 import com.example.accord.SampleUser;
 import com.example.accord.UserAdapter;
+import com.example.accord.UserMainMenu.OrderPage;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -99,6 +101,16 @@ public class MainMenuFragment extends Fragment {
     View setupUserMainMenu(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_aboutapp, container, false);
+        ImageView imageView=root.findViewById(R.id.servicePest);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent orderPage=new Intent(getContext(), OrderPage.class);
+
+                orderPage.putExtra("category","Pest Control");
+                startActivity(orderPage);
+            }
+        });
         return root;
     }
 
