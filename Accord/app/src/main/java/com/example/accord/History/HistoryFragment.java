@@ -28,7 +28,7 @@ public class HistoryFragment extends Fragment {
     //private static final String TAG = "DemoActivity";
     RecyclerView recyclerView;
     OrderAdapter orderAdapter;
-    ArrayList<Session> orderList = new ArrayList<>();
+    ArrayList<String> orderList = new ArrayList<>();
     UserAPI userAPI=new UserAPI();
     String uid="";
     User user=new User();

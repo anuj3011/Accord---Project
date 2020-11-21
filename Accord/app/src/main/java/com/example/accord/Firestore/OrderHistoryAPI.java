@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class OrderHistoryAPI {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-    public void pushOrder(String uid, Session session, final FirebaseTaskInterface firebaseTaskInterface) {
+    public void pushOrder(String uid, String  session, final FirebaseTaskInterface firebaseTaskInterface) {
         firebaseFirestore.collection("user").document(uid).update("orders", FieldValue.arrayUnion(session)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

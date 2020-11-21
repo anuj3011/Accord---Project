@@ -85,7 +85,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     public void onSuccess() {
                         session.isAccepted=true;
                         session.serviceProviderID=serviceProvider.uid;
-                        orderHistoryAPI.pushOrder(session.userID, session, new FirebaseTaskInterface() {
+                        orderHistoryAPI.pushOrder(session.userID, session.sessionID, new FirebaseTaskInterface() {
                             @Override
                             public void onSuccess() {
                                 // added to history

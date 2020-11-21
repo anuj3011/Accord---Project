@@ -104,7 +104,10 @@ public class BookingAPI {
     public void cancelSession(final String sessionID, final String serviceProviderID, final BookingTask bookingTask) {
         setServiceProviderActive(serviceProviderID,"",false
                 ,bookingTask);
-        db.collection("sessions").document(sessionID).delete()
+        Map data=new HashMap();
+        data.put("isActive",false);
+        data.put("isCompleted",false);
+        db.collection("sessions").document(sessionID).set(data,SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

@@ -22,7 +22,7 @@ public class User extends CustomUser{
     String type="user";
     int orderCount;
     int donationCount;
-    ArrayList<Session> orders=new ArrayList<Session>();
+    ArrayList<String> orders=new ArrayList<String>();
     public User (){}
 
     public User(String name,String Phone, String email, String add1, String area, String city) {
@@ -35,7 +35,7 @@ public class User extends CustomUser{
 
     }
 
-    public ArrayList<Session> getOrders() {
+    public ArrayList<String> getOrders() {
         return orders;
     }
 

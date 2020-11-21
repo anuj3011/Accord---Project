@@ -85,11 +85,14 @@ public class MainMenuFragment extends Fragment {
     List<Session> sessions;
 
     public void CenterOnMap(CustomLatLng location, String title) {
-        LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        if (location != null) {
+            LatLng SelectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
 
-        mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.home)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 15));
+            mMap.addMarker(new MarkerOptions().position(SelectedLocation).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.home)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+
+        }
 
     }
 
@@ -101,13 +104,13 @@ public class MainMenuFragment extends Fragment {
     View setupUserMainMenu(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_aboutapp, container, false);
-        ImageView imageView=root.findViewById(R.id.servicePest);
+        ImageView imageView = root.findViewById(R.id.servicePest);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent orderPage=new Intent(getContext(), OrderPage.class);
+                Intent orderPage = new Intent(getContext(), OrderPage.class);
 
-                orderPage.putExtra("category","Pest Control");
+                orderPage.putExtra("category", "Pest Control");
                 startActivity(orderPage);
             }
         });
@@ -155,7 +158,7 @@ public class MainMenuFragment extends Fragment {
                     @Override
                     public void onSuccess(Object object) {
                         user = (User) object;
-                        if(user!=null){
+                        if (user != null) {
                             users.add((User) object);
                             updateUserList();
                             CenterOnMap(user.currentLocation, user.getName());
@@ -175,15 +178,15 @@ public class MainMenuFragment extends Fragment {
         }
     }
 
-    void setCountOpenSessionsText(){
-        TextView textView=root.findViewById(R.id.openSessionsCount);
-        if(sessions.size()>0){
-            textView.setText(sessions.size()+" "+" Active Orders");
-        }
-        else{
+    void setCountOpenSessionsText() {
+        TextView textView = root.findViewById(R.id.openSessionsCount);
+        if (sessions.size() > 0) {
+            textView.setText(sessions.size() + " " + " Active Orders");
+        } else {
             textView.setText("There are currently no active orders");
         }
     }
+
     void getOpenSessions() {
         if (!getLocationCounter) {
             bookingAPI.getOpenSessionsForProviders(serviceProvider, new BookingAPI.BookingTask() {
@@ -194,7 +197,7 @@ public class MainMenuFragment extends Fragment {
                     if (sessions != null) {
                         setCountOpenSessionsText();
                         addOpenSessionsMarkers();
-                       // dummyOpenSessionMarkers();
+                        // dummyOpenSessionMarkers();
                         getLocationCounter = true;
                     }
                 }
@@ -311,6 +314,7 @@ public class MainMenuFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
+                getOpenSessions();
                 getLocation();
 
 
@@ -321,7 +325,8 @@ public class MainMenuFragment extends Fragment {
     }
 
     View root;
-    boolean navigate=true;
+    boolean navigate = true;
+
     void getUserProfile() {
         uid = emailAuth.checkSignIn().getUid();
         if (uid == null || uid.length() < 1) {
@@ -330,8 +335,7 @@ public class MainMenuFragment extends Fragment {
             Toast.makeText(getContext(), "Logging out", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), IntroActivity.class));
 
-        }
-        else{
+        } else {
             firestoreAPI.getUser(type, uid, new UserAPI.UserTask() {
                 @Override
                 public void onSuccess(Object object) {
@@ -341,13 +345,13 @@ public class MainMenuFragment extends Fragment {
 
                     } else if (type.equals("sp")) {
                         serviceProvider = (ServiceProvider) object;
-                        if(serviceProvider!=null && serviceProvider.isActive){
-                            if(navigate){
-                                Intent intent=new Intent(getContext(),CurrentServiceSession.class);
-                                    intent.putExtra("sessionID",serviceProvider.currentSession);
-                                    navigate=false;
-                                    startActivity(intent);
-                                    getActivity().finish();
+                        if (serviceProvider != null && serviceProvider.isActive) {
+                            if (navigate) {
+                                Intent intent = new Intent(getContext(), CurrentServiceSession.class);
+                                intent.putExtra("sessionID", serviceProvider.currentSession);
+                                navigate = false;
+                                startActivity(intent);
+                                getActivity().finish();
                             }
 
                         }
@@ -376,12 +380,12 @@ public class MainMenuFragment extends Fragment {
 
         mainMenuModel =
                 ViewModelProviders.of(this).get(MainMenuModel.class);
-        navigate=true;
+        navigate = true;
         Bundle args = getArguments();
         if (args != null) {
             type = args.getString("type");
             uid = args.getString("id");
-            if(type!=null){
+            if (type != null) {
                 if (type.equals("user")) {
                     User = true;
                     Service = false;

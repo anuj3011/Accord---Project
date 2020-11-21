@@ -97,10 +97,12 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
     BookingAPI bookingAPI = new BookingAPI();
     void navigateToMainMenu(){
         Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+
         intent.putExtra("type","sp");
         startActivity(intent);
         finish();
     }
+
     void updateUserDetails() {
         Button complete=findViewById(R.id.completeOrderButton);
 
@@ -130,33 +132,7 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
               });
             }
         });
-        Button cancel=findViewById(R.id.cancelOrderButton);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bookingAPI.cancelSession(session.sessionID, session.serviceProviderID, new BookingAPI.BookingTask() {
-                    @Override
-                    public void onSuccess(List<Session> sessions) {
 
-                    }
-
-                    @Override
-                    public void onSuccess(Session session) {
-
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                    navigateToMainMenu();
-                    }
-
-                    @Override
-                    public void onFailed(String msg) {
-
-                    }
-                });
-            }
-        });
         TextView textView = findViewById(R.id.trackOrderUserName);
         textView.setText(user.getName());
         textView = findViewById(R.id.trackOrderUserPhone);
@@ -174,7 +150,7 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bookingAPI.cancelSession(sessionID, session.serviceProviderID, new BookingAPI.BookingTask() {
+                bookingAPI.cancelSession(session.sessionID, session.serviceProviderID, new BookingAPI.BookingTask() {
                     @Override
                     public void onSuccess(List<Session> sessions) {
 
@@ -187,6 +163,7 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
 
                     @Override
                     public void onSuccess() {
+                        navigateToMainMenu();
                         Toast.makeText(getApplicationContext(), "Cancelled", Toast.LENGTH_LONG).show();
                     }
 

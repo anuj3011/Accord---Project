@@ -27,10 +27,10 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-    List<Session> sessionList;
+    List<String> sessionList;
     Context context;
 
-    public OrderAdapter(List<Session> sessionList) {
+    public OrderAdapter(List<String> sessionList) {
         this.sessionList = sessionList;
     }
 
@@ -61,10 +61,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     BookingAPI bookingAPI = new BookingAPI();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    void updateOrderUI(ViewHolder holder, final Session session){
-        holder.textorder.setText(session.serviceCategory);
-        holder.img.setImageResource(R.drawable.down2);
-        holder.trackOrderButton.setOnClickListener(new View.OnClickListener() {
+    void setCanceled(Button button, final Session session){
+        button.setText("Canceled");
+        button.setActivated(false);
+    }
+    void setCompleted(Button button, final Session session){
+        button.setText("View Order");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //launch order details activity
+            }
+        });
+    }
+    void setTrackOrder(Button button, final Session session){
+        button.setText("Track Order");
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent launchTrack = new Intent(context, TrackOrder.class);
@@ -75,13 +87,27 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             }
         });
     }
+    void updateOrderUI(ViewHolder holder, final Session session){
+        holder.textorder.setText(session.serviceCategory);
+        holder.img.setImageResource(R.drawable.down2);
+        if(session.isActive){
+            setTrackOrder(holder.trackOrderButton,session);
+        }
+        else if(session.isCompleted){
+            setCompleted(holder.trackOrderButton,session);
+        }
+        else{
+            setCanceled(holder.trackOrderButton,session);
+        }
+
+    }
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         if (sessionList.size() > 0) {
-            Session activeSession = sessionList.get(position);
+            String activeSession = sessionList.get(position);
             if (activeSession != null) {
-                updateOrderUI(holder,activeSession);
-                firebaseFirestore.collection("sessions").document(activeSession.sessionID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+                firebaseFirestore.collection("sessions").document(activeSession).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (error == null) {
@@ -91,6 +117,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                             }
 
                         }
+
                     }
                 });
             }
