@@ -39,13 +39,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         TextView textorder;
         CardView cv;
         Button trackOrderButton;
-
+        TextView orderStatus;
         public ViewHolder(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
             textorder = (TextView) itemView.findViewById(R.id.order);
             cv = (CardView) itemView.findViewById(R.id.cv);
             trackOrderButton = itemView.findViewById(R.id.trackOrderButton);
+            orderStatus=itemView.findViewById(R.id.orderStatus);
         }
 
     }
@@ -62,6 +63,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     BookingAPI bookingAPI = new BookingAPI();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     void setCanceled(Button button, final Session session){
+        button.animate().alpha(0);
         button.setText("Canceled");
         button.setActivated(false);
     }
@@ -75,6 +77,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         });
     }
     void setTrackOrder(Button button, final Session session){
+
         button.setText("Track Order");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,12 +94,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.textorder.setText(session.serviceCategory);
         holder.img.setImageResource(R.drawable.down2);
         if(session.isActive){
+            holder.orderStatus.setText("Active");
             setTrackOrder(holder.trackOrderButton,session);
         }
         else if(session.isCompleted){
+            holder.orderStatus.setText("Completed");
             setCompleted(holder.trackOrderButton,session);
         }
         else{
+            holder.orderStatus.setText("Canceled");
             setCanceled(holder.trackOrderButton,session);
         }
 

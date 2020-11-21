@@ -124,7 +124,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
     }
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     void onSessionOver(){
-
+        navigateToMainMenu();
     }
     void getSession(){
         Bundle args = getIntent().getExtras();
@@ -135,7 +135,16 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
                 if(error==null){
                     currentSession=value.toObject(Session.class);
                     if(currentSession!=null){
-                        if(currentSession.isActive){
+                        if(!currentSession.isActive){
+                            if(currentSession.isCompleted){
+                                Toast.makeText(getApplicationContext(),"Order Completed",Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(),"Order Canceled",Toast.LENGTH_LONG).show();
+
+                            }
+
+
                             onSessionOver();
                         }
                     }
@@ -156,6 +165,7 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
 
     }
     void getServiceProviderLocation() {
+        getSession();
         Bundle args = getIntent().getExtras();
         if (args != null) {
             serviceProviderID = args.getString("serviceProvider");

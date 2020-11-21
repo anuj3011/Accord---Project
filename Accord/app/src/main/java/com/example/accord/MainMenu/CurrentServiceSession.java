@@ -67,6 +67,18 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
                         session=value.toObject(Session.class);
                         if(session!=null){
                             getUserLocation();
+                            if(!session.isActive){
+                                if(session.isCompleted){
+                                    Toast.makeText(getApplicationContext(),"Order Completed",Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(),"Order Canceled",Toast.LENGTH_LONG).show();
+
+                                }
+
+
+                                navigateToMainMenu();
+                            }
                         }
 
                     }
@@ -207,6 +219,7 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
 
 
     }
+
     void getUserLocation() {
 
 
