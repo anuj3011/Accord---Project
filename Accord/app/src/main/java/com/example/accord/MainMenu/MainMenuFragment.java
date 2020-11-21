@@ -381,13 +381,16 @@ public class MainMenuFragment extends Fragment {
         if (args != null) {
             type = args.getString("type");
             uid = args.getString("id");
-            if (type.equals("user")) {
-                User = true;
-                Service = false;
-            } else if (type.equals("sp")) {
-                User = false;
-                Service = true;
+            if(type!=null){
+                if (type.equals("user")) {
+                    User = true;
+                    Service = false;
+                } else if (type.equals("sp")) {
+                    User = false;
+                    Service = true;
+                }
             }
+
         }
 
         getUserProfile();

@@ -81,39 +81,10 @@ public class IntroActivity extends AppCompatActivity {
         finish();
     }
 
-    void testStorage() {
-        StorageAPI storageAPI = new StorageAPI();
-        File file = new File(String.valueOf(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)), "images.png");// fle to upload
 
-        Uri uri = Uri.fromFile(file);
-        storageAPI.uploadFile("test", "profileImage", uri, new StorageAPI.StorageTask() {
-            @Override
-            public void onSuccess(Uri url) {
-                //update ui
-                Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void trackProgress(double val) {
-                Log.d("progress", String.valueOf(val));
-                //update ui with val
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                //update ui
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-            }
-
-        });
-    }
-
-    void testProfile() {
-        startActivity(new Intent(this, YourAccountFragment.class));
-    }
 
     String uid;
-    String type;
+    String type="";
     UserAPI userAPI=new UserAPI();
     void getUserType() {
 
@@ -144,7 +115,7 @@ public class IntroActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(String msg) {
-                                                    navigateToMainActivity();// no type found;
+                                                    navigateToOnBoarding();
                                     }
                                 });
                         }

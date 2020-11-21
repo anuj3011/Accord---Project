@@ -65,7 +65,10 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if(error==null){
                         session=value.toObject(Session.class);
-                        getUserLocation();
+                        if(session!=null){
+                            getUserLocation();
+                        }
+
                     }
                 }
             });
