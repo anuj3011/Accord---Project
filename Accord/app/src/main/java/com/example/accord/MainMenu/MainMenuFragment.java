@@ -347,6 +347,7 @@ public class MainMenuFragment extends Fragment {
                                     intent.putExtra("sessionID",serviceProvider.currentSession);
                                     navigate=false;
                                     startActivity(intent);
+                                    getActivity().finish();
                             }
 
                         }

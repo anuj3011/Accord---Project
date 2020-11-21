@@ -1,6 +1,5 @@
 package com.example.accord.MainMenu;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,16 +21,16 @@ import com.directions.route.Route;
 import com.directions.route.RouteException;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
+import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.BookingAPI;
+import com.example.accord.Firestore.LocationService;
 import com.example.accord.Firestore.UserAPI;
 import com.example.accord.MainActivity;
 import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.User;
 import com.example.accord.Models.Session;
-import com.example.accord.Models.User;
 import com.example.accord.R;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -101,6 +100,7 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
     }
     void updateUserDetails() {
         Button complete=findViewById(R.id.completeOrderButton);
+
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,7 +195,38 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
             }
         });
     }
+    LocationService locationService=new LocationService();
+    EmailAuth emailAuth=new EmailAuth();
+    void pushServiceProviderLocation() {
 
+            String uid = emailAuth.checkSignIn().getUid();
+
+            locationService.pushLocation("sp", uid, end, new LocationService.LocationTask() {
+                @Override
+                public void onGetDistance(String value) {
+
+                }
+
+                @Override
+                public void onGetServiceProvidersWithinDistance(List<ServiceProvider> serviceProviders) {
+
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                  //  Toast.makeText(getActivity(), "Push Location Failed", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onSuccess(Object location) {
+
+                    // Toast.makeText(getActivity(), "Pushing Location", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+
+    }
     void getUserLocation() {
 
 
@@ -206,8 +237,10 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
                 if (user != null && user.currentLocation != null) {
                     CustomLatLng customLatLng = user.currentLocation;
                     end = new LatLng(customLatLng.getLatitude(), customLatLng.getLongitude());
+                    pushServiceProviderLocation();
                     Findroutes(start, end);
                     updateUserDetails();
+                    pushServiceProviderLocation();
 
                 }
             }

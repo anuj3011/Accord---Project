@@ -101,14 +101,14 @@ public class BookingAPI {
         });
     }
 
-    public void cancelSession(final String sessionID, String serviceProviderID, final BookingTask bookingTask) {
+    public void cancelSession(final String sessionID, final String serviceProviderID, final BookingTask bookingTask) {
         setServiceProviderActive(serviceProviderID,"",false
                 ,bookingTask);
         db.collection("sessions").document(sessionID).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                            setServiceProviderActive(serviceProviderID,sessionID,false,bookingTask);
                         bookingTask.onSuccess();// accepted
                     }
                 }).addOnFailureListener(new OnFailureListener() {
