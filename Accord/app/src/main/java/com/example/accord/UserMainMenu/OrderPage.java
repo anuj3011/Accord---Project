@@ -72,6 +72,8 @@ public class OrderPage extends FragmentActivity {
         Bundle args = getIntent().getExtras();
         if (args != null) {
             this.category = args.getString("category");
+            TextView textView=findViewById(R.id.orderName);
+            textView.setText(category);
         }
     }
 
@@ -125,6 +127,7 @@ public class OrderPage extends FragmentActivity {
         setTextView(R.id.inputArea,user.getarea());
         setTextView(R.id.inputZip,String.valueOf(user.getpincode()));
 
+
     }
     void getUserDetails(){
         FirebaseUser user=new EmailAuth().checkSignIn();
@@ -166,7 +169,7 @@ public class OrderPage extends FragmentActivity {
                 @Override
                 public void onSuccess(Object location) {
                     getLocationCounter = true;
-                    Toast.makeText(getApplicationContext(), "Pushing Location", Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getApplicationContext(), "Pushing Location", Toast.LENGTH_LONG).show();
                 }
             });
         }

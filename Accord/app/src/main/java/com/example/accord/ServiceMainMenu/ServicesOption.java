@@ -64,9 +64,7 @@ public class ServicesOption extends AppCompatActivity {
         expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -74,9 +72,7 @@ public class ServicesOption extends AppCompatActivity {
         expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
+
 
             }
         });
