@@ -107,12 +107,17 @@ public class CurrentServiceSession extends AppCompatActivity implements OnMapRea
 
     String sessionID = "";
     BookingAPI bookingAPI = new BookingAPI();
+    boolean alreadyNavigated=false;
     void navigateToMainMenu(){
-        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+        if(!alreadyNavigated){
+            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
 
-        intent.putExtra("type","sp");
-        startActivity(intent);
-        finish();
+            intent.putExtra("type","sp");
+            startActivity(intent);
+            finish();
+            alreadyNavigated=true;
+        }
+
     }
 
     void updateUserDetails() {

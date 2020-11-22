@@ -16,7 +16,25 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        tools:context=".UserMainMenu.OrderPage" />
+        tools:context=".UserMainMenu.OrderPage" >
+
+    </androidx.fragment.app.FragmentContainerView>
+
+    <TextView
+        android:id="@+id/orderName"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/trackOrderMap2"
+        android:layout_alignBottom="@+id/trackOrderMap2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="-36dp"
+        android:textAlignment="center"
+        android:textColor="@color/black1"
+        android:textSize="22sp" />
 
     <RadioButton
         android:id="@+id/radioButton1"
@@ -24,13 +42,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/trackOrderMap2"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="45dp"
         android:checked="false"
         android:onClick="Toggle1"
         android:text="Skilled"
         android:textColor="@color/black1"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <RadioButton
         android:id="@+id/radioButton2"
@@ -38,12 +56,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/trackOrderMap2"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="49dp"
         android:onClick="Toggle2"
         android:text="Semi-Skilled"
         android:textColor="@color/black1"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/Price"

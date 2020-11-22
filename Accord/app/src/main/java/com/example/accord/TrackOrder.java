@@ -73,11 +73,17 @@ public class TrackOrder extends FragmentActivity implements OnMapReadyCallback,
     ServiceProvider serviceProvider = new ServiceProvider();
     String sessionID="";
     BookingAPI bookingAPI=new BookingAPI();
+    boolean alreadyNavigated=false;
     void navigateToMainMenu(){
-        Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-        intent.putExtra("type","user");
-        startActivity(intent);
-        finish();
+        if(!alreadyNavigated){
+            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+
+            intent.putExtra("type","user");
+            startActivity(intent);
+            finish();
+            alreadyNavigated=true;
+        }
+
     }
     void updateServiceProviderDetails(){
         TextView textView=findViewById(R.id.trackOrderServiceName);
