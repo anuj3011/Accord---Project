@@ -27,9 +27,11 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.accord.Auth.EmailAuth;
 import com.example.accord.Firestore.BookingAPI;
 import com.example.accord.Firestore.LocationService;
+import com.example.accord.Firestore.UserAPI;
 import com.example.accord.Models.CustomLatLng;
 import com.example.accord.Models.ServiceProvider;
 import com.example.accord.Models.Session;
+import com.example.accord.Models.User;
 import com.example.accord.OrderConfirmation;
 import com.example.accord.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,6 +40,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,6 +84,7 @@ public class OrderPage extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
         getCategoryFromArgs();
+        getUserDetails();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.trackOrderMap2);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -109,7 +113,37 @@ public class OrderPage extends FragmentActivity {
 
 
     }
+    void setTextView(int id,String text){
+        EditText editText=findViewById(id);
+        editText.setText(text);
+    }
+    UserAPI userAPI=new UserAPI();
+    void updateAddressUI(User user){
+        setTextView(R.id.name,user.getName());
+        setTextView(R.id.address,user.getadd1());
+        setTextView(R.id.number,user.getPhone());
+        setTextView(R.id.inputArea,user.getarea());
+        setTextView(R.id.inputZip,String.valueOf(user.getpincode()));
 
+    }
+    void getUserDetails(){
+        FirebaseUser user=new EmailAuth().checkSignIn();
+        if(user!=null){
+            userAPI.getUser("user", user.getUid(), new UserAPI.UserTask() {
+                @Override
+                public void onSuccess(Object object) {
+                    User user=(User)object;
+                    updateAddressUI(user);
+                }
+
+                @Override
+                public void onFailure(String msg) {
+
+                }
+            });
+        }
+
+    }
     void pushUserLocationOnOrder() {
         uid = emailAuth.checkSignIn().getUid();
         if (!getLocationCounter) {
