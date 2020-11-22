@@ -129,33 +129,25 @@ public class ServicesOption extends AppCompatActivity {
         Category1.add("Other");
 
         List<String> Category2 = new ArrayList<String>();
-        Category2.add("SubCategory");
-        Category2.add("SubCategory");
-        Category2.add("SubCategory");
-        Category2.add("SubCategory");
-        Category2.add("SubCategory");
-        Category2.add("SubCategory");
+        Category2.add("Carpentry");
+
 
         List<String> Category3 = new ArrayList<String>();
-        Category3.add("SubCategory");
-        Category3.add("SubCategory");
-        Category3.add("SubCategory");
-        Category3.add("SubCategory");
-        Category3.add("SubCategory");
+        Category3.add("Toiletries");
+        Category3.add("Water Pipes");
+        Category3.add("Sewage");
 
         List<String> Category4 = new ArrayList<String>();
-        Category4.add("SubCategory");
-        Category4.add("SubCategory");
-        Category4.add("SubCategory");
-        Category4.add("SubCategory");
-        Category4.add("SubCategory");
+        Category4.add("House Cleaning");
+        Category4.add("Laundry");
+        Category4.add("Car Cleaning");
 
         List<String> Category5 = new ArrayList<String>();
         Category5.add("Pest Control");
         Category5.add("Grooming");
         Category5.add("Pet Services");
-        Category5.add("SubCategory");
-        Category5.add("SubCategory");
+        Category5.add("Barber");
+        Category5.add("Chef/Cook");
 
         listDataChild.put(listDataHeader.get(0), Category1);
         listDataChild.put(listDataHeader.get(1), Category2);

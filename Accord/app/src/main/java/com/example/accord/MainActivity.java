@@ -44,6 +44,7 @@ import com.example.accord.Models.NGO;
 import com.example.accord.Models.User;
 import com.example.accord.NGOMainMenu.ngo;
 import com.example.accord.ServiceMainMenu.ServicesOption;
+import com.example.accord.UserMainMenu.OrderPage;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -244,5 +245,47 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ngo.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+    }
+    public void CleaningService(View view) {
+        Intent intent = new Intent(this, OrderPage.class);
+        intent.putExtra("category", "Cleaning");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+    public void CarpenterService(View view) {
+        Intent intent = new Intent(this, OrderPage.class);
+        intent.putExtra("category", "Carpenter");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+    public void Electrician(View view) {
+        Intent intent = new Intent(this, OrderPage.class);
+        intent.putExtra("category", "Electrician");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+    public void Barber(View view) {
+        Intent intent = new Intent(this, OrderPage.class);
+        intent.putExtra("category", "Barber");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+    public void Chef(View view) {
+        Intent intent = new Intent(this, OrderPage.class);
+        intent.putExtra("category", "Chef");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+    public void DryCleaner(View view) {
+        Intent intent = new Intent(this, OrderPage.class);
+        intent.putExtra("category", "DryCleaner");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+    public void Plumber(View view) {
+        Intent intent = new Intent(this, OrderPage.class);
+        intent.putExtra("category", "Plumber");
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }

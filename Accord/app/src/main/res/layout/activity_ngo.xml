@@ -416,8 +416,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/family_time"
-                            app:srcCompat="@android:drawable/ic_menu_help" />
+                            android:src="@android:drawable/ic_menu_help" />
 
                         <TextView
                             android:layout_width="match_parent"

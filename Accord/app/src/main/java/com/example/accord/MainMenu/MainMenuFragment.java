@@ -112,6 +112,7 @@ public class MainMenuFragment extends Fragment {
 
                 orderPage.putExtra("category", "Pest Control");
                 startActivity(orderPage);
+
             }
         });
         return root;

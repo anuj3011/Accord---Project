@@ -20,7 +20,7 @@
         android:background="#f3f4f5" />
 
     <ScrollView
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignTop="@+id/view"
         android:layout_marginTop="10dp"
@@ -110,12 +110,14 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/view"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="-115dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="-120dp"
         android:src="@drawable/ic_wave_1" />
 
     <TextView

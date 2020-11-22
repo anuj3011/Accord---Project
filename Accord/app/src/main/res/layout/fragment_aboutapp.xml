@@ -47,7 +47,8 @@
                 android:id="@+id/Service1"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="CleaningService"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/cleaning" />
 
@@ -56,8 +57,9 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/electrician" />
+                android:onClick="Chef"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/chef" />
 
             <ImageView
                 android:id="@+id/Service3"
@@ -65,8 +67,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/plumber" />
+                android:onClick="Electrician"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/electrician" />
 
             <ImageView
                 android:id="@+id/Service4"
@@ -74,8 +77,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:scaleType="center"
-                app:srcCompat="@drawable/gardener" />
+                android:onClick="CarpenterService"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/carpenter" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -105,37 +109,36 @@
                 app:srcCompat="@drawable/pestcontrol" />
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="232dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/cleaner" />
-
-            <ImageView
                 android:id="@+id/Service7"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerInside" />
+                android:onClick="DryCleaner"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/drycleaner" />
 
             <ImageView
                 android:id="@+id/Service6"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
 
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/babber" />
+                android:onClick="Barber"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/barber" />
 
             <ImageView
                 android:id="@+id/Service8"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="135dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerInside" />
+                android:onClick="Plumber"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/plumbing" />
         </LinearLayout>
     </HorizontalScrollView>
 

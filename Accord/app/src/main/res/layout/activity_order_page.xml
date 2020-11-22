@@ -26,7 +26,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="75dp"
         android:layout_marginTop="25dp"
-        android:checked="true"
+        android:checked="false"
         android:onClick="Toggle1"
         android:text="Skilled"
         android:textColor="@color/black1"
@@ -55,7 +55,6 @@
         android:layout_marginBottom="10dp"
         android:editable="false"
         android:gravity="center_horizontal"
-        android:text="₹ Total Price"
         android:textColor="@color/black1"
         android:textSize="22sp" />
 

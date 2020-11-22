@@ -11,9 +11,12 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -211,7 +214,11 @@ public class OrderPage extends FragmentActivity {
 
         CompoundButton button = findViewById(R.id.radioButton2);
         button.setChecked(false);
-
+        EditText textView = (EditText)findViewById(R.id.Price);
+        /*int price = Integer.parseInt(textView.getText().toString());
+        price+=100;
+        String string = String.valueOf(price);*/
+        textView.setText("₹ 350");
 
     }
 
@@ -219,6 +226,11 @@ public class OrderPage extends FragmentActivity {
 
         CompoundButton button = findViewById(R.id.radioButton1);
         button.setChecked(false);
+        EditText textView = (EditText)findViewById(R.id.Price);
+        /*int price = Integer.parseInt(textView.getText().toString());
+        price-=100;
+        String string = String.valueOf(price);*/
+        textView.setText("₹ 250");
 
     }
 
