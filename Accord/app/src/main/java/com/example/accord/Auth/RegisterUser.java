@@ -140,8 +140,8 @@ public class RegisterUser extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (firebaseUser.isEmailVerified()) {
-                                //Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(getBaseContext(), "Completing Registration Process", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Verified", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "Completing Registration Process", Toast.LENGTH_LONG).show();
                                 user=new User(name,Phone,email,add1,area,city);
                                 user.uid=firebaseUser.getUid();
                                 new UserAPI().pushUser("user", firebaseUser.getUid(), user, new UserAPI.UserTask() {
@@ -188,11 +188,11 @@ public class RegisterUser extends AppCompatActivity {
                             @Override
                             public void onEmailSent() {
 
-                                Intent intent = new Intent(getApplicationContext(), AddingRecord.class);
+                                //Intent intent = new Intent(getApplicationContext(), AddingRecord.class);
                                 //intent.putExtra("id", firebaseUser.getUid());
                                 //intent.putExtra("type","user");
-                                startActivity(intent);
-                                finish();
+                                //startActivity(intent);
+                                //finish();
                                 Toast.makeText(getApplicationContext(), "Email Sent", Toast.LENGTH_LONG).show();
 
                             }
