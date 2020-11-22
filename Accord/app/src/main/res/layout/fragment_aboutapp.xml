@@ -127,14 +127,14 @@
 
                 android:onClick="Barber"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/barber" />
+                app:srcCompat="@drawable/barber2" />
 
             <ImageView
                 android:id="@+id/Service8"
                 android:layout_width="150dp"
                 android:layout_height="135dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:layout_weight="1"
                 android:onClick="Plumber"
                 android:scaleType="fitCenter"
